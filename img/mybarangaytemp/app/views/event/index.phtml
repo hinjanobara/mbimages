@@ -1,0 +1,151 @@
+<div id="container" class="container">
+	<div class="col-md-12">
+		<div class="row containerBorder">
+			<div class="col-md-3">
+				<br>
+				<div class="panel panel-default bg-primary">
+					<div class="panel-body">
+						<form method="post" action="">						
+						<div class="form-group">
+							<label style="color:#597EA8!important;">Name</label>
+							<input type="text" class="form-control" name="name">
+						</div>
+						<div class="form-group">
+							<label style="color:#597EA8!important;">Street</label>
+							<input type="text" class="form-control" name="street">
+						</div>
+						<div class="form-group">
+							<label style="color:#597EA8!important;">City</label>
+							<input type="text" class="form-control" name="city">
+						</div>
+						<div class="form-group">
+							<label style="color:#597EA8!important;">Country</label>
+							<select class="form-control" type="select" name="category">
+								<?php //$thing_categories = ThingCategories::find(); ?>
+								<option value="">Select country</option>
+									<!-- retrieve all thing categories-->
+									<?php foreach ($countries as $country): ?>
+										<?php echo "<option value=\"". $country->id ."\">". 
+										$country->country ."</option>"; 
+										?>
+									<?php endforeach; ?>
+							</select>
+						</div>
+						<div class="form-group">
+							<label style="color:#597EA8!important;">Event Category</label>
+							<select class="form-control" type="select" name="category">
+								<?php //$thing_categories = ThingCategories::find(); ?>
+								<option value="">Select category</option>
+									<!-- retrieve all thing categories-->
+									<?php foreach ($categories as $category): ?>
+										<?php echo "<option value=\"". $category->id ."\">". 
+										$category->name ."</option>"; 
+										?>
+									<?php endforeach; ?>
+							</select>
+						</div>
+						<div class="form-group">
+							<button name="submit" class="btn btn-danger btn-block" type="submit">Search</button>
+						</div>
+						
+						</form>					
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<h4 class="text-primary"><strong>Posting event?</strong></h4>
+						<a class="btn btn-primary btn-block btn-lg restricted" href="/mybarangayteam/event/new">Post your event now</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<br>
+				<div style="background-color: #DC0000!important;color:#fff;">
+					<div class="panel-body form-horizontal">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Sort</label>
+								<div class="col-lg-8">
+									<select class="form-control" type="select" name="country_id">
+										<option value="">Post date and relevance</option>
+										<option value="">Highest Rate</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="col-lg-8 control-label">Items per page</label>
+								<div class="col-lg-4">
+									<select class="form-control" type="select" name="country_id">
+										<option value="">10</option>
+										<option value="">20</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<h3><strong class="text-danger">Find latest events now!</strong></h3>
+
+							<div class="row" style="position: relative;">
+							<?php 
+							$i = 1;
+							foreach ($events as $event): 
+							?>
+								<div class="col-md-4" style="overflow:hidden; position:relative;height: 250px; text-overflow: ellipsis; border: solid #808080 1px;">
+								
+								
+									<div <?php echo "data-url=\"event/view/\"".$event->id; ?> style="border:1px solid #efefef;padding:10px;margin-bottom:10px; overflow: hidden; position: relative;">
+									<?php
+										$eventPhoto = 'http://placehold.it/230x230&text=no+photo';
+										$rPhotoCount = count($event->EventPhotos);
+										if ($rPhotoCount > 0) {
+											$eventPhoto = $event->eventphotos[0]->file_path.$event->eventphotos[0]->filename;
+										}
+									?>
+										 <a href="#">
+										 <?php
+										 	echo Phalcon\Tag::image([$eventPhoto, 'class' => 'media-object img-responsive img-rounded item_img1', 'style' => 'width: 200; height: 140; overflow: hidden; position: relative; ']);
+										 ?>
+										 </a>
+										 <div class="width100">
+											 <div style="width: 215px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display:inline-block; float: left;">
+											 
+											  <h5 class="text-center"><b>
+											  <?php $strlen =  strlen($event->name);
+											  	if ($strlen > 21) {
+											  		$title = substr($event->name, 0, 20) . '...';
+											  	} else { $title = $event->name; }?>
+											  	<p title="" data-toggle="tooltip" class="text-center  name" data-original-title="<?php echo $event->name; ?>" style="display:block;">
+											  	<?php if ($i < 4): ?>
+											  	<p style="vertical-align: text-bottom;">
+												 <span class="label label-danger label-as-badge" >Ad</span>
+												<?php endif; $i++ ?>
+												 <?php echo "<a class=\"text-primary eventName\" href=\"/mybarangayteam/event/view/".$event->id."/\"><span style=\"vertical-align: middle;\">".$title."</span></a>"; ?> </p>
+												</p>
+												</b></h5>
+											
+											</div>
+										<?php $c = Countries::findFirstById($event->country_id); ?>
+											 <p title="" data-toggle="tooltip" class="text-center  event" data-original-title="Event"><label class="label label-primary label-lg"><?php echo $event->event_date; ?></label></p>
+											  <p style="text-align: center; ">
+											 <?php echo "<a class=\"text-primary eventName\" href=\"/mybarangayteam/event/view/".$event->id."/\"><i class=\"fa fa-map-marker\"></i>  ".$event->city.", "."{$c->country}</a>"; ?>
+											 	</p>
+											 	
+										    	<p style="text-align: center;"><i class="fa fa-bookmark-o"></i>&nbsp;&nbsp;<?php echo $event->website; ?></p>
+										    	<p style="text-align: center;" title="" data-toggle="tooltip" data-original-title="Last updated"><span class="fa fa-clock-o"></span>&nbsp;&nbsp;<?php echo $event->modified; ?></p>
+										 </div>
+									</div>
+								</div>
+							<?php endforeach; ?>
+							</div>	<!-- end row -->						
+							<!---->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

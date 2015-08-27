@@ -1,0 +1,51 @@
+<div class="">
+	<div class="panel-heading">	
+		<div class="row">
+			<div class="col-md-12 colorBlue">
+				<?php 
+					$memberPhotos = MemberPhotos::findFirst(array('member_id="'.$member->id.'"', 'primary_pic="Yes"'));
+					$profilePic = 'http://placehold.it/250x250&text=NO+PROFILE+PIC';
+					if(isset($memberPhotos->filename)) {
+						$profilePic = $memberPhotos->file_path.$memberPhotos->filename;
+					}
+				?>
+				<?php echo Phalcon\Tag::image(array($profilePic, 'class' => 'img-responsive')); ?>
+				<h3 class="text-center"><?php echo Phalcon\Tag::linkTo('member/page/'.$member->id.'/'.$member->first_name.'+'.$member->last_name, strtoupper($member->first_name.' '.substr($member->last_name, 0, 1).'.')); ?></h3>
+			</div>
+			
+		</div>
+	</div>
+</div>	
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<?php if(isset($userSession['id'])) { $memberId = $userSession['id']; } else { $memberId = ''; } ?>
+				<?php if($memberId != $member->id){ ?>
+				<?php echo Phalcon\Tag::linkTo(array('friend_request/add/'.$member->id.'/'.$member->first_name.'+'.$member->last_name, 'Add as a Friend', 'class' => 'btn btn-primary btn-block')); ?>
+				<?php echo Phalcon\Tag::linkTo(array('member/follow/'.$member->id.'/'.$member->first_name.'+'.$member->last_name, 'Follow', 'class' => 'btn btn-danger btn-block')); ?>
+				<br>
+				<?php } ?>
+			</div>
+			<div class="">
+                <div class="col-md-12">
+                  <ul class="list-group">
+                    <li class="list-group-item">
+                     <a href=""> <span class="badge pull-right">0</span></a>
+                      <i class="fa fa-photo text-info"></i>&nbsp;&nbsp;PHOTOS
+                    </li>
+                    <li class="list-group-item">
+                      <a href=""><span class="badge pull-right">0</span></a>
+                      <i class="fa fa-users text-success"></i>&nbsp;&nbsp;FRIENDS
+                    </li>
+                    <li class="list-group-item">
+                      <a href=""><span class="badge pull-right">0</span></a>
+                      <i class="fa fa-comments text-danger"></i>&nbsp;&nbsp;REVIEWS
+                    </li>
+                    <li class="list-group-item">
+                      <a href=""><span class="badge pull-right">0</span></a>
+                      <i class="fa fa-th-list text-warning"></i>&nbsp;&nbsp;ADVERTISMENTS
+                    </li>
+                  </ul>
+                </div>
+            </div>    
+		</div>
+	

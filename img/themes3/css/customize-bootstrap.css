@@ -1,0 +1,127 @@
+
+
+  /***********************
+    CUSTON NAVBAR
+  ************************/
+
+
+  #navbar{
+  -webkit-border-radius: 0px;
+   -moz-border-radius: 0px;
+   border-radius: 0px;
+   border-top:0px;
+  }
+  .navbar-default{
+    height:90px;
+    border-bottom: 2px solid #023283;
+  }
+
+  .navbar-brand {
+    padding:0px 5px;
+  }
+
+  .navbar-default .navbar-nav > .active > a, 
+  .navbar-default .navbar-nav > .active > a:hover, 
+  .navbar-default .navbar-nav > .active > a:focus{
+    background: none;
+
+  }
+
+  .navbar-default .navbar-nav > li > a{
+  color:#023283;
+  outline: none;
+  font-size: 14px;
+  font-weight: bold;
+  }
+  .nav > li > a:hover, .nav > li > a:focus{
+  background: none;
+  text-decoration:underline;
+  outline: none;
+  }
+
+
+  /***********************
+    CUSTON Carousel
+  ************************/
+
+  #sliderCarousel {
+    position: relative;
+    margin-top: 80px;
+    height: 200px; 
+  }
+ 
+  @media (max-width: 1024px) {
+      #templatemo-carousel {
+          background: url('/barangay1/public/img/backgrounds/banig.jpg') ; 
+          overflow-x: hidden;
+          margin-bottom:0;
+          height: 250px;
+      }
+  }
+
+  /* Carousel */
+  .container > .carousel-caption  img {
+  border-radius:4px;
+  width: 80%;
+  }
+
+  .carousel-caption {
+      left: 20%;
+      right: 20%;
+      padding-bottom: 15px;
+  }
+
+  .carousel-indicators {
+      bottom: 5px;
+  }
+  #templatemo-carousel {
+      background: url('/barangay1/public/img/backgrounds/banig.jpg') ; 
+      overflow-x: hidden;
+      margin-bottom:0;
+      height: 200px;
+  }
+
+  #templatemo-carousel .carousel-caption {
+      z-index: 2;
+  }
+
+  #templatemo-carousel .item {
+      height: 200px;
+  }
+  #templatemo-carousel .carousel-inner > .item > img {
+   
+      min-width: 100%;
+      height: 150px;
+      width: 720px;
+  }
+
+  .carousel-caption h1{
+    color:#fff;
+  }
+  .carousel-caption p{
+    background: #ccc;
+    padding: 5px 10px;
+    color:#333;
+  }
+
+/*  @media (min-width: 768px) {
+      #templatemo-carousel .carousel-caption p {
+       
+
+          font-size: 14px;
+      }
+
+      #templatemo-carousel .carousel-caption {
+         
+          right: 20%;
+          left: 20%;
+      }
+  }
+
+  @media (max-width: 768px) {
+      #templatemo-carousel .carousel-caption {
+          padding-bottom: 20px;
+      }
+  }
+
+*/

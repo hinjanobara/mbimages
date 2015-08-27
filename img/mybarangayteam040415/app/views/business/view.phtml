@@ -1,0 +1,363 @@
+<main class="cd-main-content"> <!--placed a margin-top 50px so that the content will be brought down and not covered by the navigation-->
+  <div class="container containerBorder top_margin">
+    <div class="col-md-12">
+    <?php      
+        $category= '';
+        $tempMain = array();
+        $tempTitle = array();
+        $tempSubTitle = array();
+        foreach ($businessCategoryLists as $key => $businessCategoryList) {
+          $mainY = 0;
+          if(!in_array($businessCategoryList->BusinessCategories->main_title, $tempMain)) {
+            $mainY = 1;
+            $tempMain[] = $businessCategoryList->BusinessCategories->main_title;
+            $category .= $businessCategoryList->BusinessCategories->main_title;
+          } 
+          $titleY = 0;
+          if($businessCategoryList->BusinessCategories->title){
+            if(!in_array($businessCategoryList->BusinessCategories->title, $tempTitle)) {
+              $titleY = 1;
+              $tempTitle[] = $businessCategoryList->BusinessCategories->title;
+              if($mainY == 1){
+                $category .= ' <i class="fa fa-caret-right"></i> '.$businessCategoryList->BusinessCategories->title;
+              } else {
+                $category .= $businessCategoryList->BusinessCategories->title;
+              }
+            }                 
+          }
+          if($businessCategoryList->BusinessCategories->sub_title){
+            if(!in_array($businessCategoryList->BusinessCategories->sub_title, $tempSubTitle)) {
+              $tempSubTitle[] = $businessCategoryList->BusinessCategories->sub_title;
+              if($titleY == 0){
+                $category .= ' <i class="fa fa-caret-right"></i> '.$businessCategoryList->BusinessCategories->sub_title;
+              } else {
+                $category .= $businessCategoryList->BusinessCategories->sub_title;
+              }
+            }
+          }
+          $category .= ', ';
+        }  
+        //$list = explode(',', $category);
+        switch ($tempMain[0]) { 
+          case 'Restaurants':
+          case 'Food':
+          case 'Nightlife':
+             $coverImg = $this->url->getBaseUri().'img/cover/food.jpg';
+            break;
+          case 'Automotive':
+             $coverImg = $this->url->getBaseUri().'img/cover/auto.jpg';
+            break;
+          case 'Hotels & Travel':
+             $coverImg = $this->url->getBaseUri().'img/cover/hotel.jpg';
+            break;
+          case 'Financial Services':
+          case 'Profesional Services':
+          case 'Event Planning & Services':
+            $coverImg = $this->url->getBaseUri().'img/cover/fin.jpg';
+            break;
+          case 'Real Estate':
+             $coverImg = $this->url->getBaseUri().'img/cover/real.jpg';
+            break;
+          case 'Shopping':
+              $coverImg = $this->url->getBaseUri().'img/cover/shop.jpg';
+            break;
+          case 'Health & Medical':
+          case 'Beauty & Spas':
+              $coverImg = $this->url->getBaseUri().'img/cover/heal.jpg';
+            break;
+          case 'Home Services':
+          case 'Local Services':
+          case 'Pets':
+              $coverImg = $this->url->getBaseUri().'img/cover/home.jpg';
+            break;
+          case 'Active Life':
+          case 'Arts & Entertainment':
+          case 'Local Flavor':
+          case 'Bicycles':
+          case 'Education':
+          case 'Public Services & Government':
+          case 'Religious Organizations':
+          case 'Mass Media':
+              $coverImg = $this->url->getBaseUri().'img/cover/com.jpg';
+            break;
+          default:
+             $coverImg = 'http://placehold.it/539x230&text=Image'; 
+            break;
+        }
+      ?>
+      <img src="<?php echo $coverImg; ?>" class="coverPhoto">    
+      <div class="col-md-10 col-md-push-1 containerBorder1">
+        <div class="businessProfile col-md-4 containerBorder">
+          <?php 
+            if(isset($businessLastImg->filename)) {
+              $logo = $businessLastImg->file_path.$businessLastImg->filename;
+            } else {
+              $logo = 'http://placehold.it/200x200&text=Logo';
+            } 
+          ?>
+          <?php echo Phalcon\Tag::image(array($logo, 'class' => 'img-responsive img-rounded biz-review')); ?>
+          <h2 class="companyName"><?php echo $business->name; ?></h2>
+          <h2 class="companyClass" style="font-size:13px!important;">
+            <?php
+            echo $category = substr($category, 0, -2);
+          ?>
+          </h2>
+          <div class="button-group pull-right">
+            <?php echo Phalcon\Tag::linkTo(array('review/update_business/'.$business->id, '<span class="glyphicon glyphicon-pencil"></span> Edit'));?>
+          </div>
+          <p><span class="fa fa-map-marker"></span> <?php echo $business->street; ?>, <?php echo $business->city; ?>, <?php echo $business->Countries->country; ?></p>
+          <!-- <p><span class="fa fa-globe"></span> &nbsp; <?php //echo $business->website; ?></p> -->
+          <p><span class="fa fa-envelope"></span>&nbsp; <?php echo $business->email; ?></p>
+          <p><span class="fa fa-phone"></span>&nbsp; <?php echo $business->telephone; ?></p><br/>
+          <p><div class="rating1" style="margin-top:-15px;">
+           <?php
+                                                $ctr = 0; 
+                                                while($ctr<$business->average_rate) {
+                                                    $ctr++;
+                                                }
+                                                $arrayRate = explode('.', $business->average_rate);
+                                                  if(isset($arrayRate[1])){
+                                                  if($arrayRate[1] > 5) { 
+                                                    $arrayRate[0]++; $arrayRate[1] = 0; 
+                                                  }
+                                                  if($arrayRate[1] < 5 && $arrayRate[1] > 0) { 
+                                                     $arrayRate[1] = 5; 
+                                                  }
+                                                } else {
+                                                  $arrayRate[1] = 0;
+                                                }
+                                              //use variable $rate for your css class salakot  possible result are 0.0, 0.5, 1, 1.5, 2, 2.5, 3, and so on...                  
+                                              
+                                                if(!$arrayRate[0]){
+                                                  $arrayRate[0] = 0;
+                                                }
+                                                $rate = $arrayRate[0].'.'.$arrayRate[1];
+                                                $class_rate = $arrayRate[0].'_'.$arrayRate[1]; 
+                                              ?>
+                                              <i class="salakot-img salakot_<?php echo $class_rate;?>" data-toggle="tooltip" title="<?php echo $rate;?> salakot rating">&nbsp;</i> 2, 700 reviews</span>
+                                              </div>
+          </p>
+        </div>
+        <div class="pull-right">
+          <?php echo Phalcon\Tag::linkTo(array('review/add/'.$business->id, '<span class="glyphicon glyphicon-pencil"></span> Write a review', 'class' => 'btn btn-danger restricted'));?>
+          <?php echo Phalcon\Tag::linkTo(array('business/add_photo/'.$business->id, '<span class="glyphicon glyphicon-camera"></span> Add photo', 'class' => 'btn btn-default restricted')); ?>
+          <?php echo Phalcon\Tag::linkTo(array('#'.$business->id, '<span class="glyphicon glyphicon-share-alt"></span> Share', 'class' => 'btn btn-default')); ?>
+          <?php echo Phalcon\Tag::linkTo(array('#'.$business->id, '<span class="glyphicon glyphicon-pushpin"></span> Bookmark', 'class' => 'btn btn-default')); ?>
+        </div>
+      </div>
+      <div class="col-md-12"> 
+        <div class="col-md-8">
+          <?php if(isset($businessImages)){ ?>
+         <!-- <div id="mcts1"> --> 
+        	<?php $imgCtr = 1; ?>
+        	<?php $imgTotalCount = count($businessImages); ?>
+        	<?php foreach($businessImages as $businessImage){ ?>
+        		<?php if($imgCtr < 3 ){ ?>
+              <a href="<?php echo $this->url->getBaseUri().'business/photos/'.$business->id;?>">
+                  <?php echo Phalcon\Tag::image(array($businessImage->file_path.$businessImage->filename, 'class' => 'col-md-4 zoomIn zoom_max')); ?>
+              <?php //$businessImages->caption; //You could use this to display the caption of images in the carousel ?>
+              </a>
+              <?php } ?>
+          <?php $imgCtr++; } ?>
+          <?php $imgCtr = 1; ?>
+          <a href="">
+            <div class="col-md-4 zoomIn zoom_max">
+            <?php foreach($businessImages as $businessImage){ ?>
+             <?php if($imgCtr >= 3 && 7 > $imgCtr){   ?>
+                  <!-- <div class="col-md-6" style="background-image: url('/mybarangayteam/<?php echo $businessImage->file_path.$businessImage->filename; ?>'); background-repeat: no-repeat;background-size: cover;background-height: 50%;"> -->
+                    <?php echo Phalcon\Tag::image(array($businessImage->file_path.$businessImage->filename, 'class' => 'div_4', 'style' => 'overflow: hidden;')); ?>
+                    <!-- You could still display other 4 little images here as a preview to see all photos-->
+                 <!--  </div> -->
+             <?php } ?>
+            <?php $imgCtr++; } ?>
+            </div>
+          </a>
+          <?php } ?>
+          <div class="col-md-12">
+          <h1>Recommended Reviews</h1>
+          <input type="text" placeholder="Search...">
+          <label>Sort by:</label>
+            <select>
+              <option value="volvo">date</option>
+              <option value="saab">select</option>
+              <option value="mercedes">select</option>
+              <option value="audi">select</option>
+            </select>
+            <select>
+              <option value="volvo">location</option>
+              <option value="saab">select</option>
+              <option value="mercedes">select</option>
+              <option value="audi">select</option>
+            </select>
+            <select>
+              <option value="volvo">categories</option>
+              <option value="saab">select</option>
+              <option value="mercedes">select</option>
+              <option value="audi">select</option>
+            </select>
+        </div>
+
+        <!-- here -->
+        <?php foreach ($reviews as $key => $review) { ?>
+        <div class="col-md-12 containerBorder" style="margin-top:20px;">
+          <div class="col-md-7">
+            <?php 
+              $memberPhotos = MemberPhotos::findFirst(array('member_id="'.$review->member_id.'"', 'primary_pic="Yes"'));
+              $profilePic = 'http://placehold.it/250x250&text=NO+PROFILE+PIC';
+              if(isset($memberPhotos->filename)) {
+                $profilePic = $memberPhotos->file_path.$memberPhotos->filename;
+              }
+            ?>
+            <?php echo Phalcon\Tag::image(array($profilePic, 'class' => 'img-responsive img-rounded reviewsImage','style'=> 'max-width:125px!important;max-height:125px!important;margin-bottom:10px;')); ?>
+        <!-- </a> -->
+            <p class="recommemendedReviewName"><?php echo Phalcon\Tag::linkTo(array('member/page/'.$review->member_id, $review->Members->first_name.' '.$review->Members->last_name,'class' => 'text-primary')); ?></p>
+            <p class="recommemendedReviewAddress">San Francisco , CA, USA</p>
+            <label class="colorBlue">310 <b class="colorRed">Friends&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></label>
+            <label class="colorBlue">815 <b class="colorRed">Reviews</b></label>
+          </div> 
+          <div class="col-md-5">
+            <p><?php echo date('m/d/Y', strtotime($review->created)); ?></p>
+            <a href="#" class="compliment">Compliments</a>
+            <a href="#" class="share">Share</a>
+            <p>Rating:</p>
+            <div class="rating1" style="margin-top:-15px;margin-left:40px;">
+                                              <i class="salakot-img salakot_<?php echo $review->rate;?>_0" data-toggle="tooltip" title="<?php echo $review->rate;?> salakot rating">&nbsp;</i>
+                                    </div>
+          </div>
+          <div class="col-md-12">
+            <div class="pull-right">
+            	<?php if(isset($userSession['id'])){ $memberId = $userSession['id']; } else { $memberId = ''; } ?>
+            	<?php if($memberId == $review->member_id) { ?>
+              	<?php echo Phalcon\Tag::linkTo(array('review/update/'.$business->id.'/'.$review->id, '<span class="glyphicon glyphicon-pencil restricted" data-toggle="tooltip" title="edit review"></span>'));?>
+              	<?php } ?>
+            </div>
+            <p>
+              <?php echo $review->content; ?>
+            </p>
+            <br />
+            <a href="#" class="useful">Useful</a>
+            <a href="#" class="funny">Funny</a>
+            <a href="#" class="cool">Cool</a>
+            <a href="#" class="pull-right">view more...</a>
+          </div>
+        </div> 
+          <?php } ?>
+
+
+
+
+        </div>
+        <!-- <br/>
+        <br/> -->
+        
+        <br/>
+        <br/>
+        
+          <!-- OKAY -->
+        <div class="col-md-4">
+          <div class="col-md-12" style="margin-top: 20px;">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div id="map_wrapper">
+                    <div id="map_canvas" class="mapping" style="height: 300px;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                 <h3 class="panel-title">More Business Info</h3>
+              </div>
+              <div class="panel-body line-height-60">
+                <table class="table">
+                  <tbody>
+                    <tr><td>Takes reservation</td><td><label class="yesNo">Yes</label></td></tr>
+                    <tr><td>Takes reservation</td><td><label class="yesNo">No</label></td></tr>
+                    <tr><td>Takes reservation</td><td><label class="yesNo">Yes</label></td></tr>
+                    <tr><td>Takes reservation</td><td><label class="yesNo">No</label></td></tr>
+                    <tr><td>Takes reservation</td><td><label class="yesNo">Yes</label></td></tr>
+                    <tr><td>Takes reservation</td><td><label class="yesNo">No</label></td></tr>
+                    <tr><td>Takes reservation</td><td><label class="yesNo">Yes</label></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 containerBorder" style="margin-top: 20px;">
+            <h1>Another Container</h1>
+          </div>
+        </div>
+        <!-- OKAY -->
+      </div>
+        
+      </div> 
+    <!-- </div> -->      
+  </div>    
+</main>
+
+<?php $mapMarkers = "['".$business->name."', ".$business->lat.", ".$business->lng."]"; ?>
+<?php $mapInfoWindow = "['<div class=\"info_content line-height-60\"><h3 class=\"text-danger\">".$business->name."</h3><p class=\"text-primary\"><strong></strong></p><p><a href=\"".$business->website."\" target=\"_BLANK\">".$business->website."</a></p><p>".$business->telephone."</p><p>".$business->street.", ".$business->city.", ".$business->Countries->country."</p></div>']"; ?>
+<script type="text/javascript">
+$(document).ready(function(){
+  // Asynchronously Load the map API 
+    var script = document.createElement('script');
+    script.src = "http://maps.googleapis.com/maps/api/js?sensor=false&callback=initialize";
+    document.body.appendChild(script);
+
+}); 
+  function initialize() {
+      var map;
+      var bounds = new google.maps.LatLngBounds();
+      var mapOptions = {
+          mapTypeId: 'roadmap'
+      };
+                     
+      // Display a map on the page
+      map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+      map.setTilt(45);
+          
+      // Multiple Markers
+      var markers = [
+          <?php echo $mapMarkers; ?>
+      ];
+                         
+      // Info Window Content
+      var infoWindowContent = [
+          <?php echo $mapInfoWindow; ?>
+      ];
+          
+      // Display multiple markers on a map
+      var infoWindow = new google.maps.InfoWindow(), marker, i;
+      
+      // Loop through our array of markers & place each one on the map  
+      for( i = 0; i < markers.length; i++ ) {
+          var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+          bounds.extend(position);
+          marker = new google.maps.Marker({
+              position: position,
+              map: map,
+              title: markers[i][0]
+          });
+          
+          // Allow each marker to have an info window    
+          google.maps.event.addListener(marker, 'click', (function(marker, i) {
+              return function() {
+                  infoWindow.setContent(infoWindowContent[i][0]);
+                  infoWindow.open(map, marker);
+              }
+          })(marker, i));
+
+          // Automatically center the map fitting all markers on the screen
+          map.fitBounds(bounds);
+      }
+
+      // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
+      var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
+          this.setZoom(14);
+          google.maps.event.removeListener(boundsListener);
+      });
+      
+  }
+
+</script>

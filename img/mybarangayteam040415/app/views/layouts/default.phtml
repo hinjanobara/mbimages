@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>MyBarangay</title>
+    <!-- HoverEffect -->
+    <?php echo $this->tag->stylesheetLink("themes/customize/css/normalize.css"); ?>
+    <?php echo $this->tag->stylesheetLink("themes/customize/css/demo.css"); ?>
+    <?php echo $this->tag->stylesheetLink("themes/customize/css/set2.css"); ?>
+    <!-- Bootstrap core CSS -->
+    <?php echo $this->tag->stylesheetLink("themes/customize/css/bootstrap.min.css"); ?>
+    <?php echo $this->tag->stylesheetLink("themes/customize/css/slider.css"); ?>
+    <!-- Custom styles for this template -->
+    <?php echo $this->tag->stylesheetLink("themes/customize/css/customize.css"); ?>
+    <?php echo $this->tag->stylesheetLink("themes/mybarangay1/css/font-awesome.min.css"); ?>
+
+    <?php echo $this->tag->stylesheetLink("themes/customize/css/ionicons.min.css"); ?>
+    <?php echo $this->tag->stylesheetLink("themes/customize/css/AdminLTE.min.css"); ?>
+    <?php echo $this->tag->stylesheetLink("themes/customize/css/skin-red.min.css"); ?>
+
+     <?php echo $this->tag->javascriptInclude("themes/customize/js/jQuery-2.1.3.min.js"); ?>
+
+
+
+
+
+
+
+  
+  </head>
+
+  <body>
+ 
+    <?php $this->partial("layouts/elements/navbar") ?>
+	
+<!-- <div class="row">
+        <div class="col-md-6 col-md-offset-3"><?php $this->flash->output(); ?></div>
+      </div> -->
+		  <?php echo $this->getContent() ?>
+
+
+	
+	
+	
+   <div class="container-fluid col-md-12" style="background-color:#003082;margin-bottom:-20px!important;height:100px;bottom:0;position:relative;">
+      <div class="container" style="color:#fff;">
+      <br/>
+          <footer>
+            <p><strong>&copy; Copyright MyBarangay 2015</strong></p>
+          </footer>
+           <div class="pull-left">
+            <a href="#"><img src="http://placehold.it/40x40" class="circle"></a>
+            <a href="#"><img src="http://placehold.it/40x40" class="circle"></a>
+            <a href="#"><img src="http://placehold.it/40x40" class="circle"></a>
+            <a href="#"><img src="http://placehold.it/40x40" class="circle"></a>
+            <a href="#"><img src="http://placehold.it/40x40" class="circle"></a>
+          </div>
+          <ul class="nav nav-pills pull-right">
+            <li><a style="color:#fff!important;"href="#">About</a></li>
+            <li><a style="color:#fff!important;"href="#">Contact Us</a></li>
+            <li><a style="color:#fff!important;"href="#">Disclaimer</a></li>
+          </ul>
+          <br/>
+ 
+      </div>
+    
+    </div> <!-- /container -->
+
+
+    <?php echo $this->tag->javascriptInclude("themes/customize/js/bootstrap.min.js"); ?>
+
+  
+    <?php echo $this->tag->javascriptInclude("themes/customize/js/app.js"); ?>
+
+  </body>
+</html>
+
+<script type="text/javascript">
+  var session = "<?php if($userSession){ echo true; } else { echo false; } ?>";
+    $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();
+      $('.cancel').on('click', function() { 
+        $('.cd-modal-close').trigger('click');
+        $('.cd-modal-close')[0].click();
+      });
+
+      $('.restricted').on('click', function(e) { 
+          if(session == false){
+            e.preventDefault();
+            $('#login').modal('show');
+          }
+      });
+
+    });
+    
+    function googleAuth(authResult) {
+        var gData = authResult;
+        var y = false;
+      $('#signinButton').on('click', function() { 
+         y = true;
+         var authResult = gData;
+                  
+        if (authResult['code'] && y == true) {
+            // Hide the sign-in button now that the user is authorized, for example:
+            $('#signinButton').attr('style', 'display: none');
+            //console.log(authResult);
+            // Send the code to the server
+            $.ajax({
+              type: 'POST',
+              url: 'member/loginWithGoogle/',
+              data: {code : authResult['code'], access_token : authResult['access_token']},
+              //processData: true
+              //contentType: 'application/octet-stream; charset=utf-8',
+              success: function(result) {
+                var obj = jQuery.parseJSON( result );
+                // Handle or verify the server response if necessary.
+
+                // Prints the list of people that the user has allowed the app to know
+                // to the console.
+                //console.log(result['status']);
+                if(obj['status'] == 'OK') {
+                  window.location.href = "/mybarangay/";
+                }
+               
+              }
+              
+            });
+        } else if (authResult['error']) {
+            // There was an error.
+            // Possible error codes:
+            //   "access_denied" - User denied access to your app
+            //   "immediate_failed" - Could not automatially log in the user
+            console.log('There was an error: ' + authResult['error']);
+        }
+      }); 
+    }
+  
+  </script>

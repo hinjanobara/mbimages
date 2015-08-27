@@ -1,0 +1,54 @@
+<h2>Claim Business Requests</h2>
+<table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Business</th>
+                <th>Email</th>
+                <th>Telephone</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+ 
+        <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Business</th>
+                <th>Email</th>
+                <th>Telephone</th>
+                <th>Status</th>
+            </tr>
+        </tfoot>
+ 
+        <tbody>
+        <?php foreach ($requests as $request): ?>
+            <tr>
+                <td><?php echo $request->members->first_name . " " . $request->members->last_name; ?></td>
+                <td><?php echo $request->business->name; ?></td>
+                <td><?php echo $request->members->email; ?></td>
+                <td><?php echo $request->business->telephone; ?></td>
+                <td><?php
+                	if($request->status == 'approved'){
+                		echo "approved | <a href=\"/mybarangayteam/index/admin_cancel_request/$request->id\"><button type=\"button\" class=\"btn btn-sm btn-danger\">Cancel</button></a>";
+                	}
+                	else if($request->status == 'pending'){
+                		echo "pending | <a href=\"/mybarangayteam/business/admin_approve_biz_claim/$request->id\"><button type=\"button\" class=\"btn btn-sm btn-danger\">Approve</button></a>|<a href=\"/mybarangayteam/index/admin_reject_request/$request->id\"><button type=\"button\" class=\"btn btn-sm btn-danger\">Reject</button></a>";
+                	}
+                	else{
+                		echo "rejected | <a href=\"/mybarangayteam/index/admin_cancel_request/$request->id\"><button type=\"button\" class=\"btn btn-sm btn-danger\">Cancel</button></a>";
+                	}
+
+                ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+    
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(document).ready(function() {
+		    $('#example').DataTable();
+		} );
+	});
+</script>

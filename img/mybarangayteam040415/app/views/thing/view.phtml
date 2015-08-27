@@ -1,0 +1,53 @@
+<div class="container" id="container">
+	<div class="col-md-12 bg-white">
+		<div class="row">
+			<br>
+			<div class="col-md-3">
+				<?php if($userSession['id'] == $thing->member_id) { ?>
+				<?php $this->partial("layouts/elements/profile_widget") ?>
+				<?php } else { ?>
+				<?php $this->partial("layouts/elements/member_widget") ?>
+				<?php } ?>
+				<div class="panel panel-default well">
+					<div class="panel-body">
+					<h3 class="text-danger"><strong>Another container</strong></h3>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<div class="col-md-12 bg-primary">
+					<div class="col-md-9">
+					<h2><?php echo $thing->name; ?></h2>
+					<p><?php echo $thing->ThingCategories->name; ?></p>
+					</div>
+					<div class="col-md-3">
+					<h2> &nbsp;</h2>
+					<p data-toggle="tooltip" title="price"><span class="fa fa-money"></span> <?php echo number_format($thing->price,2); ?></p>
+					</div>
+				</div>
+				<div class="col-md-8">
+				<br>
+					<h2>Details</h2>
+					<p class="text-justify"><?php echo $thing->details; ?></p>
+					
+				</div>
+				<div class="col-md-4">
+				<br>
+					<div class="panel panel-default ">
+						<div class="panel-body">
+							<p class="title-heading text-primary"><strong><?php echo $thing->ThingConditions->name; ?></strong></p>
+							<p><span class="fa fa-home "></span> <?php echo $thing->ThingCategories->name; ?></p>
+							<p><span class="fa fa-clock-o "></span> Date posted <?php echo date('m-d-Y h:i A', strtotime($thing->created)); ?></p>
+							
+						</div>
+					</div>
+					<div class="panel panel-default well">
+						<div class="panel-body">
+						<h3 class="text-danger"><strong>Related Items</strong></h3>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

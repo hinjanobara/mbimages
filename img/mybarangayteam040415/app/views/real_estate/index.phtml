@@ -1,0 +1,164 @@
+<style type="text/css">
+	.property-name {
+		font-size: 16px !important;
+		font-weight: bold;
+	}
+	.price {
+		font-size: 18px !important;
+		font-weight: bold;
+	}
+	hr {
+		background-color:#ddd;
+		margin-top: 10px !important;
+		margin-bottom: 10px !important;
+	}
+</style>
+
+<div class="container" id="container">
+	<div class="col-md-12">
+		<div class="row containerBorder">
+			<div class="col-md-3">
+				<br>
+				<div class="panel panel-default bg-primary">
+					<div class="panel-body">
+						<?php echo Phalcon\Tag::form(array("real_estate/index", "method" => "post")); ?>
+						<div class="form-group">
+							<label style="color:#597EA8!important;">Name</label>
+							<input name="name" type="text" class="form-control" >
+						</div>
+						<div class="form-group">
+							<label style="color:#597EA8!important;">Propery Category</label>
+							<select name="job_category_id"  type="select" class="form-control">
+									<option value="">Select category</option>
+								<?php foreach ($realtyCategories as $key => $realtyCategory) { ?>
+									<option value="<?php echo $realtyCategory->id; ?>"><?php echo $realtyCategory->name; ?></option>
+								<?php } ?>
+							</select>
+						</div>
+						<div class="form-group">
+							<label style="color:#597EA8!important;">Location</label>
+							<input name="address" type="text" class="form-control" placeholder="street, city, country">
+						</div>
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-12">
+									<label style="color:#597EA8!important;">Price Range</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-5">
+									<input name="price_from" type="text" class="form-control" >
+								</div>
+								<div class="col-md-2 text-center"><span style="color:#597EA8!important;">|</span></div>
+								<div class="col-md-5">
+									<input name="price_to" type="text" class="form-control" >
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<button type="submit" class="btn btn-danger btn-block" name="submit">Search</button>
+						</div>
+						<?php echo Phalcon\Tag::endForm(); ?>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<h4 class="text-primary"><strong>Selling properties?</strong></h4>
+							<?php echo Phalcon\Tag::linkTo(array('real_estate/new', 'Post your ads now', 'class' => 'btn btn-primary btn-block btn-lg restricted')); ?>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<br>
+				<div style="background-color: #DC0000!important;color:#fff;">
+						<div class="panel-body form-horizontal">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="col-lg-2 control-label">Sort</label>
+									<div class="col-lg-8">
+										<select name="country_id"  type="select" class="form-control">
+											<option value="">Post date and relevance</option>
+											<option value="">Highest Rate</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="col-lg-8 control-label">Properties per page</label>
+									<div class="col-lg-4">
+										<select name="country_id"  type="select" class="form-control">
+											<option value="">10</option>
+											<option value="">20</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<?php if(!empty($searchWords)) { ?>
+						<h3><strong class="text-danger"><?php echo count($realties); ?> result(s) for </strong><small class="text-primary"><strong><?php echo $searchWords; ?></strong></small></h3>
+						<?php } else { ?>
+						<h3 ><strong class="text-danger">Find your dream properties now!</strong></h3>
+						<?php }  ?>
+						<?php if(isset($realties)){ ?>
+							<div class="row">
+								<?php foreach ($realties->items as $key => $realty) { ?>
+									<div class="col-md-4">
+										<div style="border:1px solid #efefef;padding:10px;margin-bottom:10px;"  data-url="real_estate/view/<?php echo $realty->id; ?>" style="border:2px solid #000">
+											<?php 
+										 		$realtyPhoto = 'http://placehold.it/230x230&text=no+photo';
+										 		$rPhotoCount = count($realty->RealtyPhotos);
+										 		if($rPhotoCount >0){ 
+										 			$realtyPhoto = $realty->RealtyPhotos[0]->file_path.$realty->RealtyPhotos[0]->filename;
+										 		} 
+										 	?>
+											 <a href="#">
+											 	<?php echo Phalcon\Tag::image(array($realtyPhoto, 'class' => 'media-object img-responsive img-rounded item_img1')); ?>
+											 </a>
+											 <div class="width100">
+												 <p class="text-center property-name">
+												 	<?php echo Phalcon\Tag::linkTo(array('real_estate/view/'.$realty->id.'/'.str_replace(' ', '+', $realty->name.'/'.$realty->street.'/'.$realty->city.'/'.$realty->Countries->country), $realty->name,'class' => 'text-primary')); ?></p>
+												 <p class="text-center price" data-toggle="tooltip" title="Price"><label class="label label-danger label-lg"> <?php echo number_format($realty->price,2); ?></label></p>
+												 <hr class="lh-80">
+												 	<h5 class="text-center text-primary"><strong><?php echo $realty->RealtyCategories->name; ?></strong></h5>
+											    	<p><i class="fa fa-map-marker"></i>&nbsp;&nbsp;<?php echo $realty->street; ?>, <?php echo $realty->city; ?>, <?php echo $realty->Countries->country; ?></p>
+											    	<p data-toggle="tooltip" title="Last updated"><span class="fa fa-clock-o"></span>&nbsp;&nbsp;<?php echo date('M d, Y h:i A', strtotime($realty->modified)); ?></p>
+											 </div>
+										</div>
+									</div>
+								<?php } ?>
+							</div>
+							
+							<div class="row">
+								<div class="col-md-12">
+									<div class="col-md-4">
+										<p class="pagination pull-left"><?php echo "You are in page ", $realties->current, " of ", $realties->total_pages; ?></p>
+									</div>
+									<div class="col-md-8">
+										<ul class="pagination pull-right">
+										  <li class="disabled"><a href="<?php echo $this->url->getBaseUri(); ?>real_estate/index">«</a></li>
+										  <li ><a href="<?php echo $this->url->getBaseUri(); ?>real_estate/index?page=<?= $realties->before; ?>">Previous</a></li>
+										  <?php for ($i=1; $i <= $realties->total_pages ; $i++) { ?>
+										  	<?php if($realties->current == $i) { ?>
+										  		<li class="active"><a href="<?php echo $this->url->getBaseUri(); ?>real_estate/index?page=<?= $i; ?>"><?php echo $i; ?></a></li>
+										  	<?php } else { ?>
+										  		<li><a href="<?php echo $this->url->getBaseUri(); ?>real_estate/index?page=<?= $i; ?>"><?php echo $i; ?></a></li>
+										  	<?php } ?>
+										  <?php } ?>
+										  <li><a href="<?php echo $this->url->getBaseUri(); ?>real_estate/index?page=<?= $realties->next; ?>">Next</a></li>
+										  <li><a href="<?php echo $this->url->getBaseUri(); ?>real_estate/index?page=<?= $realties->last; ?>">»</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						<?php } ?>
+					</div>
+				</div>
+		</div>
+	</div>
+</div>
+</div>
+

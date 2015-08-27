@@ -1,0 +1,77 @@
+<div class="container" id="container">
+	<div class="col-md-12 containerBorder">
+		<div class="row">
+			<br>
+			<div class="col-md-3">
+				<?php $member = $property->Members; ?>
+				<?php if(isset($userSession['id'])) { $memberId = $userSession['id']; } else { $memberId = ''; } ?>
+				<?php if($memberId == $member->id) { ?>
+				<?php $this->partial("layouts/elements/profile_widget") ?>
+				<?php } ?>
+				<?php if($memberId != $member->id) { ?>
+				<?php $this->partial("layouts/elements/member_widget") ?>
+				<?php } ?>
+				<div class="panel panel-default well">
+					<div class="panel-body">
+					<h3 class="text-danger"><strong>Another container</strong></h3>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<div class="col-md-12 bg-primary">
+					<div class="col-md-9">
+					<h2><?php echo $property->name; ?></h2>
+					<p><?php echo $property->street; ?>, <?php echo $property->city; ?>, <?php echo $property->Countries->country; ?></p>
+					</div>
+					<div class="col-md-3">
+					<h2> &nbsp;</h2>
+					<p data-toggle="tooltip" title="price"><span class="fa fa-money"></span> <?php echo number_format($property->price,2); ?></p>
+					</div>
+				</div>
+				<div class="col-md-8">
+				<br>
+				<div class="row">
+				<?php foreach($property->RealtyPhotos as $key => $realtyPhoto){ ?>
+					<?php if($key == 0){ ?>
+						<div class="col-md-12">
+						<?php echo Phalcon\Tag::image(array($realtyPhoto->file_path.$realtyPhoto->filename, 'class' => 'img-responsive img-thumbnail')); ?>
+						</div>
+						
+					<?php } else { ?>
+						<div class="col-md-2">
+						<br>
+						<?php echo Phalcon\Tag::image(array($realtyPhoto->file_path.$realtyPhoto->filename, 'class' => 'img-responsive img-thumbnail')); ?>
+						</div>
+					<?php } ?>
+				<?php } ?>
+				</div>
+				<br>
+					<h2>Details</h2>
+					<p class="text-justify"><?php echo $property->details; ?></p>
+					
+				</div>
+				<div class="col-md-4">
+				<br>
+					<div class="panel panel-default ">
+						<div class="panel-body">
+							<h3 class="title-heading text-primary"><strong><?php echo $property->RealtyConditions->name; ?></strong></h3>
+							<h5 class="text-danger"><strong><?php echo $property->RealtyTypes->name; ?></strong></h5>
+							<p><span class="fa fa-home "></span> <?php echo $property->RealtyCategories->name; ?></p>
+							<p><span class="fa fa-bed"></span> <?php echo $property->bedrooms; ?> Bedroom</p>
+							<p><span class="fa fa-venus-mars "></span> <?php echo $property->bathrooms; ?> Bathroom</p>
+							<p><span class="fa fa-car "></span> <?php echo $property->parking; ?> Parking</p>
+							<p><span class="fa fa-map-marker "></span> House Area <?php echo $property->house_area; ?>sq.m.</p>
+							<p><span class="fa fa-map-marker "></span> Lot Area <?php echo $property->lot_area; ?>sq.m.</p>
+							
+						</div>
+					</div>
+					<div class="panel panel-default well">
+						<div class="panel-body">
+						<h3 class="text-danger"><strong>Related Properties</strong></h3>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

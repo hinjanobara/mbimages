@@ -1,0 +1,65 @@
+<div class="top_margin container containerBorder">
+	<div class="col-md-12 bg-white">
+		<div class="row">
+			<br>
+			<div class="col-md-3 containerBorder">
+				<?php $this->partial("layouts/elements/member_widget") ?>
+				<div class="panel panel-default well">
+					<div class="panel-body">
+					<h3 class="text-danger"><strong>Another container</strong></h3>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<div class="col-md-12 bg-primary">
+					<div class="col-md-9">
+					<h2><?php echo $jobs->position; ?></h2>
+					<p><?php echo $jobs->company; ?></p>
+					</div>
+					<div class="col-md-3">
+					<h2> &nbsp;</h2>
+					<p data-toggle="tooltip" title="salary range"><span class="fa fa-money"></span> <?php echo number_format($jobs->salary_from,2); ?> - <?php echo number_format($jobs->salary_to,2); ?></p>
+					</div>
+				</div>
+				<div class="col-md-8">
+				<br>
+				<div class="row">
+			        <div class="col-md-12"><?php $this->flash->output(); ?></div>
+			      </div>
+					<?php if($userSession['id'] == $jobs->member_id) { ?>
+					<div class="btn-group pull-right">
+						<?php echo Phalcon\Tag::linkTo(array('job/update/'.$jobs->id, '<i class="fa fa-pencil"></i>', 'class' => 'btn btn-xs btn-warning btn-rounded', 'data-toggle' => 'tooltip', 'title' => 'update')); ?>
+					</div>
+					<?php } ?>
+					<h2>Job Description</h2>
+					<p class="text-justify"><?php echo $jobs->job_description; ?></p>
+					<h2>Requirements</h2>
+					<p class="text-justify"><?php echo $jobs->requirements; ?></p>
+					<h2>Benefits</h2>
+					<p class="text-justify"><?php echo $jobs->benefits; ?></p>
+					<h2>How to Apply</h2>
+					<p class="text-justify"><?php echo $jobs->how_to_apply; ?></p>
+				</div>
+				<div class="col-md-4">
+				<br>
+					<div class="panel panel-default ">
+						<div class="panel-body">
+							<?php echo Phalcon\Tag::image(array($jobLogo, 'class' => 'img-responsive img-rounded biz-review')); ?>
+							<h3 class="title-heading text-primary"><strong><?php echo $jobs->company; ?></strong></h3>
+							<h5 class="text-danger"><strong><?php echo $jobs->JobCategories->name; ?></strong></h5>
+							<p><span class="fa fa-external-link-square text-primary"><a href="<?php echo $jobs->website; ?>"></span> <?php echo $jobs->website; ?></a></p>
+							<p><span class="fa fa-map-marker text-primary"></span> <?php echo $jobs->street; ?>, <?php echo $jobs->city; ?>, <?php echo $jobs->Countries->country; ?></p>
+							<p><span class="fa fa-phone text-primary"></span> <?php echo $jobs->telephone; ?></p>
+							<p><span class="fa fa-envelope text-primary"></span> <?php echo $jobs->email; ?></p>
+						</div>
+					</div>
+					<div class="panel panel-default well">
+						<div class="panel-body">
+						<h3 class="text-danger"><strong>Related Jobs</strong></h3>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

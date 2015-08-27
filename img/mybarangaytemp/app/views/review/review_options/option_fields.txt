@@ -1,0 +1,174 @@
+resoptions
+- resta_caters
+- resta_wifi
+- resta_hastv
+- resta_pricerange
+- resta_creditcard
+- resta_parking
+- resta_bike_parking
+- resta_attire
+- resta_groups
+- resta_kids
+- resta_reservations
+- resta_delivery
+- resta_takeaway
+- resta_waiter
+- resta_outdoor
+- resta_goodfor
+- resta_alcohol
+- resta_noise
+- resta_ambience
+
+autooptions
+
+- auto_wifi
+- auto_hastv
+- auto_creditcard
+- auto_bike_parking
+
+activeoptions
+- active_pricerange
+- active_creditcard
+- active_parking
+- active_bike_parking
+- active_kids
+
+artoptions
+- art_creditcard
+- art_parking
+- art_bike_parking
+- art_kids
+
+localoptions
+- local_creditcard
+- local_parking
+- local_bike_parking
+- local_kids
+
+bicycleoptions
+- bicycle_pricerange
+- bicycle_creditcard
+- bicycle_parking
+- bicycle_bike_parking
+
+educoptions
+
+- educ_wifi
+- educ_creditcard
+- educ_parking
+- educ_bike_parking
+- educ_kids
+
+publicoptions
+- public_wifi
+- public_creditcard
+- public_parking
+- public_bike_parking
+
+religiousoptions
+- religious_creditcard
+- religious_parking
+- religious_bike_parking
+
+massmediaoptions
+- massmedia_creditcard
+- massmedia_parking
+- massmedia_bike_parking
+
+foodoptions
+- food_caters
+- food_wifi
+- food_hastv
+- food_pricerange
+- food_creditcard
+- food_parking
+- food_bike_parking
+- food_attire
+- food_groups
+- food_kids
+- food_reservations
+- food_delivery
+- food_takeaway
+- food_waiter
+- food_outdoor
+- food_goodfor
+- food_alcohol
+- food_noise
+- food_ambience
+
+spaoptions
+- spa_pricerange
+- spa_wifi
+- spa_hastv
+- spa_creditcard
+- spa_parking
+- spa_bike_parking
+- spa_kids
+- spa_appointments *
+
+medoptions
+- med_wifi
+- med_creditcard
+- med_parking
+- med_bike_parking
+- med_appointments
+
+homeoptions
+- home_pricerange
+- home_creditcard
+- home_appointments
+
+localserviceoptions
+- localservice_pricerange
+- localservice_creditcard
+- localservice_parking
+- localservice_bike_parking
+- localservice_appointments
+
+petoptions
+- pet_pricerange
+- pet_wifi
+- pet_hastv
+- pet_creditcard
+- pet_parking
+- pet_bike_parking
+
+financialoptions
+- financial_wifi
+- financial_creditcard
+- financial_parking
+- financial_bike_parking
+
+profoptions
+- prof_wifi
+- prof_credicard
+- prof_parking
+- prof_bike_parking
+
+eventoptions
+- event_wifi
+- event_creditcard
+- event_parking
+- event_bike_parking
+
+hoteloptions
+- hotel_pricerange
+- hotel_wifi
+- hotel_hastv
+- hotel_creditcard
+- hotel_parking
+- hotel_bike_parking
+- hotel_groups
+- hotel_kids
+
+realoptions
+- real_creditcard
+- real_parking
+- real_bike_parking
+
+shopoptions pricerange wifi creditcard parking bike_parking
+- shop_pricerange
+- shop_wifi
+- shop_creditcard
+- shop_parking
+- shop_bike_parking

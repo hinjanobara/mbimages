@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="/mybarangay/themes/mybarangay1/favicon.ico" type="image/x-icon" />
+	<?php //echo $this->tag->iconLink("favicon.ico"); ?>
+	<?php echo $this->tag->stylesheetLink("themes/mybarangay1/css/reset.css"); ?>
+	<?php echo $this->tag->stylesheetLink("themes/mybarangay1/css/mega-menu-style.css"); ?>
+	<?php echo $this->tag->stylesheetLink("themes/mybarangay1/css/bootstrap.min.css"); ?>
+	<?php echo $this->tag->stylesheetLink("themes/mybarangay1/css/bootstrap-theme.min.css"); ?>
+	<?php //echo $this->tag->stylesheetLink("themes/mybarangay1/css/bootflat.min.css"); ?>
+	
+	<?php echo $this->tag->stylesheetLink("themes/mybarangay1/css/animated-text.css"); ?>
+	<?php echo $this->tag->stylesheetLink("themes/mybarangay1/css/morphing-modal-window.css"); ?>
+	<?php echo $this->tag->stylesheetLink("themes/mybarangay1/css/font-awesome.min.css"); ?>
+	<?php echo $this->tag->stylesheetLink("themes/customize/css/customize.css"); ?>
+	<?php echo $this->tag->stylesheetLink("themes/mybarangay1/css/custom.css"); ?>
+	
+	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+	<script src="https://apis.google.com/js/client:platform.js" async defer></script>
+	<?php echo $this->tag->javascriptInclude("themes/mybarangay1/js/modernizr.js"); ?><!-- Modernizr -->
+  	<?php echo $this->tag->javascriptInclude("themes/mybarangay1/js/jquery-2.1.1.js"); ?>
+	<title>MyBarangay | Venue for all of us to follow our hearts and come together to share, connect and feel at home.</title>
+</head>
+<body>
+
+	<?php $this->partial("layouts/elements/mega-menu") ?>
+	
+
+	<main class="cd-main-content">
+		<?php echo $this->getContent() ?>
+		
+		
+</main>
+
+	
+	
+	
+<?php echo $this->tag->javascriptInclude("themes/mybarangay1/js/bootstrap.min.js"); ?>
+<?php echo $this->tag->javascriptInclude("themes/mybarangay1/js/jquery.mobile.custom.min.js"); ?>
+<?php echo $this->tag->javascriptInclude("themes/mybarangay1/js/mega-menu.js"); ?>
+<?php echo $this->tag->javascriptInclude("themes/mybarangay1/js/animated-text.js"); ?>
+<?php echo $this->tag->javascriptInclude("themes/mybarangay1/js/velocity.min.js"); ?>
+<?php echo $this->tag->javascriptInclude("themes/mybarangay1/js/morphing-modal-window.js"); ?>
+<?php //echo $this->tag->javascriptInclude("themes/mybarangay1/js/site.min.js"); ?>	
+
+<script>
+	$(document).ready(function() {
+		$('[data-toggle="tooltip"]').tooltip();
+		// $('input').iCheck({
+		// 	checkboxClass: 'icheckbox_minimal',
+  //   		radioClass: 'iradio_minimal'
+		// });
+		$('#signUp').on('click', function(){
+			$('[data-type="modal-trigger"]').trigger('click');
+			$('[data-type="modal-trigger"]')[0].click();
+			$('#container').fadeOut('fast');
+			$('#signUpForm').removeClass('hidden');
+			$('#loginForm').addClass('hidden');
+			$('#fbText').html('Sign up with FACEBOOK');
+			$('#GText').html('Sign up GOOGLE');
+		});
+		$('[data-type="modal-trigger"]').on('click', function(){
+			$('#container').fadeOut('fast');
+			$('#signUpForm').removeClass('hidden');
+			$('#loginForm').addClass('hidden');
+			$('#fbText').html('Sign up with FACEBOOK');
+			$('#GText').html('Sign up GOOGLE');
+		});
+		$('.cd-modal-close').on('click', function(){
+			$('#container').fadeIn('slow');
+		});
+
+		$('#logIn').on('click', function(){
+			$('[data-type="modal-trigger"]').trigger('click');
+			$('[data-type="modal-trigger"]')[0].click();
+			$('#container').fadeOut('fast');
+			$('#signUpForm').addClass('hidden');
+			$('#loginForm').removeClass('hidden');
+			$('#fbText').html('Login with FACEBOOK');
+			$('#GText').html('Login with GOOGLE');
+
+		});
+
+		$('#forgotPassword').on('click', function(){
+			$('#loginForm').addClass('hidden');
+			$('#resetPasswordForm').removeClass('hidden');
+
+		});
+	});
+</script>
+
+</body>
+</html>

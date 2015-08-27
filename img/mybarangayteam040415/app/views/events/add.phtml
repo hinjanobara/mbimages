@@ -1,0 +1,72 @@
+<div class="container" id="container">
+    <div class="col-md-12 bg-white">
+        <br>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="col-md-12 bottom-hr">
+                    <div class="row">
+                        <p ><strong>Complete your review</strong></p>
+                    </div>
+                    <div class="col-md-7">
+                        <h2 class="line-height-50"><strong><?php echo Phalcon\Tag::linkTo('events/view/'.$event->id, $event->name); ?></strong></h2>
+                    </div>
+                    <div class="col-md-5">
+                        <p class="line-height-80"><?php echo $event->street;?></p>
+                        <p class="line-height-80"><?php echo $event->city;?></p>
+                        <p class="line-height-80"><?php echo $event->Countries->country;?></p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="padding-10">
+                        <?php  echo Phalcon\Tag::form(array("events/add/".$event->id, "method" => "post")); ?>
+                        <div class="form-group">
+                            <span class="fa fa-star btn btn-success btn-xs rate" data-rate="1"></span>&nbsp;<span class="fa fa-star btn btn-success btn-xs rate" data-rate="2"></span>&nbsp;<span class="fa fa-star btn btn-danger btn-xs rate" data-rate="3"></span>&nbsp;<span class="fa fa-star btn btn-danger btn-xs rate" data-rate="4"></span>&nbsp;<span class="fa fa-star btn btn-warning btn-xs rate" data-rate="5"></span>
+                            <input name="rate" type="text" class="hidden" id="rate">
+                        </div>
+                        <div class="form-group">
+                            <label> Write a review for this event</label>
+                            <textarea name="review" type="textarea" rows="5" class="form-control" placeHolder="Your review help others learn about great events."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-lg-12 text-center">
+                                <button type="button" class="btn btn-danger">Cancel</button>
+                                <button type="submit" class="btn btn-primary">&nbsp;Post&nbsp;</button>
+                            </div>
+                        </div>
+                        <?php  echo Phalcon\Tag::endForm(); ?>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h4 class="text-primary bottom-hr"><strong>Reviews for <?php echo $event->name; ?></strong></h4>
+                <?php foreach ($reviews as $key => $review) { ?>
+                    <div class="row">
+                        <div class="col-md-12 padding-l-r-18 padding-4">
+                            <div class="col-md-2"><?php echo Phalcon\Tag::image(array("themes/mybarangay1/img/avatar-pitt.jpg", 'class' => 'img-responsive img-rounded')); ?>
+                            </div>
+                            <div class="col-md-10 pull-left line-height-80">
+                                <?php echo Phalcon\Tag::linkTo('member/profile/'.$review->member_id, $review->Members->first_name.' '.$review->Members->last_name); ?>
+                                <small><p class=""><?php echo date('m/d/Y', strtotime($review->created)); ?></p></small>
+                            </div>
+                            <div class="col-md-12 bottom-hr">
+
+                                <small><p class="line-height-100"><?php echo $review->content; ?></p></small>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+        </div>
+        <br>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.rate').on('click', function(){
+            var rate = $(this).data('rate');
+            $('#rate').val(rate);
+        });
+    });
+</script>

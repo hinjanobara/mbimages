@@ -1,0 +1,369 @@
+
+<style type="text/css">
+	hr {
+		background-color:#ddd;
+		margin-top: 10px !important;
+		margin-bottom: 10px !important;
+	}
+</style>
+<?php echo $this->tag->javascriptInclude("themes/customize/js/ckeditor/ckeditor.js"); ?>
+<div class="container containerBorder top_margin" id="container">
+	<div class="col-md-12 bg-white">
+		<div class="row">
+			<div class="col-md-12 bg-primary container" style="margin-bottom:25px;">
+				<h1>Add a Properties</h1>
+				<p>Please note: This property will not appear in search results until it has been approved by our moderators.</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3 ">
+				<?php $this->partial("layouts/elements/profile_widget"); ?>	
+			</div>
+			<?php echo Phalcon\Tag::form(array("real_estate/new", "method" => "post", "id" => "realtyNew", "enctype"=>"multipart/form-data")); ?>
+			<div class="col-md-6">
+			  	<div class="col-md-12">
+					<div class="form-group">
+						<label>Property Name</label>
+						<input name="name" type="text" class="form-control" >
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Address</label>
+						<input name="street" type="text" class="form-control" placeholder="123 anywhere street">
+					</div>
+				</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>City</label>
+							<input name="city" type="text" class="form-control"  placeholder="City">
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Country</label>
+							<select name="country_id"  type="select" class="form-control">
+									<option value="">Select country</option>
+								<?php foreach ($countries as $key => $country) { ?>
+									<option value="<?php echo $country->id; ?>"><?php echo $country->country; ?></option>
+								<?php } ?>
+							</select>
+						</div>
+					</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Details</label>
+						<textarea name="details" type="textarea" class="ckeditor form-control" ></textarea> 
+					</div>
+				</div>
+				<div class="col-md-12">
+				<h3>Images</h3>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Image 1 (primary)</label>
+							<input name="image1" data-image="1" type="file" class="form-control file">
+							<label>Caption</label>
+							<textarea name="caption1" class="form-control"></textarea>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<img src="http://placehold.it/100&text=image+1" id="imagePrev1" class="img-responsive img-thumbnail">
+					</div>
+					<div class="col-md-1 center-block" data-toggle="tooltip" title="remove" id="action1">
+					</div>
+				</div>
+				<div class="col-md-11">
+					<hr>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Image 2</label>
+							<input name="image2" data-image="2" type="file" class="form-control file">
+							<label>Caption</label>
+							<textarea name="caption2" class="form-control"></textarea>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<img src="http://placehold.it/100&text=image+2" id="imagePrev2" class="img-responsive img-thumbnail">
+					</div>
+					<div class="col-md-1 center-block" data-toggle="tooltip" title="remove" id="action2">
+					</div>
+				</div>
+				<div class="col-md-11">
+					<hr>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Image 3</label>
+							<input name="image3" data-image="3" type="file" class="form-control file">
+							<label>Caption</label>
+							<textarea name="caption3" class="form-control"></textarea>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<img src="http://placehold.it/100&text=image+3" id="imagePrev3" class="img-responsive img-thumbnail">
+					</div>
+					<div class="col-md-1 center-block" data-toggle="tooltip" title="remove" id="action3">
+					</div>
+				</div>
+				<div class="col-md-11">
+					<hr>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Image 4</label>
+							<input name="image4" data-image="4" type="file" class="form-control file">
+							<label>Caption</label>
+							<textarea name="caption4" class="form-control"></textarea>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<img src="http://placehold.it/100&text=image+4" id="imagePrev4" class="img-responsive img-thumbnail">
+					</div>
+					<div class="col-md-1 center-block" data-toggle="tooltip" title="remove" id="action4">
+					</div>
+				</div>
+				<div class="col-md-11">
+					<hr>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Image 5</label>
+							<input name="image5" data-image="5" type="file" class="form-control file">
+							<label>Caption</label>
+							<textarea name="caption5" class="form-control"></textarea>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<img src="http://placehold.it/100&text=image+5" id="imagePrev5" class="img-responsive img-thumbnail">
+					</div>
+					<div class="col-md-1 center-block" data-toggle="tooltip" title="remove" id="action5">
+					</div>
+				</div>
+				<div class="col-md-11">
+					<hr>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Image 6</label>
+							<input name="image6" data-image="6" type="file" class="form-control file">
+							<label>Caption</label>
+							<textarea name="caption6" class="form-control"></textarea>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<img src="http://placehold.it/100&text=image+6" id="imagePrev6" class="img-responsive img-thumbnail">
+					</div>
+					<div class="col-md-1 center-block" data-toggle="tooltip" title="remove" id="action6">
+					</div>
+				</div>
+				<div class="col-md-11">
+					<hr>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Image 7</label>
+							<input name="image7" data-image="7" type="file" class="form-control file">
+							<label>Caption</label>
+							<textarea name="caption7" class="form-control"></textarea>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<img src="http://placehold.it/100&text=image+7" id="imagePrev7" class="img-responsive img-thumbnail">
+					</div>
+					<div class="col-md-1 center-block" data-toggle="tooltip" title="remove" id="action7">
+					</div>
+				</div>
+				<div class="col-md-11">
+					<hr>
+				</div>
+				<div class="form-group">
+				  <div class="col-lg-12 text-center">
+					<button type="submit" class="btn btn-primary">Add Property</button>
+				  </div>
+				</div>
+				
+				<br>
+			</div>
+			<div class="col-md-3 containerBorder">
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Price</label>
+						<input name="price" type="text" class="form-control" >
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Condition</label>
+						<select name="realty_condition_id"  type="select" class="form-control">
+								<option value="">Select condition</option>
+							<?php foreach ($realtyConditions as $key => $realtyCondition) { ?>
+								<option value="<?php echo $realtyCondition->id; ?>"><?php echo $realtyCondition->name; ?></option>
+							<?php } ?>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Type</label>
+						<select name="realty_type_id"  type="select" class="form-control" id="realtyType">
+								<option value="">Select Type</option>
+							<?php foreach ($realtyTypes as $key => $realtyType) { ?>
+								<option value="<?php echo $realtyType->id; ?>"><?php echo $realtyType->name; ?></option>
+							<?php } ?>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Category</label>
+						<select name="realty_category_id"  type="select" class="form-control" id="realtyCategory">
+								<option value="">Select category</option>
+							<?php foreach ($realtyCategories as $key => $realtyCategory) { ?>
+								<?php $category = $realtyCategory->RealtyTypes->name.' &raquo; '.$realtyCategory->name; ?>
+								<option value="<?php echo $realtyCategory->id; ?>"><?php echo $category; ?></option>
+							<?php } ?>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>House Area</label>
+						<input name="house_area" type="text" class="form-control">
+
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>Lot Area</label>
+						<input name="lot_area" type="text" class="form-control" >
+					</div>
+				</div>
+				<div class="col-md-6">						
+					<div class="form-group">
+						<label>Bedroom(s)</label>
+						<select name="bedrooms"  type="select" class="form-control">
+								<option value="0">0</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-6">						
+					<div class="form-group">
+						<label>Bathroom(s)</label>
+						<select name="bathrooms"  type="select" class="form-control">
+								<option value="0">0</option>
+								<option value="1">1</option>
+								<option value="1.5">1.5</option>
+								<option value="2">2</option>
+								<option value="2.5">2.5</option>
+								<option value="3">3</option>
+								<option value="3.5">3.5</option>
+								<option value="4">4</option>
+								<option value="4.5">4.5</option>
+								<option value="5">5</option>
+								<option value="5.5">5.5</option>
+								<option value="6.5">6.5</option>
+								<option value="7">7</option>
+								<option value="7.5">7.5</option>
+								<option value="8">8</option>
+								<option value="8.5">8.5</option>
+								<option value="9">9</option>
+								<option value="9.5">9.5</option>
+								<option value="10">10</option>
+								<option value="10.5">10.5</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-6">	
+					<div class="form-group">
+						<label>Parking</label>
+						<select name="parking"  type="select" class="form-control">
+								<option value="0">0</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-6">	
+					<div class="form-group">
+						<label>Pets Allowed</label>
+						<select name="pets_allowed"  type="select" class="form-control">
+									<option value="Yes">Yes</option>
+									<option value="No">No</option>
+							</select>
+					</div>
+				</div>
+			</div>
+			<?php echo Phalcon\Tag::endForm(); ?>
+		</div>
+		<br><br>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$('#realtyType').on('change', function(){ 
+			var categoryId = $(this).val();
+			$.getJSON("/mybarangay/realty_category/list/"+categoryId, function(data) {
+			    $("#realtyCategory option").remove();
+			    $("#realtyCategory").append('<option value=""> Select category</option>');
+			    $.each(data, function(){
+			        $("#realtyCategory").append('<option value="'+ this.id +'">'+ this.name +'</option>')
+			    });
+			});
+		});
+
+		function readURL(input, imgNo) {
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+		        reader.onload = function (e) {
+		            $('#imagePrev'+imgNo).attr('src', e.target.result);
+		            $('#action'+imgNo).html('<button class="btn btn-danger btn-xs trash" type="button" data-img="'+imgNo+'"><span class="fa fa-trash"></span></button>');
+		        }
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+
+		$('[type="file"]').change(function(){
+			var imgNo = $(this).data('image');
+		    readURL(this, imgNo);
+		});
+
+		$(document).on('click', '.trash', function(){
+			var imgNo = $(this).data('img');
+			$('input[name="image'+imgNo+'"]').val('');
+		    $('#imagePrev'+imgNo).attr('src', 'http://placehold.it/100&text=image+'+imgNo);
+		    $('#action'+imgNo).html('');
+		});
+		
+	});
+</script>
+
+

@@ -1,0 +1,227 @@
+<div class="cd-overlay"></div>
+
+	<nav class="cd-nav">
+		<ul id="cd-primary-nav" class="cd-primary-nav is-fixed">
+			<li class="has-children">
+				<a href="javascript:void(0);">Products</a>
+
+				<ul class="cd-secondary-nav is-hidden">
+					<li class="go-back"><a href="javascript:void(0);">Menu</a></li>
+					<li class="see-all"><a href="javascript:void(0);">All Products</a></li>
+					<li class="has-children">
+						<a href="javascript:void(0);">Accessories</a>
+
+						<ul class="is-hidden">
+							<li class="go-back"><a href="javascript:void(0);">Clothing</a></li>
+							<li class="see-all"><a href="javascript:void(0);">All Accessories</a></li>
+							<li class="has-children">
+								<a href="javascript:void(0);">Beanies</a>
+
+								<ul class="is-hidden">
+									<li class="go-back"><a href="javascript:void(0);">Accessories</a></li>
+									<li class="see-all"><a href="javascript:void(0);">All Benies</a></li>
+									<li><a href="javascript:void(0);">Caps &amp; Hats</a></li>
+									<li><a href="javascript:void(0);">Gifts</a></li>
+									<li><a href="javascript:void(0);">Scarves &amp; Snoods</a></li>
+								</ul>
+							</li>
+							<li class="has-children">
+								<a href="javascript:void(0);">Caps &amp; Hats</a>
+
+								<ul class="is-hidden">
+									<li class="go-back"><a href="javascript:void(0);">Accessories</a></li>
+									<li class="see-all"><a href="javascript:void(0);">All Caps &amp; Hats</a></li>
+									<li><a href="javascript:void(0);">Beanies</a></li>
+									<li><a href="javascript:void(0);">Caps</a></li>
+									<li><a href="javascript:void(0);">Hats</a></li>
+								</ul>
+							</li>
+							<li><a href="javascript:void(0);">Glasses</a></li>
+							<li><a href="javascript:void(0);">Gloves</a></li>
+							<li><a href="javascript:void(0);">Jewellery</a></li>
+							<li><a href="javascript:void(0);">Scarves</a></li>
+							<li><a href="javascript:void(0);">Wallets</a></li>
+							<li><a href="javascript:void(0);">Watches</a></li>
+						</ul>
+					</li>
+
+					<li class="has-children">
+						<a href="javascript:void(0);">Bottoms</a>
+
+						<ul class="is-hidden">
+							<li class="go-back"><a href="javascript:void(0);">Clothing</a></li>
+							<li class="see-all"><a href="javascript:void(0);">All Bottoms</a></li>
+							<li><a href="javascript:void(0);">Casual Trousers</a></li>
+							<li class="has-children">
+								<a href="javascript:void(0);">Jeans</a>
+
+								<ul class="is-hidden">
+									<li class="go-back"><a href="javascript:void(0);">Bottoms</a></li>
+									<li class="see-all"><a href="javascript:void(0);">All Jeans</a></li>
+									<li><a href="javascript:void(0);">Ripped</a></li>
+									<li><a href="javascript:void(0);">Skinny</a></li>
+									<li><a href="javascript:void(0);">Slim</a></li>
+									<li><a href="javascript:void(0);">Straight</a></li>
+								</ul>
+							</li>
+							<li><a href="javascript:void(0);">Leggings</a></li>
+							<li><a href="javascript:void(0);">Shorts</a></li>
+						</ul>
+					</li>
+
+					<li class="has-children">
+						<a href="javascript:void(0);">Jackets</a>
+
+						<ul class="is-hidden">
+							<li class="go-back"><a href="javascript:void(0);">Clothing</a></li>
+							<li class="see-all"><a href="javascript:void(0);">All Jackets</a></li>
+							<li><a href="javascript:void(0);">Blazers</a></li>
+							<li><a href="javascript:void(0);">Bomber jackets</a></li>
+							<li><a href="javascript:void(0);">Denim Jackets</a></li>
+							<li><a href="javascript:void(0);">Duffle Coats</a></li>
+							<li><a href="javascript:void(0);">Leather Jackets</a></li>
+							<li><a href="javascript:void(0);">Parkas</a></li>
+						</ul>
+					</li>
+
+					<li class="has-children">
+						<a href="javascript:void(0);">Tops</a>
+
+						<ul class="is-hidden">
+							<li class="go-back"><a href="javascript:void(0);">Clothing</a></li>
+							<li class="see-all"><a href="javascript:void(0);">All Tops</a></li>
+							<li><a href="javascript:void(0);">Cardigans</a></li>
+							<li><a href="javascript:void(0);">Coats</a></li>
+							<li><a href="javascript:void(0);">Hoodies &amp; Sweatshirts</a></li>
+							<li><a href="javascript:void(0);">Jumpers</a></li>
+							<li><a href="javascript:void(0);">Polo Shirts</a></li>
+							<li><a href="javascript:void(0);">Shirts</a></li>
+							<li class="has-children">
+								<a href="javascript:void(0);">T-Shirts</a>
+
+								<ul class="is-hidden">
+									<li class="go-back"><a href="javascript:void(0);">Tops</a></li>
+									<li class="see-all"><a href="javascript:void(0);">All T-shirts</a></li>
+									<li><a href="javascript:void(0);">Plain</a></li>
+									<li><a href="javascript:void(0);">Print</a></li>
+									<li><a href="javascript:void(0);">Striped</a></li>
+									<li><a href="javascript:void(0);">Long sleeved</a></li>
+								</ul>
+							</li>
+							<li><a href="javascript:void(0);">Vests</a></li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+
+			<li class="has-children">
+				<a href="javascript:void(0);">Automobile</a>
+
+				<ul class="cd-nav-gallery is-hidden">
+					<li class="go-back"><a href="javascript:void(0);">Menu</a></li>
+					<li class="see-all"><a href="javascript:void(0);">Browse Automobiles</a></li>
+					<li>
+						<a class="cd-nav-item" href="javascript:void(0);">
+							<img src="themes/mybarangay1/img/img.jpg" alt="Product Image">
+							<h3>Product #1</h3>
+						</a>
+					</li>
+
+					<li>
+						<a class="cd-nav-item" href="javascript:void(0);">
+							<img src="themes/mybarangay1/img/img.jpg" alt="Product Image">
+							<h3>Product #2</h3>
+						</a>
+					</li>
+
+					<li>
+						<a class="cd-nav-item" href="javascript:void(0);">
+							<img src="themes/mybarangay1/img/img.jpg" alt="Product Image">
+							<h3>Product #3</h3>
+						</a>
+					</li>
+
+					<li>
+						<a class="cd-nav-item" href="javascript:void(0);">
+							<img src="themes/mybarangay1/img/img.jpg" alt="Product Image">
+							<h3>Product #4</h3>
+						</a>
+					</li>
+				</ul>
+			</li>
+
+			<li class="has-children">
+				<a href="javascript:void(0);">Businesses</a>
+				<ul class="cd-nav-icons is-hidden">
+					<li class="go-back"><a href="javascript:void(0);">Menu</a></li>
+					<li class="see-all"><a href="javascript:void(0);">Browse Businesses</a></li>
+					<li>
+						<a class="cd-nav-item item-1" href="javascript:void(0);">
+							<h3>Business #1</h3>
+							<p>This is the item description</p>
+						</a>
+					</li>
+
+					<li>
+						<a class="cd-nav-item item-2" href="javascript:void(0);">
+							<h3>Business #2</h3>
+							<p>This is the item description</p>
+						</a>
+					</li>
+
+					<li>
+						<a class="cd-nav-item item-3" href="javascript:void(0);">
+							<h3>Business #3</h3>
+							<p>This is the item description</p>
+						</a>
+					</li>
+
+					<li>
+						<a class="cd-nav-item item-4" href="javascript:void(0);">
+							<h3>Business #4</h3>
+							<p>This is the item description</p>
+						</a>
+					</li>
+
+					<li>
+						<a class="cd-nav-item item-5" href="javascript:void(0);">
+							<h3>Business #5</h3>
+							<p>This is the item description</p>
+						</a>
+					</li>
+
+					<li>
+						<a class="cd-nav-item item-6" href="javascript:void(0);">
+							<h3>Business #6</h3>
+							<p>This is the item description</p>
+						</a>
+					</li>
+
+					<li>
+						<a class="cd-nav-item item-7" href="javascript:void(0);">
+							<h3>Business #7</h3>
+							<p>This is the item description</p>
+						</a>
+					</li>
+
+					<li>
+						<a class="cd-nav-item item-8" href="javascript:void(0);">
+							<h3>Business #8</h3>
+							<p>This is the item description</p>
+						</a>
+					</li>
+				</ul>
+			</li>
+
+			<li><a href="javascript:void(0);" id="signUp">Sign Up</a></li>
+			<li><a href="javascript:void(0);">Login</a></li>
+		</ul> <!-- primary-nav -->
+	</nav> <!-- cd-nav -->
+
+	<div id="cd-search" class="cd-search">
+		<form>
+			<input type="search" placeholder="Search...">
+		</form>
+	</div>
+	
+	

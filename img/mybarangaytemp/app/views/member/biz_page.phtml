@@ -1,0 +1,134 @@
+<style type="text/css">
+	hr.mid-fade {
+	    border: 0;
+	    height: 1px;
+	    background-image: -webkit-linear-gradient(left, rgba(0,0,0,0.1), rgba(0,0,0,0.1), rgba(0,0,0,0.1));
+	    background-image:    -moz-linear-gradient(left, rgba(0,0,0,0.1), rgba(0,0,0,0.1), rgba(0,0,0,0.1));
+	    background-image:     -ms-linear-gradient(left, rgba(0,0,0,0.1), rgba(0,0,0,0.1), rgba(0,0,0,0.1));
+	    background-image:      -o-linear-gradient(left, rgba(0,0,0,0.1), rgba(0,0,0,0.1), rgba(0,0,0,0.1));
+	}
+</style>
+<div class="container bg-white containerBorder">
+
+<!-- <h1 class="text-center">Dashboard</h1> -->
+
+	<div class="col-md-3 profile-widget containerBorder">
+	
+		<?php if(isset($userSession['id'])) { $memberId = $userSession['id']; } else { $memberId = ''; } ?>
+		<?php if($memberId == $member->id) { ?>
+		<?php $this->partial("layouts/elements/profile_widget") ?>
+		<?php } ?>
+		<?php if($memberId != $member->id) { ?>
+		<?php $this->partial("layouts/elements/member_widget") ?>
+		<?php } ?>
+	</div>
+
+	<div class="col-md-6">
+		<div class="panel ">
+			<div class="panel-heading">
+				<h3 class="panel-title">Reviews</h3>
+				
+			</div>
+			<div class="panel-body">
+			<?php if(count($reviews) > 0) { ?>
+				<?php foreach ($reviews as $key => $review) { ?>
+					<?php 
+								$category= '';
+								$tempMain = array();
+								$tempTitle = array();
+								$tempSubTitle = array();
+								if(isset($review->Business->BusinessCategoryLists)){
+									foreach ($review->Business->BusinessCategoryLists as $key => $businessCategoryList) {
+										$mainY = 0;
+
+										if(!in_array($businessCategoryList->BusinessCategories->main_title, $tempMain)) {
+											$mainY = 1;
+											$tempMain[] = $businessCategoryList->BusinessCategories->main_title;
+											$category .= $businessCategoryList->BusinessCategories->main_title;
+										} 
+										$titleY = 0;
+										if($businessCategoryList->BusinessCategories->title){
+											if(!in_array($businessCategoryList->BusinessCategories->title, $tempTitle)) {
+												$titleY = 1;
+												$tempTitle[] = $businessCategoryList->BusinessCategories->title;
+												if($mainY == 1){
+													$category .= ' <i class="fa fa-caret-right"></i> '.$businessCategoryList->BusinessCategories->title;
+												} else {
+													$category .= $businessCategoryList->BusinessCategories->title;
+												}
+											}									
+										}
+										if($businessCategoryList->BusinessCategories->sub_title){
+											if(!in_array($businessCategoryList->BusinessCategories->sub_title, $tempSubTitle)) {
+												$tempSubTitle[] = $businessCategoryList->BusinessCategories->sub_title;
+												if($titleY == 0){
+													$category .= ' <i class="fa fa-caret-right"></i> '.$businessCategoryList->BusinessCategories->sub_title;
+												} else {
+													$category .= $businessCategoryList->BusinessCategories->sub_title;
+												}
+											}
+										}
+								 		$category .= ', ';
+								 	}
+								}  
+							 	$category = substr($category, 0, -2);
+							?>
+				
+					
+					<div class="row" data-url="business/view/<?php echo $review->Business->id; ?>">
+					
+						<div class="col-md-2">
+						    <a href="#">
+						    <?php 
+							 		$img = 'http://placehold.it/150x150&text=Image';
+							 		foreach ($review->Business->BusinessImages as $key => $bizImage) {
+							 			$img = $bizImage->file_path.$bizImage->filename;
+							 		}
+							 	?>
+						      <?php echo Phalcon\Tag::image(array($img, 'class' => 'media-object img-responsive img-rounded biz-result')); ?>
+						    </a>
+						</div>
+						<div class="col-md-10">					    	
+							<h4 class="media-heading"><strong><?php echo Phalcon\Tag::linkTo('business/view/'.$review->Business->id.'/'.str_replace(' ', '+', $review->Business->name), $review->Business->name); ?></strong> | <small><?php echo $category; ?></small></h4>
+							<?php if($memberId == $member->id) { ?>
+							<div class="btn-group pull-right">
+							<?php echo Phalcon\Tag::linkTo(array('review/update/'.$review->Business->id.'/'.$review->id, '<span class="fa fa-pencil"></span>', 'class' => 'text-danger', 'data-toggle' => 'tooltip', 'title' => 'Edit review')); ?>
+							</div>
+					    	<?php } ?>
+					    	<small><span class="fa fa-map-marker"></span> <?php echo $review->Business->street; ?>, <?php echo $review->Business->city; ?>, <?php echo $review->Business->Countries->country; ?></small>
+					  </div>
+					<div class="col-md-12">
+						
+						<small data-toggle="tooltip" title="Last updated" class="pull-right"><span class="fa fa-clock-o"></span> <?php echo date('M d, Y h:i A', strtotime($review->modified)); ?></small>
+						<br>
+						<p><?php echo $review->content; ?></p>
+						<hr class="mid-fade">
+					</div>
+					</div>
+					
+				
+				<?php } ?>
+				<div class="row">
+					<div class="col-md-12">
+					<?php echo Phalcon\Tag::linkTo(array('review/add/', '<span class="fa fa-pencil"></span> See more...', 'class' => 'btn btn-block btn-primary')); ?>
+					</div>
+				</div>
+			<?php } ?>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3 panel containerBorder">
+		<div class="list-group">
+		  <a href="#" class="list-group-item danger">
+		    Claim Business pending
+		  </a>
+		  <a href="#" class="list-group-item"><span class="glyphicon glyphicon-login" aria-hidden="true"></span> Dapibus ac facilisis in</a>
+		  <a href="#" class="list-group-item"><span class="glyphicon glyphicon-login" aria-hidden="true"></span> Morbi leo risus</a>
+		  <a href="#" class="list-group-item"><span class="glyphicon glyphicon-login" aria-hidden="true"></span>Porta ac consectetur ac</a>
+		  <a href="#" class="list-group-item">Vestibulum at eros</a>
+		</div>
+	</div>
+
+</div>
+
+

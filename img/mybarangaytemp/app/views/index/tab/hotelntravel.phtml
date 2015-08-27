@@ -1,0 +1,274 @@
+<!-- HOTEL & TRAVEL -->
+              <div class="tab-pane fade" id="ht">
+                <div class="container" style="padding:10px;">
+                  <div class="row" style="margin:5px ">
+                    <div class="col-md-12">
+                      
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-9">
+                    <?php if(count($HTravelBizList)>0){ ?>
+                     
+
+                      <div class="width100">
+                        <?php foreach ($HTravelBizList as $key => $biz) { ?>
+                          <?php //if($key < 3) { ?>
+                          <div class="col-md-4 smallPadding">
+                            <div class="item_holder">
+                                <?php $businessLastImg = 'http://placehold.it/220x120'; ?>
+                              <?php //foreach ($biz->BusinessImages as $key => $bizImages) { 
+                                  $latestPicKey = count($biz->BusinessImages) - 1;
+                                  if($latestPicKey >= 0){
+                                    $businessLastImg = $biz->BusinessImages[$latestPicKey]->file_path.$biz->BusinessImages[$latestPicKey]->filename;              }
+                               //} ?>
+                              <?php echo Phalcon\Tag::image(array($businessLastImg, 'class' => 'img-responsive img-rounded item_img')); ?>
+                              <div class="item_desc" style="height: 200px;">
+                                <h4 class="align-center"><?php echo Phalcon\Tag::linkTo(array('business/view/'.$biz->id, '<span class=""></span>'.$biz->name, 'class' => 'text-primary')); ?></h4>
+                                <p style="font-size:12px;"><i class="fa fa-home"></i>&nbsp;&nbsp;<?php echo (isset($biz->street) || ($biz->street = '') ? $biz->street: 'No Street Info'); ?></p>
+                                
+                                <div class="rating1" >
+                                        <?php
+                                              
+                                                $arrayRate = explode('.', $biz->average_rate);
+                                                if(isset($arrayRate[1])){
+                                                  if($arrayRate[1] > 5) { 
+                                                    $arrayRate[0]++; $arrayRate[1] = 0; 
+                                                  }
+                                                  if($arrayRate[1] < 5 && $arrayRate[1] > 0) { 
+                                                     $arrayRate[1] = 5; 
+                                                  }
+                                                } else {
+                                                  $arrayRate[1] = 0;
+                                                }
+                                                $rate = $arrayRate[0].'.'.$arrayRate[1];
+                                                $class_rate = $arrayRate[0].'_'.$arrayRate[1]; 
+                                              ?>
+                                              <i class="salakot-img salakot_<?php echo $class_rate;?>" data-toggle="tooltip" title="<?php echo $rate;?> salakot rating">&nbsp;</i>
+                                    </div>
+                                    <br>
+                                    <?php  //$reviews = Reviews::findFirstByBusinessId($biz->id); ?>
+                                    <?php //if ($reviews): ?>
+                                      <!--<div class="row">
+                                      <div class="md10_width">
+                                         <?php //echo $autoBizFeatList[0]->id; 
+                                            
+                                            // $memberPhotos = MemberPhotos::findFirst(array('member_id="'.$reviews->member_id.'"', 'primary_pic="Yes"'));
+                                            //   $profilePic = 'http://placehold.it/250x250&text=NO+PROFILE+PIC';
+                                            //   if(isset($memberPhotos->filename)) {
+                                            //     $profilePic = $memberPhotos->file_path.$memberPhotos->filename;
+                                            //   }
+                                            //echo $reviews[0]->id;
+
+                                         ?>
+                                          <div class="col-md-3" style="padding-right: 0px;margin-bottom:10px;">
+                                          <?php //echo Phalcon\Tag::image(array($profilePic, 'class' => 'img-responsive img-rounded')); ?>
+                                          </div>
+                                          <div class="col-md-8 pull-left" style="padding-left: 10px;">
+                                              <div style="height:47px;text-overflow:ellipsis; width:14em;text-align:initial;margin-right:25px;white-space:wrap;color:#000;overflow: hidden;line-height:75%">
+                                              <small><?php //echo $reviews->content; ?></small>
+                                          </div>
+                                          </div>
+                                          <div class="row" style="padding-left: 12px;">
+                                            <div class="col-md-12 margin_above" >
+                                              <strong style="width:100%;">
+                                                <?php //echo Phalcon\Tag::linkTo('member/profile/'.$reviews->member_id, $reviews->Members->first_name.' '.substr($reviews->Members->last_name, 0, 1).'.'); ?>
+                                              </strong>
+
+                                              
+                                            </div>
+                                          </div>
+                                          </div>
+                                        </div>-->
+                                    <?php //endif; ?>
+                              </div>
+                            </div>
+                          </div>
+                          <?php// } ?> 
+                        <?php } ?> 
+                      </div>
+                     
+
+                      <span class="pull-right"><strong><a href="" style="color:red!important">.</a></strong></span>
+                      <?php } ?>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="topDealsContainer">
+                          <h4 style="color:#cc2222"><i class="fa fa-bullhorn text-danger"></i><strong> Featured Classifieds</strong></h4>
+
+
+                          <div style="background-color:#fff;">
+                              
+                            <div class="row topDealsName">
+                                <div class="media">
+                                  <div class="media-left">
+                                    
+                                  </div>
+                                  <div class="media-body btn-primary">
+                                    <h4 class="media-heading">Ad Space</h4>
+                                    <p style="font-size:9px;">#1</p>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="row topDealsName">
+                                <div class="media">
+                                  <div class="media-left">
+                                 
+                                  </div>
+                                  <div class="media-body btn-primary">
+                                    <h4 class="media-heading">Ad Space</h4>
+                                    <p style="font-size:9px;">#2</p>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="row topDealsName">
+                                <div class="media">
+                                  <div class="media-left">
+                                    
+                                  </div>
+                                  <div class="media-body btn-primary">
+                                    <h4 class="media-heading">Ad Space</h4>
+                                    <p style="font-size:9px;">#3</p>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="row topDealsName">
+                                <div class="media">
+                                  <div class="media-left">
+                                    
+                                  </div>
+                                  <div class="media-body btn-primary">
+                                    <h4 class="media-heading">Ad Space</h4>
+                                    <p style="font-size:9px;">#4</p>
+                                  </div>
+                                </div>
+                            </div>
+<div class="row topDealsName">
+                                <div class="media">
+                                  <div class="media-left">
+
+                                  </div>
+                                  <div class="media-body btn-primary">
+                                    <h4 class="media-heading">Ad Space</h4>
+                                    <p style="font-size:9px;">#5</p>
+                                  </div>
+                                </div>
+                            </div>
+<div class="row topDealsName">
+                                <div class="media">
+                                  <div class="media-left">
+                                    
+                                  </div>
+                                  <div class="media-body btn-primary">
+                                    <h4 class="media-heading">Ad Space</h4>
+                                    <p style="font-size:9px;">#6</p>
+                                  </div>
+                                </div>
+                            </div>
+
+                          </div>
+                      </div>
+
+                      <div class="latestListContainer">
+                          <h4 style="color:#cc2222"><i class="fa fa-users text-danger"></i><strong> Events</strong></h4>
+
+                          <div style="background-color:#fff;">
+                              
+                            <div class="row latestListName" style="">
+                                <div class="media">
+                                  <div class="media-left">
+                                    <a href="#">
+                                      <img class="media-object" src="http://placehold.it/50x50" alt="...">
+                                    </a>
+                                  </div>
+                                  <div class="media-body btn-primary">
+                                    <h4 class="media-heading">Deal Name</h4>
+                                    <p style="font-size:9px;">details,details,details,details,details,details,</p>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="row latestListName">
+                                <div class="media">
+                                  <div class="media-left">
+                                    <a href="#">
+                                      <img class="media-object" src="http://placehold.it/50x50" alt="...">
+                                    </a>
+                                  </div>
+                                  <div class="media-body btn-primary">
+                                    <h4 class="media-heading">Deal Name</h4>
+                                    <p style="font-size:9px;">details,details,details,details,details,details,</p>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="row latestListName">
+                                <div class="media">
+                                  <div class="media-left">
+                                    <a href="#">
+                                      <img class="media-object" src="http://placehold.it/50x50" alt="...">
+                                    </a>
+                                  </div>
+                                  <div class="media-body btn-primary">
+                                    <h4 class="media-heading">Deal Name</h4>
+                                    <p style="font-size:9px;">details,details,details,details,details,details,</p>
+                                  </div>
+                                </div>
+                            </div>
+
+
+                          </div>
+
+                      </div>
+
+                      <!--<div class="todayInTalkContainer">
+                          <h4 style="color:#cc2222"><i class="fa fa-comments text-danger"></i><strong> Today in Chatter</strong></h4>
+
+                          <div style="background-color:#fff;">
+                              
+
+                            <div class="row todayInTalkName">
+                                <div class="media">
+                                  <div class="media-left">
+                                    <a href="#">
+                                      <img class="media-object" src="http://placehold.it/50x50" alt="...">
+                                    </a>
+                                  </div>
+                                  <div class="media-body btn-primary">
+                                    <h4 class="media-heading">Deal Name</h4>
+                                    <p style="font-size:9px;">details,details,details,details,details,details,</p>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="row todayInTalkName">
+                                <div class="media">
+                                  <div class="media-left">
+                                    <a href="#">
+                                      <img class="media-object" src="http://placehold.it/50x50" alt="...">
+                                    </a>
+                                  </div>
+                                  <div class="media-body btn-primary">
+                                    <h4 class="media-heading">Deal Name</h4>
+                                    <p style="font-size:9px;">details,details,details,details,details,details,</p>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="row todayInTalkName">
+                                <div class="media">
+                                  <div class="media-left">
+                                    <a href="#">
+                                      <img class="media-object" src="http://placehold.it/50x50" alt="...">
+                                    </a>
+                                  </div>
+                                  <div class="media-body btn-primary">
+                                    <h4 class="media-heading">Deal Name</h4>
+                                    <p style="font-size:9px;">details,details,details,details,details,details,</p>
+                                  </div>
+                                </div>
+                            </div>
+
+                          </div>
+                      </div>-->
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>

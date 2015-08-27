@@ -1,0 +1,119 @@
+<div class="col-md-12 panel containerBorder"><!-- profile column -->
+    <div class="top_margin">
+              <div class="row" style="margin:5px;">
+                <div>
+                  <div class="grid">
+                    <figure class="effect-lexi img_link" data-id="<?php echo $userSession['id']; ?>">
+                      <?php
+                      $profilePic = 'http://placehold.it/250x250&text=NO+PROFILE+PIC';
+                      if(isset($userSession['primary_pic']) && !empty($userSession['primary_pic'])) {
+                        $profilePic = $userSession['primary_pic'];
+                      }
+                      ?>
+                       <?php echo Phalcon\Tag::linkTo(array('member/photos/'.$userSession['id'],'id' => 'img_l', Phalcon\Tag::image(array($userSession['primary_pic'], 'class' => 'img-responsive img-thumbnail')))); ?>
+                      <figcaption>
+                        <p><?php echo Phalcon\Tag::linkTo(array('member/add_photo/'.$userSession['id'], '<i class="fa fa-camera-retro fa-2" style="color: #fff;"></i>')); ?></p>
+                      </figcaption>     
+                    </figure>
+                  </div>
+                 <?php //echo Phalcon\Tag::image(array($profilePic, 'class' => 'img-responsive img-thumbnail')); ?>
+                </div>
+              </div>
+              <div class="row" style="margin-top:-15px;">
+                  <div class="col-md-4">
+                    <img src="http://placehold.it/60x60" alt="..." class="img-thumbnail"  style="margin-left:20px;">    
+                  </div>
+                  <div class="col-md-4">
+                    <img src="http://placehold.it/60x60" alt="..." class="img img-thumbnail">    
+                  </div>
+                  <div class="col-md-4">
+                    <img src="http://placehold.it/60x60" alt="..." class="img-thumbnail" style="margin-left:-20px;">    
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-12 text-center">
+                    
+                    <h3><?php echo Phalcon\Tag::linkTo('member/page/'.$userSession['id'] .'/'.$userSession['first_name'] .'+'.$userSession['last_name'] , strtoupper($userSession['first_name'] .' '.substr($userSession['last_name'], 0, 1).'.' )); ?> <?php echo Phalcon\Tag::linkTo(array('member/update/'.$userSession['id'].'/'.$userSession['first_name'].'+'.$userSession['last_name'], '<span class="fa fa-pencil"></span>', 'class' => 'pull-right', 'data-toggle' => 'tooltip', 'title' => 'Update profile')); ?></h3>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                <section class="sidebar">
+                  <ul class="list-group sidebar-menu">
+                    <li class="list-group-item treeview">
+                     <a href="">
+                       <span class="badge pull-right">14</span>
+                        <i class="fa fa-photo text-info"></i>&nbsp;&nbsp;PHOTOS
+                      </a>
+                    </li>
+                    <li class="list-group-item treeview">
+                      <a href="">
+                        <span class="badge pull-right">4</span>
+                        <i class="fa fa-users text-success"></i>&nbsp;&nbsp;FRIENDS
+                      </a>
+                    </li>
+                    <li class="list-group-item treeview">
+                      <a href="">
+                        <span class="badge pull-right">124</span>
+                        <i class="fa fa-comments text-danger"></i>&nbsp;&nbsp;REVIEWS
+                      </a>
+                    </li>
+                    <li class="list-group-item treeview">
+                      <a href="#" class="clickMe">
+                        <span class="badge pull-right">154</span>
+                        <i class="fa fa-th-list text-warning"></i>&nbsp;&nbsp;ADS
+                      </a>
+                      <ul class="list-group treeview-menu">
+                        <li class="list-group-item treeview"><a href="#"><i class="fa fa-car"></i>Automotive</a></li>
+                        <li class="list-group-item treeview"><a href="#"><i class="fa fa-users"></i>Community</a></li>
+                        <li class="list-group-item treeview"><a href="#"><i class="fa fa-cutlery"></i>Food</a></li>
+                        <li class="list-group-item treeview"><a href="#"><i class="fa fa-circle-o"></i>Health & Beauty</a></li>
+                        <li class="list-group-item treeview"><a href="#"><i class="fa fa-bed"></i>Home & Services</a></li>
+                        <li class="list-group-item treeview"><a href="#"><i class="fa fa-credit-card"></i>Financial</a></li>
+                        <li class="list-group-item treeview"><a href="#"><i class="fa fa-plane"></i>Hotels & Travel</a></li>
+                        <li class="list-group-item treeview"><a href="#"><i class="fa fa-building-o"></i>Real Estate</a></li>
+                        <li class="list-group-item treeview"><a href="#"><i class="fa fa-shopping-cart"></i>Shopping</a></li>
+                      </ul>
+                    </li>
+                   
+                  </ul>
+                  </section>
+
+                </div>
+              </div>
+              <br/>
+              <div class="row">
+                <div style="margin-left:15px;width:89%;position:relative;border:1px solid #ccc;border-radius:10px;padding:10px;">
+                  <p>Description,descdescdes<br/>
+                  cdescdescdescdesc</p>
+                </div>
+              </div>
+
+            </div>
+
+            <div style="height:300px;border:1px solid #efefef;margin:10px;background-color:#ccc">
+              <span class="danger text-center">
+                <h2>Container</h2>
+              </span>
+            </div>
+          </div><!-- profile column -->
+
+		
+	
+<script type="text/javascript">
+    
+    $(document).ready(function(){
+
+      $('.img_link').on('click',function(){
+
+        $('#img_l')[0].click();
+
+      });
+
+    });
+	$("a.clickMe").click(function() {
+		$(this).toggleClass("fa fa-chevron-down");
+	});
+
+
+</script>

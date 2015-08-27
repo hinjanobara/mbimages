@@ -1,0 +1,433 @@
+<?php echo $this->tag->javascriptInclude("js/Moment.js"); ?>
+<?php echo $this->tag->javascriptInclude("themes/customize/js/ckeditor/ckeditor.js"); ?>
+
+<?php echo $this->tag->stylesheetLink('css/bootstrap-datepicker.min.css', ['media' => 'screen']);?>
+<?php echo $this->tag->stylesheetLink('css/bootstrap.theme.css'); ?>
+<?php echo $this->tag->stylesheetLink('css/timepicker.css'); ?>
+<?php echo $this->tag->stylesheetLink('css/clockface.css'); ?>
+<?php echo $this->tag->javascriptInclude("js/bootstrap-datepicker.min.js"); ?>
+<?php echo $this->tag->javascriptInclude("js/timepicker.js"); ?>
+<?php echo $this->tag->javascriptInclude("js/clockface.js"); ?>
+<div class="container containerBorder" id="container">
+	<div class="col-md-12 bg-white">
+		<div class="row">
+			<br>
+			<div class="col-md-12 bg-primary">
+				<h1>Add Event</h1>						<button id="test">test</button>
+				<p>Please note: This item will not appear in search results until it has been approved by our moderators.</p>
+			</div>
+		</div>
+		<div class="row">
+			<br>
+			<div class="col-md-3 profile-widget containerBorder">
+				<?php $this->partial("layouts/elements/profile_widget") ?>
+			</div>
+			<?php echo Phalcon\Tag::form(array("event/update/".$event->id, "method" => "post", "id" => "eventNew", "enctype"=>"multipart/form-data")); ?>
+			<div class="col-md-6">
+			  	<div class="col-md-12">
+					<div class="form-group">
+						<label>Event Name</label>
+						<input name="name" type="text" class="form-control" value="<?php echo $event->name; ?>">
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Website</label>
+						<input name="website" type="text" class="form-control" value="<?php echo $event->website; ?>" >
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Telephone</label>
+						<input name="telephone" type="text" class="form-control" value="<?php echo $event->telephone; ?>">
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Event Info</label>
+						<textarea name="event_info" type="textarea" class="ckeditor form-control" ><?php echo $event->eventinfo ?></textarea>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<br>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-3">
+						<input id="numberDates" type="text" class="form-control" value="1">
+					</div>
+					<div class="col-md-3">
+						<button id="addDates" type="button" class="btn btn-primary">Add Date</button>
+					</div>		
+				</div>
+				<div id="when">
+					<?php foreach ($event->EventDatetimes as $datetime): ?>
+					<div class="col-md-12">
+						<div class="form-group">
+							<div class="form-group">
+								<br><label>When</label>
+								<div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+								<input class="form-control" style="width: 100%" type="text" name="date[]" value="<?php echo $datetime->date; ?>" readonly>
+								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+								</div>
+								<input type="hidden" id="dtp_input2"  value="<?php echo $datetime->date; ?>" /><br/>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="form-group">
+							<div class="col-md-6">
+							<input class="form-control t1" type="text" name="fromTime[]" data-format="hh:mm A" class="input-small" value="<?php echo substr($datetime->from_time, 0, 5); ?>">
+							</div>
+							<div class="col-md-6">
+							<input class="form-control t1" type="text" name="toTime[]"  data-format="hh:mm A" class="input-small" value="<?php echo substr($datetime->to_time, 0, 5); ?>">
+							</div>
+						</div>
+					</div>
+				<?php endforeach; ?>
+				</div>
+				<div class="col-md-12">
+					<h3>Image</h3>
+				</div>
+				<?php
+					$fileId = array(0 => '', 1 => '', 2 => '', 3 => '', 4 => '', 5 => '', 6 => '');
+					$propertyImg = array(0 => 'http://placehold.it/100&text=image+1', 1 => 'http://placehold.it/100&text=image+2', 2 => 'http://placehold.it/100&text=image+3', 3 => 'http://placehold.it/100&text=image+4', 4 => 'http://placehold.it/100&text=image+5', 5 => 'http://placehold.it/100&text=image+6', 6 => 'http://placehold.it/100&text=image+7');					
+					$caption = array(0 => '', 1 => '', 2 => '', 3 => '', 4 => '', 5 => '', 6 => '');
+					foreach ($eventPhotos as $key => $thingPhoto) {
+						$fileId[$key] = $thingPhoto->id;
+						$propertyImg[$key] = $thingPhoto->file_path.$thingPhoto->filename;
+						$caption[$key] = $thingPhoto->caption;
+					}
+
+				?>
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Image 1 (primary)</label>
+							<input name="fileId1" value="<?php echo $fileId[0]; ?>" type="text" class="form-control hidden">
+							<input name="image1" data-image="1" type="file" class="form-control file">
+							<label>Caption</label>
+							<textarea name="caption1" class="form-control"><?php echo $caption[0]; ?></textarea>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<?php echo Phalcon\Tag::image(array($propertyImg[0], 'class' => 'img-responsive img-thumbnail', 'id' => 'imagePrev1')); ?>
+					</div>
+					<div class="col-md-1 center-block" data-toggle="tooltip" title="remove" id="action1">
+						<?php if($fileId[0]){ ?>
+							<button class="btn btn-danger btn-xs trash" type="button" data-img="1"><span class="fa fa-trash"></span></button>
+						<?php } ?>
+					</div>
+				</div>
+				<div class="col-md-11">
+					<hr>
+				</div>
+				
+				
+				<div class="col-md-11">
+					<hr>
+				</div>
+					<div class="form-group">
+					  <div class="col-lg-12 text-center">
+						<button id="submit" type="submit" class="btn btn-primary">Add Event</button>
+
+					  </div>
+					</div>
+				
+				<br>
+			</div>
+			<div class="col-md-3 containerBorder">
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Location</label>
+						<input id="address" name="address" type="text" class="form-control" value="<?php echo $event->street . "," . $event->city; ?>" readonly>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Latitude</label>
+						<input id="lat" name="lat" type="text" class="form-control" value="<?php echo $event->lat; ?>"  readonly>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Longitude</label>
+						<input id="lng" name="lng" type="text" class="form-control" value="<?php echo $event->lng; ?> " readonly>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Street(building, place etc..)</label>
+						<input id="street" name="street" type="text" class="form-control" value="<?php echo $event->street; ?>">
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>City<?php //print_r($events->eventscategories); ?></label>
+						<input id="city" name="city" type="text" class="form-control" value="<?php echo $event->city; ?>" >
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Country</label>
+						<select id="country" name="country"  type="select" class="form-control">
+								<option value="">Select Country</option>
+							<?php $countries = Countries::find(); ?>
+							<?php foreach ($countries as $country) {?>
+								<?php if($country->id == $event->country_id) {?>
+									<option value="<?php echo $country->id; ?>" selected><?php echo $country->country; ?></option>
+								<?php } else { ?>
+									<option value="<?php echo $country->id; ?>"><?php echo $country->country; ?></option>
+								<?php }?>
+							<?php } ?>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Category</label>
+						<select name="category"  type="select" class="form-control">
+								<option value="">Select Event category</option>
+								<?php $categories = EventsCategories::find(); ?>
+							<?php foreach ($categories as $category) {?>
+								<?php if ($category->id == $event->event_category_id){ ?>
+										<option value="<?php echo $category->id; ?>" selected><?php echo $category->name; ?></option>
+									<?php } else {?>
+										<option value="<?php echo $category->id; ?>"><?php echo $category->name; ?></option>
+									<?php }?>
+							<?php } ?>
+						</select>
+					</div>
+				</div>
+			</div>
+			<?php echo Phalcon\Tag::endForm(); ?>
+		</div>
+		<br><br>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		function readURL(input, imgNo) {
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+		        reader.onload = function (e) {
+		            $('#imagePrev'+imgNo).attr('src', e.target.result);
+		            $('#action'+imgNo).html('<button class="btn btn-danger btn-xs trash" type="button" data-img="'+imgNo+'"><span class="fa fa-trash"></span></button>');
+		        }
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+
+		$('[type="file"]').change(function(){
+			var imgNo = $(this).data('image');
+		    readURL(this, imgNo);
+		});
+
+		$(document).on('click', '.trash', function(){
+			var imgNo = $(this).data('img');
+			$('input[name="image'+imgNo+'"]').val('');
+		    $('#imagePrev'+imgNo).attr('src', 'http://placehold.it/100&text=image+'+imgNo);
+		    $('#action'+imgNo).html('');
+		});
+		// $('#realtyType').on('change', function(){ 
+		// 	var categoryId = $(this).val();
+		// 	$.getJSON("/mybarangay/realty_categories/list/"+categoryId, function(data) {
+		// 	    $("#realtyCategory option").remove();
+		// 	    $("#realtyCategory").append('<option value=""> Select sub-category</option>');
+		// 	    $.each(data, function(){
+		// 	        $("#realtyCategory").append('<option value="'+ this.id +'">'+ this.name +'</option>')
+		// 	    });
+		// 	});
+		// });
+		
+		$('#upload_more_photos_div').hide();
+		$('#upload_more_photos_btn').click(function() {
+			$('#upload_more_photos_div').show(1000);
+			$(this).hide();
+		});
+	
+                    $('#taym').timepicker({ 'scrollDefault': 'now' });
+               
+		
+
+    	$('.form_time').datetimepicker({
+    		language: 'en',
+	        weekStart: 1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 1,
+			minView: 0,
+			maxView: 2,
+			forceParse: 0
+    	});
+
+    	$(".form_datetime").datetimepicker({
+	        format: "dd MM yyyy - HH:ii P",
+	        showMeridian: true,
+	        autoclose: true,
+	        todayBtn: true
+    	});
+
+    	$('.t1').clockface();
+    		
+    		$('.form_date').datetimepicker({
+		        language:  'en',
+		        weekStart: 1,
+		        todayBtn:  1,
+				autoclose: 1,
+				todayHighlight: 1,
+				startView: 2,
+				minView: 2,
+				forceParse: 0
+    		});
+    	$('#addDates').click(function() {
+    		var count = $('#numberDates').val();
+    		var domm = '<div class="col-md-12">';
+				domm +=	'<div class="form-group">';
+				domm +=	'<div class="form-group">';
+				domm += '<br><label>When</label>';
+				domm += '<div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">';
+				domm +=  '<input class="form-control" style="width: 100%" type="text" name="date[]" value="" readonly>'
+				domm +=	 '<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>';
+				domm +=  '</div>';
+				domm +=	 '<input type="hidden" id="dtp_input2"  value="" /><br/>';
+				domm +=  '</div>';
+				domm +=  '</div>';
+				domm +=	 '</div>';
+				domm +=	 '<div class="col-md-12">';
+				domm +=	 '<div class="form-group">';
+				domm +=	 '<div class="col-md-6">';
+				domm +=	 '<input class="form-control t1" type="text" name="fromTime[]" value="2:30 PM" data-format="hh:mm A" class="input-small" >';
+				domm +=	 '</div>';
+				domm +=	 '<div class="col-md-6">';
+				domm +=	 '<input class="form-control t1" type="text" name="toTime[]" value="2:30 PM" data-format="hh:mm A" class="input-small" >';
+				domm +=	 '</div>';
+				domm +=	 '</div>';
+				domm +=	 '</div>';
+    		for(i = 0; i < count; i++) {
+    			$('#when').append(domm);
+    		}
+    		$('.t1').clockface();
+    		
+    		$('.form_date').datetimepicker({
+		        language:  'en',
+		        weekStart: 1,
+		        todayBtn:  1,
+				autoclose: 1,
+				todayHighlight: 1,
+				startView: 2,
+				minView: 2,
+				forceParse: 0
+    		});
+    	});
+
+		$('#test').click(function() {
+    				$.ajax({
+                        type:"GET",
+                        url:"search",
+                        data:{cname:'adfadfs'},
+                        dataType: "json",
+                        success:function(success){
+                            alert("lat: " + success.lat + " long: " + success.lng);
+                        },
+                        error:function() {
+					        alert("FEHLER!");
+					    }
+                    });
+    	});
+		$('#street').keyup(function() {
+			var location = "";
+
+			if ($('#country').val() == "" && $('#city').val() == "") {
+				location += $(this).val();
+			} else if($('#country').val() == "" && $('#city').val() != "") {
+				location += $(this).val() + "," + $('#city').val();
+			} else if ($('#country') != "" && $('#city').val() == "") {
+				location += $(this).val() + "," + $('#country').val();
+			} else {
+				location += $(this).val() + "," + $('#city').val() + "," + $('#country').val();
+			}
+
+			$.ajax({
+                type:"GET",
+                url:"search",
+                data:{location: location},
+                dataType: "json",
+                success:function(success){
+                   $('#lat').val(success.lat);
+                   $('#lng').val(success.lng);
+                   $('#address').val(location);
+                },
+                error:function() {
+					console.log("error");
+				}
+           	});
+
+
+		});
+		$('#city').keyup(function() {
+			var location = "";
+
+			if ($('#country').val() == "" && $('#street').val() == "") {
+				location += $(this).val();
+			} else if($('#country').val() == "" && $('#street').val() != "") {
+				location += $('#street').val() + "," + $(this).val();
+			} else if ($('#country') != "" && $('#street').val() == "") {
+				location += $(this).val() + "," + $('#country').val();
+			} else {
+				location += $('#street').val() + "," + $(this).val() + "," + $('#country').val();
+			}
+
+			$.ajax({
+                type:"GET",
+                url:"search",
+                data:{location: location},
+                dataType: "json",
+                success:function(success){
+                   $('#lat').val(success.lat);
+                   $('#lng').val(success.lng);
+                   $('#address').val(location);
+                },
+                error:function() {
+					console.log("error");
+				}
+           	});
+
+
+		});
+		$('#country').change(function() {
+			var location = "";
+
+			if ($('#street').val() == "" && $('#city').val() == "") {
+				location += $(this).val();
+			} else if($('#street').val() == "" && $('#city').val() != "") {
+				location += $('#city').val() + "," + $(this).val();
+			} else if ($('#street') != "" && $('#city').val() == "") {
+				location += $('#street').val() + "," + $(this).val();
+			} else {
+				location += $('#street').val() + "," + $('#city').val() + "," + $(this).val();
+			}
+
+			$.ajax({
+                type:"GET",
+                url:"search",
+                data:{location: location},
+                dataType: "json",
+                success:function(success){
+                   $('#lat').val(success.lat);
+                   $('#lng').val(success.lng);
+                   $('#address').val(location);
+                },
+                error:function() {
+					console.log("error");
+				}
+           	});
+
+
+		});
+    	$('#submit').click(function() {
+    		$('#eventNew').submit();
+    	});
+	});
+</script>
+

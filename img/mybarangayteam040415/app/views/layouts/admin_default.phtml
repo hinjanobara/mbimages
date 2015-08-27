@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>MyBarangay | Administration</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <?php echo $this->tag->stylesheetLink("themes/admin/css/bootstrap.min.css"); ?>
+    <!-- Font Awesome Icons -->
+    <?php //echo $this->tag->stylesheetLink("themes/admin/css/font-awesome.min.css"); ?>
+     <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" /> -->
+     <?php echo $this->tag->stylesheetLink("themes/admin/css/font-awesome.min.css"); ?>
+    <!-- Ionicons -->
+    <?php echo $this->tag->stylesheetLink("themes/admin/css/ionicons.min.css"); ?>
+    <!-- Theme style -->
+    <?php echo $this->tag->stylesheetLink("themes/admin/css/AdminLTE.min.css"); ?>
+    <!-- AdminLTE Skins. Choose a skin from the css/skins 
+         folder instead of downloading all of them to reduce the load. -->
+    <?php echo $this->tag->stylesheetLink("themes/admin/css/skins/_all-skins.min.css"); ?>
+	<?php echo $this->tag->javascriptInclude("themes/admin/plugins/jQuery/jQuery-2.1.3.min.js"); ?>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <!-- ADD THE CLASS layout-boxed TO GET A BOXED LAYOUT -->
+  <body class="skin-blue layout-boxed">
+    <!-- Site wrapper -->
+    <div class="wrapper">
+      
+      
+      
+      <?php $this->partial("layouts/elements/admin_top_nav") ?>
+
+      <!-- =============================================== -->
+
+      <?php $this->partial("layouts/elements/admin_sidebar") ?>
+
+      <!-- =============================================== -->
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        
+          <?php echo $this->getContent() ?>
+      </div><!-- /.content-wrapper -->
+
+      <!-- <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Version</b> 2.0
+        </div>
+        <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
+      </footer> -->
+    </div>
+
+  
+    <!-- Bootstrap 3.3.2 JS -->
+    <?php echo $this->tag->javascriptInclude("themes/admin/js/bootstrap.min.js"); ?>
+    <!-- SlimScroll -->
+    <?php echo $this->tag->javascriptInclude("themes/admin/plugins/slimScroll/jquery.slimscroll.min.js"); ?>
+    <!-- FastClick -->
+    <?php echo $this->tag->javascriptInclude("themes/admin/plugins/fastclick/fastclick.min.js"); ?>
+    <!-- AdminLTE App -->
+    <?php echo $this->tag->javascriptInclude("themes/admin/js/app.min.js"); ?>
+    <!-- AdminLTE for demo purposes -->
+ 
+  </body>
+</html>

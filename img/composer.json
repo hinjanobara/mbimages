@@ -1,0 +1,15 @@
+{
+    "authors": [
+        {
+            "name": "Sherwin Robles",
+            "email": "sherwinrobles@gmail.com",
+            "homepage": "http://www.sherwinrobles.com",
+            "role": "Developer"
+        },
+    ]
+}
+{
+    "require": {
+        "crada/phalcon-user-plugin": "@dev"
+    }
+}

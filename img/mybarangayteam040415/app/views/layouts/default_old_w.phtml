@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>MyBarangay</title>
+
+    <!-- Bootstrap core CSS -->
+    <?php echo $this->tag->stylesheetLink("themes/customize/css/bootstrap.min.css"); ?>
+    <!-- Custom styles for this template -->
+    <?php echo $this->tag->stylesheetLink("themes/customize/css/customize.css"); ?>
+     <?php echo $this->tag->javascriptInclude("themes/customize/js/jquery.min.js"); ?>
+  
+  </head>
+
+  <body>
+ 
+    <nav class="navbar navbar navbar-fixed-top" style="border-bottom:1px solid #003082;background-color:#f5f5f5!important;height:100px;">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+        <div class="row">
+            <div class="col-md-4">
+              <a class="navbar-brand" href="#">
+                <?php echo Phalcon\Tag::image(array("themes/customize/img/logo1.png",'alt' => 'Logo','class' =>'logo-head'));?>
+              </a>
+            </div>
+            <div class="col-md-6" style="margin-left:-50px;" >
+              <div class="row">
+                <div class="col-md-12">
+                     
+                  <form class="form-inline" style="border:3px solid #003082;margin-top:5px;margin-bottom:3px;background-color:#003082">
+                    <div class="form-group" style="border:3px solid #003082;">
+                      <label class="sr-only" for="exampleInputEmail3">Email address</label>
+                      <input type="email" class="form-control" id="exampleInputEmail3" style="width:280px;" placeholder="Find?">
+                    </div>
+                    <div class="form-group" style="border:3px solid #003082;margin-left:-5px!important">
+                      <label class="sr-only" for="exampleInputPassword3">Password</label>
+                      <input type="text" class="form-control" id="exampleInputPassword3" style="width:280px;" placeholder="Near?">
+                    </div>
+                    <button type="submit" class="btn btn-danger" style="margin:0!important;">
+                      <span class="glyphicon glyphicon-search" style="font-size:20px;" aria-hidden="true"></span>
+                    </button>
+                  </form>
+              
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                    <ul class="nav nav-pills menu_home">
+                      <li><a href="#" class="cuztomize_color">Home</a></li>
+                      <li><a href="#" class="cuztomize_color">Chatter</a></li>
+                      <li><a href="review/search_business" class="cuztomize_color">Write a Review</a></li>
+                      <li><a href="#" class="cuztomize_color">Classifieds</a></li>
+                      <li>
+                        <select class="form-control" style="width:250px;!important">
+                         <option>--------------SEARCH----------</option>
+                        </select>
+                      </li>
+                    </ul>
+                </div>
+              </div>
+                
+            </div>
+            <div class="col-md-2">
+            <?php if( !isset($userSession) ) { ?>
+             
+                 <div class="row">
+                  <div class="col-md-12">
+                    <a href="" class="cuztomize_color" data-target="#login" data-toggle="modal"><h4><strong>Login</strong></h4></a>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <a href="" class="cuztomize_color" data-target="#register" data-toggle="modal"><h4><strong>Sign Up</strong></h4></a>
+                  </div>
+                </div>
+            <?php } else { ?>
+              <div class="row">
+                  <div class="col-md-12">
+                    <?php echo Phalcon\Tag::linkTo('logout', '<h4><strong>Logout</strong></h4>'); ?>
+                  </div>
+              </div>
+            <?php } ?>
+               
+            </div>
+        </div>
+        
+        </div><!--/.navbar-collapse -->
+      </div>
+    </nav>
+	
+
+	<main class="cd-main-content">
+		<?php echo $this->getContent() ?>
+		
+	</main>
+
+	
+	
+	
+   <div class="container-fluid" style="background-color:#015788;margin-bottom:-20px!important;height:100px;bottom:0;position:relative;">
+      <div class="container" style="color:#fff;">
+      <br/>
+          <footer>
+            <p><strong>&copy; Copyright MyBarangay 2015</strong></p>
+          </footer>
+           <div class="pull-left">
+            <a href="#"><img src="http://placehold.it/40x40" class="circle"></a>
+            <a href="#"><img src="http://placehold.it/40x40" class="circle"></a>
+            <a href="#"><img src="http://placehold.it/40x40" class="circle"></a>
+            <a href="#"><img src="http://placehold.it/40x40" class="circle"></a>
+            <a href="#"><img src="http://placehold.it/40x40" class="circle"></a>
+          </div>
+          <ul class="nav nav-pills pull-right">
+            <li><a style="color:#fff!important;"href="#">About</a></li>
+            <li><a style="color:#fff!important;"href="#">Contact Us</a></li>
+            <li><a style="color:#fff!important;"href="#">Disclaimer</a></li>
+          </ul>
+          <br/>
+ 
+      </div>
+    
+    </div> <!-- /container -->
+
+   
+    <?php echo $this->tag->javascriptInclude("themes/customize/js/bootstrap.min.js"); ?>
+  </body>
+</html>

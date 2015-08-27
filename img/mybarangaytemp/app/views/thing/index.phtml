@@ -1,0 +1,149 @@
+<div id="container" class="container">
+	<div class="col-md-12">
+		<div class="row containerBorder">
+			<div class="col-md-3">
+				<br>
+				<div class="panel panel-default bg-primary">
+					<div class="panel-body">
+						<form method="post" action="">						
+						<div class="form-group">
+							<label style="color:#597EA8!important;">Name</label>
+							<input type="text" class="form-control" name="name">
+						</div>
+						<div class="form-group">
+							<label style="color:#597EA8!important;">Item Category</label>
+							<select class="form-control" type="select" name="thing_category_id">
+								<?php //$thing_categories = ThingCategories::find(); ?>
+								<option value="">Select category</option>
+									<!-- retrieve all thing categories-->
+									<?php foreach ($thing_categories as $thing_category): ?>
+										<?php echo "<option value=\"". $thing_category->id ."\">". 
+										$thing_category->name ."</option>"; 
+										?>
+									<?php endforeach; ?>
+							</select>
+						</div>
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-12">
+									<label style="color:#597EA8!important;">Price Range</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-5">
+									<input type="text" class="form-control" name="price_from">
+								</div>
+								<div class="col-md-2 text-center"><span style="color:#597EA8!important;">|</span></div>
+								<div class="col-md-5">
+									<input type="text" class="form-control" name="price_to">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<button name="submit" class="btn btn-danger btn-block" type="submit">Search</button>
+						</div>
+						</form>					
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<h4 class="text-primary"><strong>Selling item?</strong></h4>
+						<a class="btn btn-primary btn-block btn-lg restricted" href="/mybarangayteam/thing/new">Post your ad now</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<br>
+				<div style="background-color: #DC0000!important;color:#fff;">
+					<div class="panel-body form-horizontal">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Sort</label>
+								<div class="col-lg-8">
+									<select class="form-control" type="select" name="country_id">
+										<option value="">Post date and relevance</option>
+										<option value="">Highest Rate</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="col-lg-8 control-label">Items per page</label>
+								<div class="col-lg-4">
+									<select class="form-control" type="select" name="country_id">
+										<option value="">10</option>
+										<option value="">20</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<h3><strong class="text-danger">Find your dream item now!</strong></h3>
+
+							<div class="row">
+							<?php foreach ($things as $thing): ?>
+								<div class="col-md-4" style="overflow:hidden; position:relative;height: 250px; text-overflow: ellipsis; border: solid #808080 1px;">
+									<div <?php echo "data-url=\"thing/view/\"".$thing->id; ?> style="border:1px solid #efefef;padding:10px;margin-bottom:10px;">
+									<?php
+										$thingPhoto = 'http://placehold.it/230x230&text=no+photo';
+										$rPhotoCount = count($thing->thingphotos);
+										if ($rPhotoCount > 0) {
+											$thingPhoto = $thing->thingphotos[0]->file_path.$thing->thingphotos[0]->filename;
+										}
+									?>
+										 <a href="<?php echo "thing/view/$thing->id"; ?>">
+										 <?php
+										 	echo Phalcon\Tag::image([$thingPhoto, 'class' => 'media-object img-responsive img-rounded item_img1']);
+										 ?>
+										 </a>
+										 <div class="width100">
+											 <p class="text-center">
+											 <?php $strlen = strlen($thing->name); 
+											 	if ($strlen > 21) {
+											 		$title = substr($thing->name, 0, 20) . '...';
+											 	} else {
+											 		$title = $thing->name;
+											 	}
+											 ?>
+											 <?php echo "<a class=\"text-primary thingName\" href=\"/mybarangayteam/thing/view/".$thing->id."/\">".$title."</a>"; ?>
+											 	</p>
+											 <p title="" data-toggle="tooltip" class="text-center  price" data-original-title="Price"><label class="label label-danger label-lg">P <?php echo $thing->price; ?></label></p>
+											 
+											 	<h5 class="text-center text-primary"><strong><i class="fa fa-cube"></i>&nbsp;&nbsp;<?php echo $thing->thingcategories->name; ?></strong></h5>
+										 </div>
+									</div>
+								</div>
+							<?php endforeach; ?>
+							</div>	<!-- end row -->						
+							<div class="row">
+								<div class="col-md-12">
+									<div class="col-md-4">
+										<p class="pagination pull-left"><?php echo "You are in page ", $thing_p->current, " of ", $thing_p->total_pages;?></p>
+									</div>
+									<div class="col-md-8">
+										<ul class="pagination pull-right">
+										  	<li class="disabled"><a href="/mybarangayteam/thing/index">«</a></li>
+										  	<li><a href="/mybarangayteam/thing_p/index?page=<?php echo $thing_p->before; ?>">Previous</a></li>
+										  	<?php for ($i=1; $i <= $thing_p->total_pages ; $i++) { ?> 
+										  		<?php if ($thing_p->current = $i) {?>
+										  			<li class="active"><a href="/mybarangayteam/thing/index?page=<?= $i; ?>"><?php echo $i; ?></a></li>
+										  		<?php } else { ?>
+										  			<li><a href="/mybarangayteam/thing/index?page=<?= $i; ?>"><?php echo $i; ?></a></li>
+										  		<?php } ?>
+										  	<?php }?>
+  										  	<li><a href="/mybarangayteam/thing/index?page=<?php echo $thing_p->next; ?>">Next</a></li>
+										  	<li><a href="/mybarangayteam/thing/index?page=<?php echo $thing_p->last;?>">»</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

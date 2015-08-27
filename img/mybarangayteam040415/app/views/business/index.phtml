@@ -1,0 +1,139 @@
+<div class="container" id="container">
+	<div class="col-md-12 bg-white">
+		<div class="row containerBorder">
+			<div class="col-md-3">
+				<br>
+				<div class="panel panel-default bg-primary">
+					<div class="panel-body">
+						<?php echo Phalcon\Tag::form(array("business/index", "method" => "post")); ?>
+						<div class="form-group">
+							<label class="color_lightb">Business Name</label>
+							<input name="name" type="text" class="form-control" >
+						</div>
+						<div class="form-group">
+							<label class="color_lightb">Address</label>
+							<input name="address" type="text" class="form-control" >
+						</div>
+						<div class="form-group">
+							<label class="color_lightb">Business Category</label>
+							<select name="business_category_id"  type="select" class="form-control">
+									<option value="">Select category</option>
+								<?php foreach ($businessCategories as $key => $businessCategory) { ?>
+									<option value="<?php echo $businessCategory->id; ?>"><?php echo $businessCategory->name; ?></option>
+								<?php } ?>
+							</select>
+						</div>
+						<div class="form-group">
+							<button type="submit" class="btn btn-danger btn-block" name="submit">Search</button>
+						</div>
+						<?php echo Phalcon\Tag::endForm(); ?>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<h4 class="text-primary"><strong>Not here? Tell us what we're missing.</strong></h4>
+							<p>If the business you're looking for isn't here, add it!</p>
+							<?php echo Phalcon\Tag::linkTo(array('review/new_business', 'Add A Business', 'class' => 'btn btn-block btn-lg btn-primary')); ?>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<br>
+				<div class="panel panel-default bg-danger">
+					<div class="panel-body form-horizontal">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Sort</label>
+								<div class="col-lg-8">
+									<select name="country_id"  type="select" class="form-control">
+										<option value="">Post date and relevance</option>
+										<option value="">Highest Rate</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="col-lg-8 control-label">Business per page</label>
+								<div class="col-lg-4">
+									<select name="country_id"  type="select" class="form-control">
+										<option value="">10</option>
+										<option value="">20</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<?php if(!empty($searchWords)) { ?>
+						<h3 ><strong class="text-danger"><?php echo count($business); ?> result(s) for </strong><small class="text-primary"><strong><?php echo $searchWords; ?></small></strong></h3>
+						<?php } else { ?>
+						<h3 class="text-danger"><strong>See the business you’d like to review?</strong></h3>
+						<?php }  ?>
+						<hr class="red">
+						<?php if(isset($business)){ ?>
+						<?php $mapMarkers = ""; $mapInfoWindow= ""; ?>
+							<?php foreach ($business->items as $key => $biz) { ?>
+							<?php $mapMarkers .= ",['".$biz->name."', ".$biz->lat.", ".$biz->lng."]"; ?>
+							<?php $mapInfoWindow .= ",['<div class=\"info_content line-height-60\"><h3 class=\"text-danger\">".$biz->name."</h3><p class=\"text-primary\"><strong>".$biz->BusinessCategories->name."</strong></p><p><a href=\"".$biz->website."\" target=\"_BLANK\">".$biz->website."</a></p><p>".$biz->telephone."</p><p>".$biz->street.", ".$biz->city.", ".$biz->Countries->country."</p></div>']"; ?>
+							<div class="media item-list" data-url="/mybarangay/business/view/<?php echo $biz->id; ?>">
+							  <div class="media-left media-middle">
+							    <a href="#">
+							      <?php echo Phalcon\Tag::image(array("themes/mybarangay1/img/biz/mybarangay.jpg", 'class' => 'media-object img-responsive img-rounded biz-result')); ?>
+							    </a>
+							  </div>
+							  <div class="media-body biz-result-body">
+							    <div class="col-md-5">
+							    	<h4 class="media-heading"><strong><?php echo Phalcon\Tag::linkTo('business/view/'.$biz->id, $biz->name); ?></strong></h4>
+							    	<p><?php echo $biz->BusinessCategories->name; ?></p>
+							    	<p><?php echo $biz->website; ?></p>
+							    	<?php echo Phalcon\Tag::linkTo(array('review/add/'.$biz->id, '<span class="fa fa-star"></span> Write a review', 'class' => 'btn btn-danger')); ?>
+							    </div>
+							    <div class="col-md-7">
+							    	<p><span class="fa fa-map-marker"></span> <?php echo $biz->street; ?></p>
+							    	<p>&nbsp;<?php echo $biz->city; ?></p>
+							    	<p>&nbsp;<?php echo $biz->Countries->country; ?></p>
+							    	<p><span class="fa fa-phone-square"></span> <?php echo $biz->telephone; ?></p>
+							    </div>
+							  </div>
+							</div>
+							<hr class="red">
+					<?php } ?>
+						<div class="row">
+							<div class="col-md-4">
+							<p class="pagination pull-left"><?php echo "You are in page ", $business->current, " of ", $business->total_pages; ?></p>
+							</div>
+							<div class="col-md-8">
+							<ul class="pagination pull-right">
+							  <li class="disabled"><a href="/mybarangay/business/index">«</a></li>
+							  <li ><a href="/mybarangay/business/index?page=<?= $business->before; ?>">Previous</a></li>
+							  <?php for ($i=1; $i <= $business->total_pages ; $i++) { ?>
+							  	<?php if($business->current == $i) { ?>
+							  		<li class="active"><a href="/mybarangay/business/index?page=<?= $i; ?>"><?php echo $i; ?></a></li>
+							  	<?php } else { ?>
+							  		<li><a href="/mybarangay/business/index?page=<?= $i; ?>"><?php echo $i; ?></a></li>
+							  	<?php } ?>
+							  <?php } ?>
+							  <li><a href="/mybarangay/business/index?page=<?= $business->next; ?>">Next</a></li>
+							  <li><a href="/mybarangay/business/index?page=<?= $business->last; ?>">»</a></li>
+							</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<?php } ?>
+					
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.media').on('click', function(){
+			window.location.href = $(this).data('url');
+		});
+	});
+</script>

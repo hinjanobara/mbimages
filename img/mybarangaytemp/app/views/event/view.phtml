@@ -1,0 +1,104 @@
+<div class="container" id="container">
+	<div class="col-md-12 containerBorder">
+		<div class="row">
+			<br>
+			<div class="col-md-3 containerBorder">
+				<?php $member = $event->Members; ?>
+				<?php if(isset($userSession['id'])) { $memberId = $userSession['id']; } else { $memberId = ''; } ?>
+				<?php if($memberId == $member->id) { ?>
+				<?php $this->partial("layouts/elements/profile_widget") ?>
+				<?php } ?>
+				<?php if($memberId != $member->id) { ?>
+				<?php $this->partial("layouts/elements/member_widget") ?>
+				<?php } ?>
+				<div class="panel panel-default well">
+					<div class="panel-body">
+					<h3 class="text-danger"><strong>Another container</strong></h3>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<div class="col-md-12 bg-primary">
+					<div class="col-md-9">
+					<h2><?php echo $event->name; ?></h2>
+					<p><?php echo $event->website; ?></p>
+					</div>
+				</div>
+				<div class="col-md-8">
+				<br>
+				<div class="row">
+				<?php foreach($event->eventPhotos as $key => $eventPhoto){ ?>
+					<?php if($key == 0){ ?>
+						<div class="col-md-12">
+						<?php echo Phalcon\Tag::image(array($eventPhoto->file_path.$eventPhoto->filename, 'class' => 'img-responsive img-thumbnail')); ?>
+						</div>
+						
+					<?php } else { ?>
+						<div class="col-md-2">
+						<br>
+						<?php echo Phalcon\Tag::image(array($eventPhoto->file_path.$eventPhoto->filename, 'class' => 'img-responsive img-thumbnail')); ?>
+						</div>
+					<?php } ?>
+				<?php } ?>
+				</div>
+					<?php if ($memberId == $event->member_id) {?>
+					<div class="pull-right">
+					<?php echo Phalcon\Tag::linkTo(array('event/update/'.$event->id, '<span class="fa fa-pencil"></span>', 'data-toggle' => 'tooltip', 'title' => 'Edit', 'class' => 'text-danger')); ?>
+					</div>
+					<?php } ?>
+				<br>
+					<h2>Description</h2>
+					<p class="text-justify"><?php echo $event->eventinfo; ?></p>
+					
+				</div>
+				<div class="col-md-4">
+				<br>	
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<h3 class="title-heading text-primary"><strong>Where</strong></h3>	
+
+					<?php
+						$country = Countries::findFirst($event->country_id);
+						$myaddress = $event->street . "," . $event->city.",".$country->country;
+						$url = "http://maps.googleapis.com/maps/api/geocode/json?address=tektite+towers,+ortigas+center,+pasig+city&sensor=false";
+						$getmap = file_get_contents($url);
+						$googlemap = json_decode($getmap);
+						foreach($googlemap->results as $res){
+							 $address = $res->geometry;
+							 $latlng = $address->location;
+							 $formattedaddress = $res->formatted_address; 
+						}
+					?>
+					<p><span class="fa fa-map-marker "> <?php echo $myaddress; ?></p>
+					<div id="map">
+					
+						 <iframe class="map" width="235" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=<?php echo $myaddress;?>&amp;ie=UTF8&amp;hq=&amp;hnear=<?php echo urlencode($formattedaddress);?>&amp;t=m&amp;z=14&amp;iwloc=A&amp;output=embed"></iframe>
+
+					</div>
+						</div>
+					</div>
+					<div class="panel panel-default ">
+						<div class="panel-body">
+							<h3 class="title-heading text-primary"><strong>Information</strong></h3>
+							<ul class="list-group">
+								<li class="list-group-item"><p><span class="fa fa-phone "></span> <?php echo $event->telephone; ?></p></li>
+							<li class="list-group-item"><p><span class="fa fa-clock-o "></span> Date posted <?php echo $event->modified; ?></p></li>
+							</ul>
+							<h3 class="title-heading text-primary"><strong>When</strong></h3>
+							<ul class="list-group">
+							<?php foreach($event->EventDatetimes as $date): ?>
+							  <li class="list-group-item"><i class="fa fa-calendar"></i> <?php echo $date->date . "<br>";?><i class="fa fa-clock-o"></i> <?php echo $date->from_time . " - ". $date->to_time; ?></li>
+							<?php endforeach; ?>
+							</ul>
+						</div>
+					</div>
+					<div class="panel panel-default well">
+						<div class="panel-body">
+						<h3 class="text-danger"><strong>Related Events</strong></h3>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

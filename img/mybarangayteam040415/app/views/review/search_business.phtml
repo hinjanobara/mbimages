@@ -1,0 +1,314 @@
+<?php echo $this->tag->stylesheetLink("themes/mybarangay1/css/select2.min.css"); ?>
+<?php echo $this->tag->javascriptInclude("themes/mybarangay1/js/select2.min.js"); ?>
+
+<div class="container" id="container" >
+	<div class="col-md-12">
+		<div class="row containerBorder">
+			<!-- <div class="col-md-12 bg-primary">
+			<br>
+			<div class="col-md-8 ">
+				<h1>Search Business</h1>
+				<h3>Review everything from your favorite burger to your dentist.</h3>
+				<form action="search_business" method="post" class="" id="newBusinessForm">
+				  	<div class="col-md-5">
+						<div class="form-group">
+						  <div class="input-group">
+						    <span class="input-group-btn">
+						      <button class="btn btn-default" type="button">Find</button>
+						    </span>
+						    <input name="name" type="text" class="form-control">
+						  </div>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<div class="form-group">
+						  <div class="input-group">
+						    <span class="input-group-btn">
+						      <button class="btn btn-default" type="button">Near</button>
+						    </span>
+						    <input name="address" type="text" class="form-control">
+						  </div>
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<button name="searchBtn" type="submit" class="btn btn-danger" ><span class="fa fa-search"></span></button>
+						</div>
+					</div>
+				</form>	
+			</div>
+			<div class="col-md-4 text-center">
+				<center>
+				<?php //echo Phalcon\Tag::image(array("themes/mybarangay1/img/biz/mybarangay.jpg", 'class' => 'media-object img-responsive img-thumbnail img-circle img-block biz-search-logo')); ?>
+				</center>
+				<br>
+			</div>
+			</div> -->
+
+			<div class="col-md-3">
+				<br>
+				<div class="panel panel-default bg-primary">
+					<div class="panel-body">
+						<?php echo Phalcon\Tag::form(array("review/search_business", "method" => "post")); ?>
+						<div class="form-group">
+						    <label style="color:#597EA8!important;">Business Name</label>
+						    <input name="name" type="text" class="form-control">
+						</div>
+						<div class="form-group">
+						    <label style="color:#597EA8!important;">Location</label>
+						    <input name="address" type="text" class="form-control">
+						</div> 
+						<div class="form-group">
+							<label style="color:#597EA8!important;">Business Category</label>
+							<input type="hidden" name="business_category_id" id="businessCategoryId">
+							<select name="business_category"  type="select" class="form-control js-data-example-ajax" id="businessCategories" placeholder="Select categories">
+							</select>
+						</div>
+						<div class="form-group">
+							<button name="searchBtn" type="submit" class="btn btn-danger btn-block" ><span class="fa fa-search"></span> Search</button>
+						</div>
+						<?php echo Phalcon\Tag::endForm(); ?>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<h4 class="text-primary"><strong>Not here? Tell us what we're missing.</strong></h4>
+							<p>If the business you're looking for isn't here, add it!</p>
+							<?php echo Phalcon\Tag::linkTo(array('review/new_business', '+ Add A Business', 'class' => 'btn btn-block btn-lg btn-primary restricted')); ?>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<br>
+				<div style="background-color: #DC0000!important;color:#fff;">
+					<div class="panel-body form-horizontal">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Sort</label>
+								<div class="col-lg-8">
+									<select name="country_id"  type="select" class="form-control">
+										<option value="highest_rating">Highest Rating</option>
+										<option value="most_reviews">Most Reviews</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="col-lg-8 control-label">Business per page</label>
+								<div class="col-lg-4">
+									<select name="country_id"  type="select" class="form-control">
+										<option value="">10</option>
+										<option value="">20</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<h3 class="text-danger"><strong>See the business you’d like to review?</strong></h3>
+						<hr class="red">
+						<?php if(isset($business)){ ?>
+						<div class="row">
+							<?php foreach ($business->items as $key => $biz) { ?>
+
+							<?php 
+								$category= '';
+								$tempMain = array();
+								$tempTitle = array();
+								$tempSubTitle = array();
+
+								foreach ($biz->BusinessCategoryLists as $key => $businessCategoryList) {
+									$mainY = 0;
+
+									if(!in_array($businessCategoryList->BusinessCategories->main_title, $tempMain)) {
+										$mainY = 1;
+										$tempMain[] = $businessCategoryList->BusinessCategories->main_title;
+										$category .= $businessCategoryList->BusinessCategories->main_title;
+									} 
+									$titleY = 0;
+									if($businessCategoryList->BusinessCategories->title){
+										if(!in_array($businessCategoryList->BusinessCategories->title, $tempTitle)) {
+											$titleY = 1;
+											$tempTitle[] = $businessCategoryList->BusinessCategories->title;
+											if($mainY == 1){
+												$category .= ' <i class="fa fa-caret-right"></i> '.$businessCategoryList->BusinessCategories->title;
+											} else {
+												$category .= $businessCategoryList->BusinessCategories->title;
+											}
+										}									
+									}
+									if($businessCategoryList->BusinessCategories->sub_title){
+										if(!in_array($businessCategoryList->BusinessCategories->sub_title, $tempSubTitle)) {
+											$tempSubTitle[] = $businessCategoryList->BusinessCategories->sub_title;
+											if($titleY == 0){
+												$category .= ' <i class="fa fa-caret-right"></i> '.$businessCategoryList->BusinessCategories->sub_title;
+											} else {
+												$category .= $businessCategoryList->BusinessCategories->sub_title;
+											}
+										}
+									}
+							 		$category .= ', ';
+							 	}  
+							 	$category = substr($category, 0, -2);
+							?>
+
+										<div class="col-md-4">
+											<div style="border:1px solid #efefef;padding:10px;margin-bottom:10px;"  data-url="business/view/<?php echo $biz->id; ?>" style="border:2px solid #000">
+											 <a href="#">
+											 	<?php 
+											 		$img = 'themes/mybarangay1/img/biz/mybarangay.jpg';
+											 		foreach ($biz->BusinessImages as $key => $bizImage) {
+											 			$img = $bizImage->file_path.$bizImage->filename;
+											 		}
+											 	?>
+											 	<?php echo Phalcon\Tag::image(array($img, 'class' => 'item_img1')); ?>
+											  </a>
+											  <div class="item_desc1 width100">
+											  	<span class="text-primary"><strong>
+											  
+											  	<?php echo Phalcon\Tag::linkTo(array('business/view/'.$biz->id, '<span class=""></span>'.$biz->name, 'class' => 'text-primary')); ?>
+													
+											  	</strong></span>
+											    	<p><i class="fa fa-bookmark"></i>&nbsp;&nbsp;<?php echo $category; ?></p>
+											    	<!-- <p><i class="fa fa-globe"></i>&nbsp;&nbsp;<?php echo $biz->website; ?></p> -->
+											    	<p>Rating:</p>
+													<div class="rating1" style="margin-top:-15px;margin-left:40px;">
+									                      <?php
+									                              $ctr = 0; 
+									                              while($ctr<$biz->average_rate) {
+									                                  $ctr++;
+									                              }
+									                              $arrayRate = explode('.', $biz->average_rate);
+									                              	if(isset($arrayRate[1])){
+										                              if($arrayRate[1] > 5) { 
+										                              	$arrayRate[0]++; $arrayRate[1] = 0; 
+										                              }
+										                              if($arrayRate[1] < 5 && $arrayRate[1] > 0) { 
+										                              	 $arrayRate[1] = 5; 
+										                              }
+										                            } else {
+										                            	$arrayRate[1] = 0;
+										                            }
+										                          //use variable $rate for your css class salakot  possible result are 0.0, 0.5, 1, 1.5, 2, 2.5, 3, and so on... 									
+										                          
+									                              if(!$arrayRate[0]){
+									                              	$arrayRate[0] = 0;
+									                              }
+									                              $rate = $arrayRate[0].'.'.$arrayRate[1];
+									                              $class_rate = $arrayRate[0].'_'.$arrayRate[1]; 
+									                            ?>
+									                            <i class="salakot-img salakot_<?php echo $class_rate;?>" data-toggle="tooltip" title="<?php echo $rate;?> salakot rating">&nbsp;</i>
+									                  </div>
+											    	<?php echo Phalcon\Tag::linkTo(array('review/add/'.$biz->id, '<span class="glyphicon glyphicon-pencil"></span> Write a review', 'class' => 'btn btn-danger col-md-12 button_write restricted')); ?>
+											 
+											  </div>
+											 
+											 
+											    	
+											   
+											  </div>
+											</div>
+											
+							
+						
+					<?php } ?>
+					</div>
+						<div class="row">
+							<div class="col-md-4">
+							<p class="pagination pull-left"><?php echo "You are in page ", $business->current, " of ", $business->total_pages; ?></p>
+							</div>
+							<div class="col-md-8">
+							<ul class="pagination pull-right">
+							  <li class="disabled"><a href="/mybarangayteam/review/search_business">«</a></li>
+							  <li ><a href="/mybarangayteam/review/search_business?page=<?= $business->before; ?>">Previous</a></li>
+							  <?php for ($i=1; $i <= $business->total_pages ; $i++) { ?>
+							  	<?php if($business->current == $i) { ?>
+							  		<li class="active"><a href="/mybarangayteam/review/search_business?page=<?= $i; ?>"><?php echo $i; ?></a></li>
+							  	<?php } else { ?>
+							  		<li><a href="/mybarangayteam/review/search_business?page=<?= $i; ?>"><?php echo $i; ?></a></li>
+							  	<?php } ?>
+							  <?php } ?>
+							  <li><a href="/mybarangayteam/review/search_business?page=<?= $business->next; ?>">Next</a></li>
+							  <li><a href="/mybarangayteam/review/search_business?page=<?= $business->last; ?>">»</a></li>
+							</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<?php } ?>
+					
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.media').on('click', function(){
+			window.location.href = $(this).data('url');
+		});
+
+		$('[data-toggle="tooltip"]').tooltip();
+
+		$('#businessCategories').on('change', function(){
+			var id = $(this).val();
+			$('#businessCategoryId').val(id);
+		});
+
+		function formatRepo (category) {
+			var markup = '';
+		    if (category.loading) return category.text;
+
+		    markup = 
+		    '<div class="category_item" id="'+category.id+'">' + category.main_title + ' <i class="fa fa-caret-right"></i> ' + category.title + ' <i class="fa fa-caret-right"></i> ' + category.sub_title +'</div>';
+
+		    if (!category.sub_title) {
+		    	markup = 
+			    '<div class="category_item" id="'+category.id+'">' + category.main_title + ' <i class="fa fa-caret-right"></i> ' + category.title + '</div>' ;
+		    }
+		    return markup;
+		  }
+
+		  function formatRepoSelection (category) {
+		  	var markup = 
+		    '<div class="category_item" id="'+category.id+'">' + category.main_title + ' <i class="fa fa-caret-right"></i> ' + category.title + ' <i class="fa fa-caret-right"></i> ' + category.sub_title +'</div>';
+		  	if (!category.sub_title) {
+		    	markup = 
+			    '<div class="category_item" id="'+category.id+'">' + category.main_title + ' <i class="fa fa-caret-right"></i> ' + category.title + '</div>' ;
+		    }
+			return markup;
+		  }
+
+
+		$(".js-data-example-ajax").select2({
+		  ajax: {
+		    url: "/mybarangay/business_category/list",
+		    dataType: 'json',
+		    delay: 250,
+		    data: function (params) {
+		      return {
+		        q: params.term, // search term
+		        page: params.page
+		      };
+		    },
+		    processResults: function (data, page) {
+		      // parse the results into the format expected by Select2.
+		      // since we are using custom formatting functions we do not need to
+		      // alter the remote JSON data
+		      return {
+		        results: data.items
+		      };
+		    }
+		  },
+		  escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+		  minimumInputLength: 3,
+		  templateResult: formatRepo, // omitted for brevity, see the source of this page
+		  templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+		});
+
+	});
+</script>
+

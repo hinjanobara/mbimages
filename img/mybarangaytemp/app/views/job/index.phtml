@@ -1,0 +1,180 @@
+<div class="container" id="container">
+	<div class="col-md-12 bg-white">
+		<div class="row containerBorder">
+			<div class="col-md-3">
+				<br>
+				<div class="panel panel-default bg-primary">
+					<div class="panel-body">
+						<?php echo Phalcon\Tag::form(array("job/index", "method" => "post")); ?>
+						<div class="form-group">
+							<label style="color:#597EA8!important;">Position</label>
+							<input name="position" type="text" class="form-control" >
+						</div>
+						<div class="form-group">
+							<label style="color:#597EA8!important;">Job Category</label>
+							<select name="job_category_id"  type="select" class="form-control">
+									<option value="">Select category</option>
+								<?php foreach ($jobCategories as $key => $jobCategory) { ?>
+									<option value="<?php echo $jobCategory->id; ?>"><?php echo $jobCategory->name; ?></option>
+								<?php } ?>
+							</select>
+						</div>
+						<div class="form-group">
+							<label style="color:#597EA8!important;">Company</label>
+							<input name="company" type="text" class="form-control" placeholder="">
+						</div>
+						<div class="form-group">
+							<label style="color:#597EA8!important;">Location</label>
+							<input name="address" type="text" class="form-control" placeholder="street, city, country">
+						</div>
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-12">
+									<label style="color:#597EA8!important;">Salary Range</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-5">
+									<input name="salary_from" type="text" class="form-control" >
+								</div>
+								<div class="col-md-2 text-center"><span style="color:#597EA8!important;">|</span></div>
+								<div class="col-md-5">
+									<input name="salary_to" type="text" class="form-control" >
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<button type="submit" class="btn btn-danger btn-block" name="submit">Search</button>
+						</div>
+						<?php echo Phalcon\Tag::endForm(); ?>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<h4 class="text-primary"><strong>Looking for candidates?</strong></h4>
+							<?php echo Phalcon\Tag::linkTo(array('job/new', 'Post your job ad now', 'class' => 'btn btn-primary btn-block btn-lg')); ?>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<br>
+				<div style="background-color: #DC0000!important;color:#fff;">
+		
+						<div class="panel-body form-horizontal">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="col-lg-2 control-label">Sort</label>
+									<div class="col-lg-8">
+										<select name="country_id"  type="select" class="form-control">
+											<option value="">Post date and relevance</option>
+											<option value="">Highest Rate</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="col-lg-8 control-label">Jobs per page</label>
+									<div class="col-lg-4">
+										<select name="country_id"  type="select" class="form-control">
+											<option value="">10</option>
+											<option value="">20</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+				
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<?php if(!empty($searchWords)) { ?>
+						<h3 ><strong class="text-danger"><?php echo count($jobs); ?> result(s) for </strong><small class="text-primary"><strong><?php echo $searchWords; ?></small></strong></h3>
+						<?php } else { ?>
+						<h3 ><strong class="text-danger">Find your dream job now!</strong></h3>
+						<?php }  ?>
+						<hr class="red">
+						<?php if(isset($jobs)){ ?>
+						<div class="row">
+							<?php 
+								$i = 1;
+								foreach ($jobs->items as $key => $job) { ?>
+						<div class="col-md-4" style="overflow:hidden; position:relative;height: 280px; text-overflow: ellipsis; border: solid #808080 1px;">
+							<div style="border:1px solid #efefef;padding:10px;margin-bottom:10px;"  data-url="job/view/<?php echo $job->id; ?>" style="border:2px solid #000">
+								 <a href="#">
+								 	<?php 
+								 		$jobLogo = 'http://placehold.it/230x230';
+								 		if(count($job->JobLogos)>0){ 
+								 			$jobLogo = $job->JobLogos[0]->file_path.$job->JobLogos[0]->filename;
+								 		} 
+								 	?>
+								 	<?php echo Phalcon\Tag::image(array($jobLogo, 'class' => 'media-object img-responsive img-rounded item_img1')); ?>
+								 </a>
+								 <div class="width100">
+								 <?php $strlen = strlen($job->position); 
+										if ($strlen > 28) {
+											$title = substr($job->position, 0, 20) . '...';
+										} else {
+											$title = $job->position;
+										}
+								?>
+								<?php if ($i < 4): ?>
+									<p style="vertical-align: text-bottom;">
+									<span class="label label-danger label-as-badge" >Ad</span>
+									<?php endif; $i++ 
+								?>
+								 <strong>
+								 	<?php echo Phalcon\Tag::linkTo(array('job/view/'.$job->id.'/'.str_replace(' ', '+', $job->position.'/'.$job->company), $title,'class' => 'text-primary')); ?>
+								 </strong>
+								 	<p><i class="fa fa-bookmark"></i>&nbsp;&nbsp;<?php echo $job->JobCategories->name; ?></p>
+							    	<p><i class="fa fa-university"></i>&nbsp;&nbsp;<?php echo $job->company; ?></p>
+							    	<p><i class="fa fa-home"></i>&nbsp;&nbsp;<?php echo $job->street; ?>, <?php echo $job->city; ?>, <?php echo $job->Countries->country; ?></label>
+							    	<?php if(isset($userSession)){ ?>
+							    	<p data-toggle="tooltip" title="Salary range"><span class="fa fa-money"></span> <?php echo number_format($job->salary_from,2).' - '.number_format($job->salary_to,2); ?></p>
+							    	<?php } ?>
+							    	<small data-toggle="tooltip" title="Last updated"><span class="fa fa-clock-o"></span> <?php echo date('M d, Y h:i A', strtotime($job->modified)); ?></small>
+								 </div>
+							</div>
+						</div>
+						
+							
+							
+					<?php } ?>
+						<div class="row">
+							<div class="col-md-4">
+							<p class="pagination pull-left"><?php echo "You are in page ", $jobs->current, " of ", $jobs->total_pages; ?></p>
+							</div>
+							<div class="col-md-8">
+							<ul class="pagination pull-right">
+							  <li class="disabled"><a href="/mybarangayteam/job/index">«</a></li>
+							  <li ><a href="/mybarangayteam/job/index?page=<?= $jobs->before; ?>">Previous</a></li>
+							  <?php for ($i=1; $i <= $jobs->total_pages ; $i++) { ?>
+							  	<?php if($jobs->current == $i) { ?>
+							  		<li class="active"><a href="<?php echo $this->url->getBaseUri(); ?>job/index?page=<?= $i; ?>"><?php echo $i; ?></a></li>
+							  	<?php } else { ?>
+							  		<li><a href="<?php echo $this->url->getBaseUri(); ?>job/index?page=<?= $i; ?>"><?php echo $i; ?></a></li>
+							  	<?php } ?>
+							  <?php } ?>
+							  <li><a href="<?php echo $this->url->getBaseUri(); ?>job/index?page=<?= $jobs->next; ?>">Next</a></li>
+							  <li><a href="<?php echo $this->url->getBaseUri(); ?>job/index?page=<?= $jobs->last; ?>">»</a></li>
+							</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			</div>
+			<?php } ?>
+					
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.media').on('click', function(){
+			window.location.href = $(this).data('url');
+		});
+	});
+</script>

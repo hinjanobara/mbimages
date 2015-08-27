@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="themes/mybarangay1/css/reset.css"> <!-- CSS reset -->
+	<?php echo $this->tag->stylesheetLink("themes/mybarangay1/css/reset.css"); ?>
+	<?php echo $this->tag->stylesheetLink("themes/mybarangay1/css/bootstrap.min.css"); ?>
+	<?php echo $this->tag->stylesheetLink("themes/mybarangay1/css/bootflat.min.css"); ?>
+	<?php echo $this->tag->stylesheetLink("themes/mybarangay1/css/mega-menu-style.css"); ?>
+	<?php echo $this->tag->stylesheetLink("themes/mybarangay1/css/animated-text.css"); ?>
+	<?php echo $this->tag->stylesheetLink("themes/mybarangay1/css/morphing-modal-window.css"); ?>
+	<?php echo $this->tag->stylesheetLink("themes/mybarangay1/css/font-awesome.min.css"); ?>
+	<?php echo $this->tag->stylesheetLink("themes/mybarangay1/css/custom.css"); ?>
+	
+	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+	<?php echo $this->tag->javascriptInclude("themes/mybarangay1/js/modernizr.js"); ?><!-- Modernizr -->
+  	
+	<title>MyBarangay | Venue for all of us to follow our hearts and come together to share, connect and feel at home.</title>
+</head>
+<body>
+
+	<?php $this->partial("layouts/elements/mega-menu") ?>
+	<header class="cd-main-header">
+		<?php echo $this->tag->linkTo(array('', 'MyBarangay', 'class' => 'cd-logo')) ?>
+		<ul class="cd-header-buttons">
+			<li><a class="cd-search-trigger" href="#cd-search">Search<span></span></a></li>
+			<li><a class="cd-nav-trigger" href="#cd-primary-nav">Menu<span></span></a></li>
+		</ul> <!-- cd-header-buttons -->
+	</header>
+
+	<main class="cd-main-content">
+		<?php //echo $this->getContent() ?>
+		
+		
+</main>
+
+	
+	
+	
+<?php echo $this->tag->javascriptInclude("themes/mybarangay1/js/jquery-2.1.1.js"); ?>
+<?php echo $this->tag->javascriptInclude("themes/mybarangay1/js/jquery.mobile.custom.min.js"); ?>
+<?php echo $this->tag->javascriptInclude("themes/mybarangay1/js/mega-menu.js"); ?>
+<?php echo $this->tag->javascriptInclude("themes/mybarangay1/js/animated-text.js"); ?>
+<?php echo $this->tag->javascriptInclude("themes/mybarangay1/js/velocity.min.js"); ?>
+<?php echo $this->tag->javascriptInclude("themes/mybarangay1/js/morphing-modal-window.js"); ?>
+<?php echo $this->tag->javascriptInclude("themes/mybarangay1/js/site.min.js"); ?>	
+
+<script>
+	$(document).ready(function() {
+		$('#signUp').on('click', function(){
+			$('[data-type="modal-trigger"]').trigger('click');
+			$('[data-type="modal-trigger"]')[0].click();
+			$('#container').fadeOut('fast');
+		});
+		$('[data-type="modal-trigger"]').on('click', function(){
+			$('#container').fadeOut('fast');
+		});
+		$('.cd-modal-close').on('click', function(){
+			$('#container').fadeIn('slow');
+		});
+	});
+</script>
+
+</body>
+</html>

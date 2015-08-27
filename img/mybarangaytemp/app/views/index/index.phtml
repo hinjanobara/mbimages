@@ -1,0 +1,85 @@
+
+      <!-- <h3 class="text-danger text-center"> 
+        <strong>Isang Mundo. Isang wika. Isang barangay<br/>
+        Tuloy po kayo, Welcome Home.</strong>
+      </h3> -->
+<?php //$this->partial('index/carousel/carousel'); 
+	$this->partial('index/carousel/jumbotron');
+?>
+
+<div class="container-fluid" style="background-color:#fff;padding:0px;" style="height: 200px; overflow: scroll;">
+
+        <div class="navPillsDiv col-md-12">
+        <div class="container" style="width:1200px;">
+          <ul class="nav nav-tabs nav-justified" style="margin-top:4px;">
+          <li role="presentation" class="active"><a href="#auto" class="menu_button" role="tab" data-toggle="tab"><strong class="navPillsA">Automotive</strong></a></li>
+          <li role="presentation"><a href="#community" class="menu_button" role="tab" data-toggle="tab"><strong class="navPillsA">Lifestyle</strong></a></li>
+          <li role="presentation"><a href="#food" class="menu_button" role="tab" data-toggle="tab"><strong class="navPillsA">Food</strong></a></li>
+          <li role="presentation"><a href="#hb" class="menu_button" role="tab" data-toggle="tab"><strong class="navPillsA">Health&nbsp;&&nbsp;Beauty</strong></a></li>
+          <li role="presentation"><a href="#hs" class="menu_button" role="tab" data-toggle="tab"><strong class="navPillsA">Home&nbsp;&&nbsp;Services</strong></a></li>
+          <li role="presentation"><a href="#pf" class="menu_button" role="tab" data-toggle="tab"><strong class="navPillsA">Profesional & Financial</strong></a></li>
+          <li role="presentation"><a href="#ht" class="menu_button" role="tab" data-toggle="tab"><strong class="navPillsA">Hotels&nbsp;&&nbsp;Travel</strong></a></li>
+          <li role="presentation"><a href="#re" class="menu_button" role="tab" data-toggle="tab"><strong class="navPillsA">Real&nbsp;&nbsp;Estate</strong></a></li>
+          <li role="presentation"><a href="#shopping" class="menu_button" role="tab" data-toggle="tab"><strong class="navPillsA">Shopping</strong></a></li>
+        </ul>
+        </div>
+
+<div style="height: 480px; overflow: scroll;">  
+<?php $this->flash->output(); ?> 
+      <?php
+          $this->partial('index/tab/automotive'); 
+          $this->partial('index/tab/community');
+          $this->partial('index/tab/food');
+          $this->partial('index/tab/healthnbeauty');
+          $this->partial('index/tab/homenservices');
+          $this->partial('index/tab/professionalnfinancial');
+          $this->partial('index/tab/hotelntravel');
+          $this->partial('index/tab/realestate');
+          $this->partial('index/tab/shopping');
+        ?>
+</div>      
+</div>
+
+<script>
+$(document).ready(function() {
+	$('.carousel').carousel();
+
+	$('.hideable').hide();
+	$('#chkpoint').val('1');
+	$('#1').show();
+	
+	$('#prev').click(function() {
+		if ($('#chkpoint').val() == '1') {
+			$('.hideable').hide();
+			$('#3').show();
+			$('#chkpoint').val('3');
+		} else if ($('#chkpoint').val() == '2') {
+			$('.hideable').hide();
+			$('#1').show();
+			$('#chkpoint').val('1');
+		} else if ($('#chkpoint').val() == '3') {
+			$('.hideable').hide();
+			$('#2').show();
+			$('#chkpoint').val('2');
+		}
+	});
+
+	$('#next').click(function() {
+		if ($('#chkpoint').val() == '1') {
+			$('.hideable').hide();
+			$('#2').show();
+			$('#chkpoint').val('2');
+		} else if ($('#chkpoint').val() == '2') {
+			$('.hideable').hide();
+			$('#3').show();
+			$('#chkpoint').val('3');
+		} else if ($('#chkpoint').val() == '3') {
+			$('.hideable').hide();
+			$('#1').show();
+			$('#chkpoint').val('1');
+		}
+	});
+});
+</script>
+
+           

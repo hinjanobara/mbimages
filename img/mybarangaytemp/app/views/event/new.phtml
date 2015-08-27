@@ -1,0 +1,320 @@
+<?php echo $this->tag->javascriptInclude("js/Moment.js"); ?>
+<?php echo $this->tag->javascriptInclude("themes/customize/js/ckeditor/ckeditor.js"); ?>
+
+<?php echo $this->tag->stylesheetLink('css/bootstrap-datepicker.min.css', ['media' => 'screen']);?>
+<?php //echo $this->tag->stylesheetLink('css/bootstrap.theme.css'); ?>
+<?php echo $this->tag->stylesheetLink('css/timepicker.css'); ?>
+<?php echo $this->tag->stylesheetLink('css/clockface.css'); ?>
+<?php echo $this->tag->javascriptInclude("js/bootstrap-datepicker.min.js"); ?>
+<?php echo $this->tag->javascriptInclude("js/timepicker.js"); ?>
+<?php echo $this->tag->javascriptInclude("js/clockface.js"); ?>
+<div class="container containerBorder" id="container">
+	<div class="col-md-12 bg-white">
+		<div class="row">
+			<br>
+			<div class="col-md-12 bg-primary">
+				<h1>Add Event</h1>						
+				<!--<button id="test">test</button>-->
+				<p>Please note: This item will not appear in search results until it has been approved by our moderators.</p>
+			</div>
+		</div>
+		<div class="row">
+			<br>
+			<div class="col-md-3 profile-widget containerBorder">
+				<?php $this->partial("layouts/elements/profile_widget") ?>
+			</div>
+			<?php echo Phalcon\Tag::form(array("event/new", "method" => "post", "id" => "eventNew", "enctype"=>"multipart/form-data")); ?>
+			<div class="col-md-6">
+			<?php $this->flash->output(); ?>
+			  	<div class="col-md-12">
+				
+					<div class="form-group">
+						<label>Event Name</label>
+						<input name="name" type="text" class="form-control" >
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Website</label>
+						<input name="website" type="text" class="form-control" >
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Telephone</label>
+						<input name="telephone" type="text" class="form-control" >
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Event Info</label>
+						<textarea name="event_info" type="textarea" class="ckeditor form-control" ></textarea>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<br>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-3">
+						<input id="numberDates" type="text" class="form-control" value="1">
+					</div>
+					<div class="col-md-3">
+						<button id="addDates" type="button" class="btn btn-primary">Add Date</button>
+					</div>		
+				</div>
+				<div id="when">
+					
+				</div>
+				<div class="col-md-12">
+					<h3>Image</h3>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Image/Banner</label>
+							<input name="image" data-image="1" type="file" class="form-control file">
+							<label>Caption</label>
+							<textarea name="caption" class="form-control"></textarea>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<img src="http://placehold.it/100&text=image+1" id="imagePrev1" class="img-responsive img-thumbnail">
+					</div>
+					<div class="col-md-1 center-block" data-toggle="tooltip" title="remove" id="action1">
+					</div>
+				</div>
+				<div class="col-md-11">
+					<hr>
+				</div>
+				
+				
+				<div class="col-md-11">
+					<hr>
+				</div>
+					<div class="form-group">
+					  <div class="col-lg-12 text-center">
+						<button id="submit" type="submit" class="btn btn-primary">Add Event</button>
+
+					  </div>
+					</div>
+				
+				<br>
+			</div>
+			<div class="col-md-3 containerBorder">
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Location</label>
+						<input id="address" name="address" type="text" class="form-control" readonly>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Latitude</label>
+						<input id="lat" name="lat" type="text" class="form-control" readonly>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Longitude</label>
+						<input id="lng" name="lng" type="text" class="form-control" readonly>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Street(building, place etc..)</label>
+						<input id="street" name="street" type="text" class="form-control" >
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>City<?php //print_r($events->eventscategories); ?></label>
+						<input id="city" name="city" type="text" class="form-control" >
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Country</label>
+						<select id="country" name="country"  type="select" class="form-control">
+								<option value="">Select Country</option>
+								
+							<?php foreach ($countries as $country) {?>
+								<option value="<?php echo $country->id; ?>"><?php echo $country->country; ?></option>
+							<?php } ?>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Category</label>
+						<select name="category"  type="select" class="form-control">
+								<option value="">Select Event category</option>
+								
+							<?php foreach ($categories as $category) {?>
+								<option value="<?php echo $category->id; ?>"><?php echo $category->name; ?></option>
+							<?php } ?>
+						</select>
+					</div>
+				</div>
+			</div>
+			<?php echo Phalcon\Tag::endForm(); ?>
+		</div>
+		<br><br>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		function readURL(input, imgNo) {
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+		        reader.onload = function (e) {
+		            $('#imagePrev'+imgNo).attr('src', e.target.result);
+		            $('#action'+imgNo).html('<button class="btn btn-danger btn-xs trash" type="button" data-img="'+imgNo+'"><span class="fa fa-trash"></span></button>');
+		        }
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+
+		$('[type="file"]').change(function(){
+			var imgNo = $(this).data('image');
+		    readURL(this, imgNo);
+		});
+
+		$(document).on('click', '.trash', function(){
+			var imgNo = $(this).data('img');
+			$('input[name="image'+imgNo+'"]').val('');
+		    $('#imagePrev'+imgNo).attr('src', 'http://placehold.it/100&text=image+'+imgNo);
+		    $('#action'+imgNo).html('');
+		});
+		// $('#realtyType').on('change', function(){ 
+		// 	var categoryId = $(this).val();
+		// 	$.getJSON("/mybarangay/realty_categories/list/"+categoryId, function(data) {
+		// 	    $("#realtyCategory option").remove();
+		// 	    $("#realtyCategory").append('<option value=""> Select sub-category</option>');
+		// 	    $.each(data, function(){
+		// 	        $("#realtyCategory").append('<option value="'+ this.id +'">'+ this.name +'</option>')
+		// 	    });
+		// 	});
+		// });
+		
+		$('#upload_more_photos_div').hide();
+		$('#upload_more_photos_btn').click(function() {
+			$('#upload_more_photos_div').show(1000);
+			$(this).hide();
+		});
+	
+                    $('#taym').timepicker({ 'scrollDefault': 'now' });
+               
+		
+
+    	$('.form_time').datetimepicker({
+    		language: 'en',
+	        weekStart: 1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 1,
+			minView: 0,
+			maxView: 2,
+			forceParse: 0
+    	});
+
+    	$(".form_datetime").datetimepicker({
+	        format: "dd MM yyyy - HH:ii P",
+	        showMeridian: true,
+	        autoclose: true,
+	        todayBtn: true
+    	});
+
+
+    	$('#addDates').click(function() {
+    		var count = $('#numberDates').val();
+    		var domm = '<div class="col-md-12">';
+				domm +=	'<div class="form-group">';
+				domm +=	'<div class="form-group">';
+				domm += '<br><label>When</label>';
+				domm += '<div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">';
+				domm +=  '<input class="form-control" style="width: 100%" type="text" name="date[]" value="" readonly>'
+				domm +=	 '<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>';
+				domm +=  '</div>';
+				domm +=	 '<input type="hidden" id="dtp_input2"  value="" /><br/>';
+				domm +=  '</div>';
+				domm +=  '</div>';
+				domm +=	 '</div>';
+				domm +=	 '<div class="col-md-12">';
+				domm +=	 '<div class="form-group">';
+				domm +=	 '<div class="col-md-6">';
+				domm +=	 '<input class="form-control t1" type="text" name="fromTime[]" value="2:30 PM" data-format="hh:mm A" class="input-small" >';
+				domm +=	 '</div>';
+				domm +=	 '<div class="col-md-6">';
+				domm +=	 '<input class="form-control t1" type="text" name="toTime[]" value="2:30 PM" data-format="hh:mm A" class="input-small" >';
+				domm +=	 '</div>';
+				domm +=	 '</div>';
+				domm +=	 '</div>';
+    		for(i = 0; i < count; i++) {
+    			$('#when').append(domm);
+    		}
+    		$('.t1').clockface();
+    		
+    		$('.form_date').datetimepicker({
+		        language:  'en',
+		        weekStart: 1,
+		        todayBtn:  1,
+				autoclose: 1,
+				todayHighlight: 1,
+				startView: 2,
+				minView: 2,
+				forceParse: 0
+    		});
+    	});
+
+		// $('#test').click(function() {
+  //   				$.ajax({
+  //                       type:"GET",
+  //                       url:"search",
+  //                       data:{cname:'adfadfs'},
+  //                       dataType: "json",
+  //                       success:function(success){
+  //                           alert("lat: " + success.lat + " long: " + success.lng);
+  //                       },
+  //                       error:function() {
+		// 			        alert("FEHLER!");
+		// 			    }
+  //                   });
+  //   	});
+
+		$('#country').change(function() {
+			var location = "";
+
+			if ($('#street').val() == "" && $('#city').val()) {
+				location += $(this).val();
+			} else if($('#street').val() == "" && $('#city').val() != "") {
+				location += $('#city').val() + "," + $(this).val();
+			} else if ($('#street') != "" && $('#city').val() == "") {
+				location += $('#street').val() + "," + $(this).val();
+			} else {
+				location += $('#street').val() + "," + $('#city').val() + "," + $(this).val();
+			}
+
+			$.ajax({
+                type:"GET",
+                url:"search",
+                data:{location: location},
+                dataType: "json",
+                success:function(success){
+                   $('#lat').val(success.lat);
+                   $('#lng').val(success.lng);
+                   $('#address').val(location);
+                },
+                error:function() {
+					alert("FEHLER!");
+				}
+           	});
+
+
+		});
+    	$('#submit').click(function() {
+    		$('#eventNew').submit();
+    	});
+	});
+</script>
+

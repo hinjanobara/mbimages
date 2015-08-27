@@ -1,0 +1,174 @@
+<div class="topDealsContainer">
+                          <h4 style="color:#cc2222"><i class="fa fa-bullhorn text-danger"></i><strong> Featured Ad(s)</strong></h4>
+
+
+                          <div style="background-color:#fff;">
+                              
+                            <div class="row topDealsName">
+                                <div class="media">
+                                  <div class="media-left">
+                                    
+                                  </div>
+                                  <div class="media-body btn-primary">
+                                    <h4 class="media-heading">Ad Space</h4>
+                                    <p style="font-size:9px;">#1</p>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="row topDealsName">
+                                <div class="media">
+                                  <div class="media-left">
+                                 
+                                  </div>
+                                  <div class="media-body btn-primary">
+                                    <h4 class="media-heading">Ad Space</h4>
+                                    <p style="font-size:9px;">#2</p>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="row topDealsName">
+                                <div class="media">
+                                  <div class="media-left">
+                                    
+                                  </div>
+                                  <div class="media-body btn-primary">
+                                    <h4 class="media-heading">Ad Space</h4>
+                                    <p style="font-size:9px;">#3</p>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="row topDealsName">
+                                <div class="media">
+                                  <div class="media-left">
+                                    
+                                  </div>
+                                  <div class="media-body btn-primary">
+                                    <h4 class="media-heading">Ad Space</h4>
+                                    <p style="font-size:9px;">#4</p>
+                                  </div>
+                                </div>
+                            </div>
+<div class="row topDealsName">
+                                <div class="media">
+                                  <div class="media-left">
+
+                                  </div>
+                                  <div class="media-body btn-primary">
+                                    <h4 class="media-heading">Ad Space</h4>
+                                    <p style="font-size:9px;">#5</p>
+                                  </div>
+                                </div>
+                            </div>
+<div class="row topDealsName">
+                                <div class="media">
+                                  <div class="media-left">
+                                    
+                                  </div>
+                                  <div class="media-body btn-primary">
+                                    <h4 class="media-heading">Ad Space</h4>
+                                    <p style="font-size:9px;">#6</p>
+                                  </div>
+                                </div>
+                            </div>
+
+                          </div>
+                      </div>
+
+                      <div class="latestListContainer">
+                          <h4 style="color:#cc2222"><i class="fa fa-users text-danger"></i><strong> Featured Events</strong></h4>
+
+                          <div style="background-color:#fff;">
+                              
+                            <div class="row latestListName" style="">
+                                <div class="media">
+                                  <div class="media-left">
+                                    <a href="#">
+                                      <img class="media-object" src="http://placehold.it/50x50" alt="...">
+                                    </a>
+                                  </div>
+                                  <div class="media-body btn-primary">
+                                    <h4 class="media-heading">Deal Name</h4>
+                                    <p style="font-size:9px;">details,details,details,details,details,details,</p>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="row latestListName">
+                                <div class="media">
+                                  <div class="media-left">
+                                    <a href="#">
+                                      <img class="media-object" src="http://placehold.it/50x50" alt="...">
+                                    </a>
+                                  </div>
+                                  <div class="media-body btn-primary">
+                                    <h4 class="media-heading">Deal Name</h4>
+                                    <p style="font-size:9px;">details,details,details,details,details,details,</p>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="row latestListName">
+                                <div class="media">
+                                  <div class="media-left">
+                                    <a href="#">
+                                      <img class="media-object" src="http://placehold.it/50x50" alt="...">
+                                    </a>
+                                  </div>
+                                  <div class="media-body btn-primary">
+                                    <h4 class="media-heading">Deal Name</h4>
+                                    <p style="font-size:9px;">details,details,details,details,details,details,</p>
+                                  </div>
+                                </div>
+                            </div>
+
+
+                          </div>
+
+                      </div>
+
+                      <div class="todayInTalkContainer">
+                          <h4 style="color:#cc2222"><i class="fa fa-comments text-danger"></i><strong> Today in Chatter</strong></h4>
+
+                          <div style="background-color:#fff;">
+                              
+
+                            <div class="row todayInTalkName">
+                                <div class="media">
+                                  <div class="media-left">
+                                    <a href="#">
+                                      <img class="media-object" src="http://placehold.it/50x50" alt="...">
+                                    </a>
+                                  </div>
+                                  <div class="media-body btn-primary">
+                                    <h4 class="media-heading">Deal Name</h4>
+                                    <p style="font-size:9px;">details,details,details,details,details,details,</p>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="row todayInTalkName">
+                                <div class="media">
+                                  <div class="media-left">
+                                    <a href="#">
+                                      <img class="media-object" src="http://placehold.it/50x50" alt="...">
+                                    </a>
+                                  </div>
+                                  <div class="media-body btn-primary">
+                                    <h4 class="media-heading">Deal Name</h4>
+                                    <p style="font-size:9px;">details,details,details,details,details,details,</p>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="row todayInTalkName">
+                                <div class="media">
+                                  <div class="media-left">
+                                    <a href="#">
+                                      <img class="media-object" src="http://placehold.it/50x50" alt="...">
+                                    </a>
+                                  </div>
+                                  <div class="media-body btn-primary">
+                                    <h4 class="media-heading">Deal Name</h4>
+                                    <p style="font-size:9px;">details,details,details,details,details,details,</p>
+                                  </div>
+                                </div>
+                            </div>
+
+                          </div>
+                      </div>

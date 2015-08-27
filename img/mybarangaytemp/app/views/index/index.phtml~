@@ -1,0 +1,178 @@
+<section class="cd-section">
+		
+		
+			<section class="cd-intro">
+				<h1 class="cd-headline letters type">
+					<span>My favourite food is</span> 
+					<span class="cd-words-wrapper waiting">
+						<b class="is-visible">adobo!</b>
+						<b>lechon!</b>
+						<b>halo-halo! :)</b>
+					</span>
+				</h1>
+			</section> <!-- cd-intro -->
+			<p>We invite you to help build OUR barangay. Come join our vision of a global Filipino community that shares, supports and empowers its members. Let's unite with each other and for each other. Let's put our resources together and grow as one. Let's support our very own talents, initiatives, businesses and professions. Big or small, let's help each other thrive through our barangay.  Let's show our children and the world, the resilience, the will, and the beauty of the Filipino. Together we can. </p>
+			<div class="cd-modal-action">
+				<a href="javascript:void(0);" class="btn btn-info" data-type="modal-trigger" id="modalSignup">Create a free account</a>
+				<span class="cd-modal-bg"></span>
+			</div>
+
+			<div class="cd-modal container">
+				<div class="cd-modal-content">
+					<div class="col-md-4 col-md-offset-1">
+						<h4>Sign Up for MyBarangay</h4>
+						<small>Come join our vision of a global Filipino community that shares, supports and empowers its members.</small><br><br>
+						<div class="form-group">
+						<button class="btn btn-fb btn-block"><i class="fa fa-facebook-official"></i> Sign up with FACEBOOK</button><small>Don't worry, we never post without your permission.</small>
+						</div>
+						<hr>
+							<form >
+								  <fieldset>
+									<div class="form-group">
+										<input type="text" class="form-control" placeholder="First Name">
+									</div>
+									<div class="form-group">
+										
+										<input type="text" class="form-control" placeholder="Last Name">
+									</div>
+									<div class="form-group">
+									
+										<input type="text" class="form-control" id="inputEmail" placeholder="Email">
+									</div>
+									
+									<div class="form-group">
+										<input type="password" class="form-control" id="inputPassword" placeholder="Password">
+									</div>
+									<div class="checkbox">
+									  <label>
+										<input type="checkbox"> I agree to the terms
+									  </label>
+									</div>
+					
+									<div class="form-group">
+									  <div class="col-lg-10 col-lg-offset-2">
+										<button class="btn btn-info">Cancel</button>
+										<button type="submit" class="btn btn-primary">Submit</button>
+									  </div>
+									</div>
+								  </fieldset>
+								</form>
+					</div>
+					<div class="col-md-6">
+						<p><strong>MyBarangay</strong> is a virtual bridge that links Filipinos all over the world like never before.  It provides a venue for all of us to follow our hearts and come together to share, connect and feel at home. It is an invitation to assemble as one and build our global community. A community with no boundaries. A community of support, resources and solutions. A community with a positive voice that we can reach out to from anywhere in the world. A community that is truly ours:  <strong>MyBarangay.</strong> </p>
+								
+					</div>
+				</div> <!-- cd-modal-content -->
+			</div> <!-- cd-modal -->
+			<a href="javascript:void(0);" class="cd-modal-close">Close</a>
+		
+		</section>
+		
+		<div class="container" id="container">
+			<h3 class="example-title">Best of MyBarangay : Vancouver</h3>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="panel">
+						<ul id="myTab1" class="nav nav-tabs nav-justified">
+							<li class="active"><a href="#home1" data-toggle="tab">Restaurants</a></li>
+							<li><a href="#profile1" data-toggle="tab">Health & Medical</a></li>
+							<li class="dropdown"><a href="#" id="myTabDrop1-1" class="dropdown-toggle" data-toggle="dropdown">Others <b class="caret"></b></a>
+								<ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
+									<li><a href="#dropdown1-1" tabindex="-1" data-toggle="tab">@Nightlife</a></li><li><a href="#dropdown1-2" tabindex="-1" data-toggle="tab">@Shopping</a></li>
+								</ul>
+							</li>
+						</ul>
+						<div id="myTabContent" class="tab-content">
+							<div class="tab-pane fade active in" id="home1">
+								<p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.</p>
+							</div>
+							<div class="tab-pane fade" id="profile1">
+								<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee.</p>
+							</div>
+							<div class="tab-pane fade" id="dropdown1-1">
+								<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone...</p>
+							</div>
+							<div class="tab-pane fade" id="dropdown1-2">
+								<p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche ...</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="panel">
+						<div class="tabbable tabs-below">
+							<div id="myTabContent" class="tab-content">
+								<div class="tab-pane fade active in" id="home2">
+									<p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.</p>
+								</div>
+								<div class="tab-pane fade" id="profile2">
+									<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee.</p>
+								</div>
+								<div class="tab-pane fade" id="dropdown2-1">
+									<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone...</p>
+								</div>
+								<div class="tab-pane fade" id="dropdown2-2">
+									<p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche ...</p>
+								</div>
+							</div>
+							<ul id="myTab2" class="nav nav-tabs nav-justified">
+								<li class="active"><a href="#home2" data-toggle="tab">SUVs</a></li>
+								<li><a href="#profile2" data-toggle="tab">Sports Car</a></li>
+								<li class="dropdown dropup"><a href="#" id="myTabDrop2-1" class="dropdown-toggle" data-toggle="dropdown">Others <b class="caret"></b></a>
+									<ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
+										<li><a href="#dropdown2-1" tabindex="-1" data-toggle="tab">@Scooter</a></li>
+										<li><a href="#dropdown2-2" tabindex="-1" data-toggle="tab">@Motorcycle</a></li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel">
+					<div class="tabbable tabs-left clearfix">
+						<ul id="myTab1" class="nav nav-tabs">
+							<li class="active"><a href="#home3" data-toggle="tab">House & Lot</a></li>
+							<li><a href="#profile3" data-toggle="tab">Condominium</a></li>
+							<li><a href="#myTabDrop3" data-toggle="tab">Apartment</a></li>
+						</ul>
+						<div id="myTabContent" class="tab-content">
+							<div class="tab-pane fade active in" id="home3">
+								<p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.</p>
+							</div>
+							<div class="tab-pane fade" id="profile3">
+								<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee.</p>
+							</div>
+							<div class="tab-pane fade" id="myTabDrop3">
+								<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone...</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="panel">
+					<div class="tabbable tabs-right clearfix">
+						<ul id="myTab1" class="nav nav-tabs">
+							<li class="active"><a href="#home4" data-toggle="tab">Gadgets</a></li>
+							<li><a href="#profile4" data-toggle="tab">Computers</a></li>
+							<li><a href="#myTabDrop4" data-toggle="tab">Appliances</a></li>
+						</ul>
+						<div id="myTabContent" class="tab-content">
+							<div class="tab-pane fade active in" id="home4">
+								<p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.</p>
+							</div>
+							<div class="tab-pane fade" id="profile4">
+								<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee.</p>
+							</div>
+							<div class="tab-pane fade" id="myTabDrop4">
+								<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone...</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

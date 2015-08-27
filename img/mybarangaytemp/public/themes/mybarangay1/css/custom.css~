@@ -1,0 +1,9 @@
+
+.btn-fb, .btn-fb:active, .btn-fb.active, .btn-fb.disabled, .btn-fb[disabled] {
+  	background-color: #3a5795;
+	border-color: #3B5998;
+}
+.btn-fb:hover, .btn-fb:focus {
+  	background-color: #3bafda;
+  	border-color: #3bafda;
+}

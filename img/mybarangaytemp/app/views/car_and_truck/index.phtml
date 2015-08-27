@@ -1,0 +1,139 @@
+<div id="container" class="container">
+	<div class="col-md-12">
+		<div class="row containerBorder">
+			<div class="col-md-3">
+				<br>
+				<div class="panel panel-default bg-primary">
+					<div class="panel-body">
+						<form method="post" action="/mybarangayteam/car_and_truck/index">						
+						<div class="form-group">
+							<label style="color:#597EA8!important;">Name</label>
+							<input type="text" class="form-control" name="name">
+						</div>
+						<div class="form-group">
+							<label style="color:#597EA8!important;">Location</label>
+							<input type="text" class="form-control" name="location">
+						</div>
+						<div class="form-group">
+							<label style="color:#597EA8!important;">Brand</label>
+							<input type="text" class="form-control" name="brand">
+						</div>
+						<div class="form-group">
+							<label style="color:#597EA8!important;">Model</label>
+							<input type="text" class="form-control" name="model">
+						</div>
+						<div class="form-group">
+							<button name="submit" class="btn btn-danger btn-block" type="submit">Search</button>
+						</div>
+						</form>					
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<h4 class="text-primary"><strong>Selling Car?</strong></h4>
+						<a class="btn btn-primary btn-block btn-lg restricted" href="/mybarangayteam/car_and_truck/new">Post your ad now</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<br>
+				<div style="background-color: #DC0000!important;color:#fff;">
+					<div class="panel-body form-horizontal">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Sort</label>
+								<div class="col-lg-8">
+									<select class="form-control" type="select" name="country_id">
+										<option value="">Post date and relevance</option>
+										<option value="">Highest Rate</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="col-lg-8 control-label">Items per page</label>
+								<div class="col-lg-4">
+									<select class="form-control" type="select" name="country_id">
+										<option value="">10</option>
+										<option value="">20</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<h3><strong class="text-danger">Find your dream car or truck now!</strong></h3>
+						<?php //$autos = Automotives::find(); ?>
+							<div class="row">
+							<?php $i = 1; foreach($autos as $auto): ?>
+								<div class="col-md-4" style="overflow:hidden; position:relative;height: 250px; text-overflow: ellipsis; border: solid #808080 1px;">
+									<div <?php echo "data-url=\"car_and_truck/view/\"".$auto->id; ?> style="border:1px solid #efefef;padding:10px;margin-bottom:10px;">
+									<?php
+										$autoPhoto = 'http://placehold.it/230x230&text=no+photo';
+										$rPhotoCount = count($auto->automotivephotos);
+										if ($rPhotoCount > 0) {
+											$autoPhoto = $auto->automotivephotos[0]->file_path.$auto->automotivephotos[0]->filename;
+										}
+									?>
+										 <a href="#">
+										 <?php
+										 	echo Phalcon\Tag::image([$autoPhoto, 'class' => 'media-object img-responsive img-rounded item_img1']);
+										 ?>
+										 </a>
+										 <div class="width100">
+											 <p class="text-center">
+											 <?php $strlen = strlen($auto->name); 
+											 	if ($strlen > 21) {
+											 		$title = substr($auto->name, 0, 20) . '...';
+											 	} else {
+											 		$title = $auto->name;
+											 	}
+											 ?>
+											 <h5 class="text-center"><b>
+											 <?php if ($i < 4): ?>
+											  	<p style="vertical-align: text-bottom;">
+												 <span class="label label-danger label-as-badge" >Ad</span>
+												<?php endif; $i++ ?>
+											 <?php echo "<a class=\"text-primary autoName\" href=\"/mybarangayteam/car_and_truck/view/".$auto->id."/\">".$title."</a>"; ?>
+											 	</p>
+											 </b></h5>
+											 <p title="" data-toggle="tooltip" class="text-center  price" data-original-title="Price"><label class="label label-danger label-lg">P <?php echo $auto->price; ?></label></p>
+											 
+											 	<h5 class="text-center text-primary"><strong><i class="fa fa-map-marker"></i>&nbsp;&nbsp;<?php echo $auto->location; ?></strong></h5>
+										    	<p class="text-center"><i class="fa fa-info"></i>&nbsp;&nbsp;<?php echo $auto->automotiveconditions->name; ?></p>
+										 </div>
+									</div>
+								</div>
+							<?php endforeach; ?>
+							</div>							
+							<div class="row">
+								<div class="col-md-12">
+									<div class="col-md-4">
+										<p class="pagination pull-left"><?php echo "You are in page ", $auto_p->current, " of ", $auto_p->total_pages;?></p>
+									</div>
+									<div class="col-md-8">
+										<ul class="pagination pull-right">
+										  	<li class="disabled"><a href="/mybarangayteam/car_and_truc/index">«</a></li>
+										  	<li><a href="/mybarangayteam/car_and_truck/index?page=<?php echo $auto_p->before; ?>">Previous</a></li>
+										  	<?php for ($i=1; $i <= $auto_p->total_pages ; $i++) { ?> 
+										  		<?php if ($auto_p->current = $i) {?>
+										  			<li class="active"><a href="/mybarangayteam/car_and_truc/index?page=<?= $i; ?>"><?php echo $i; ?></a></li>
+										  		<?php } else { ?>
+										  			<li><a href="/mybarangayteam/car_and_truc/index?page=<?= $i; ?>"><?php echo $i; ?></a></li>
+										  		<?php } ?>
+										  	<?php }?>
+  										  	<li><a href="/mybarangayteam/car_and_truc/index?page=<?php echo $auto_p->next; ?>">Next</a></li>
+										  	<li><a href="/mybarangayteam/car_and_truc/index?page=<?php echo $auto_p->last;?>">»</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

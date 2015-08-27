@@ -1,0 +1,135 @@
+<?php echo $this->tag->javascriptInclude("themes/customize/js/ckeditor/ckeditor.js"); ?>
+<?php echo $this->tag->stylesheetLink("themes/customize/css/bootstrapValidator/bootstrapValidator.min.css"); ?>
+<div class="container" id="container">
+	<div class="col-md-12 bg-white containerBorder">
+		<div class="col-md-12">
+			<br>
+			<div class="col-md-12 bg-primary">
+				<h1>Add a Job</h1>
+				<p>Please note: This job will not appear in search results until it has been approved by our moderators.</p>
+			</div>
+		</div>
+		<br>
+		<div class="col-md-12" style="margin-top:20px;">
+			<div class="col-md-3 profile-widget containerBorder">
+				<?php if(isset($userSession['id'])) { $memberId = $userSession['id']; } else { $memberId = ''; } ?>
+				<?php if($memberId == $member->id) { ?>
+				<?php $this->partial("layouts/elements/profile_widget") ?>
+				<?php } ?>
+				<?php if($memberId != $member->id) { ?>
+				<?php $this->partial("layouts/elements/member_widget") ?>
+				<?php } ?>
+			</div>
+			<div class="col-md-6">
+			<?php $this->flash->output(); ?>
+				<?php echo Phalcon\Tag::form(array("job/new", "method" => "post", "enctype"=>"multipart/form-data")); ?>
+				  	<div class="col-md-12">
+						<div class="form-group">
+							<label>Position</label>
+							<input name="position" type="text" class="form-control" placeholder="What is your desired position?">
+						</div>
+						<div class="form-group">
+							<label>Job Category</label>
+							<select name="job_category_id"  type="select" class="form-control">
+									<option value="">Select category</option>
+								<?php foreach ($jobCategories as $key => $jobCategory) { ?>
+									<option value="<?php echo $jobCategory->id; ?>"><?php echo $jobCategory->name; ?></option>
+								<?php } ?>
+							</select>
+						</div>
+						<div class="form-group">
+							<label>Job Description</label>
+							<textarea class="ckeditor form-control" name="job_description" rows="10"></textarea>
+							
+						</div>
+						<div class="form-group">
+							<label>Requirements</label>
+							<textarea name="requirements" type="textarea" class="ckeditor form-control" placeHolder=""></textarea> 
+						</div>
+						<div class="form-group">
+							<label>Benefits</label>
+							<textarea name="benefits" type="textarea" class="ckeditor form-control" placeHolder=""></textarea> 
+						</div>
+						
+						<div class="form-group">
+							<label>How to apply</label>
+							<textarea name="how_to_apply" type="textarea" class="ckeditor form-control" placeHolder=""></textarea> 
+						</div>
+						<div class="form-group">
+						  <div class="text-center">
+							<button type="submit" class="btn btn-primary pull-right">Add Job</button>
+						  </div>
+						</div>
+
+				  	</div>
+				
+				<br>
+			</div>
+			<div class="col-md-3 containerBorder">
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Company Logo</label>
+						<input name="logo" type="file" class="form-control file" style="padding:0px;">
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-12">
+								<label>Salary Range</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-5">
+								<input name="salary_from" type="text" class="form-control"  placeholder="From">
+							</div>
+							<div class="col-md-2 text-center" style="font-size:20px;color: #666;font-weight:bold;">|</div>
+							<div class="col-md-5">
+								<input name="salary_to" type="text" class="form-control"  placeholder="To" >
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label>Company</label>
+						<input name="company" type="text" class="form-control"   placeholder="Company">
+					</div>
+					<div class="form-group">
+						<label>Website</label>
+						<input name="website" type="text" class="form-control"  placeholder="Website" >
+					</div>
+					<div class="form-group">
+						<label>Telephone</label>
+						<input name="telephone" type="text" class="form-control"   placeholder="Telephone">
+					</div>
+					<div class="form-group">
+						<label>Email</label>
+						<input name="email" type="text" class="form-control"  placeholder="Email">
+					</div>
+					<div class="form-group">
+						<label>Address</label>
+						<input name="street" type="text" class="form-control"  placeholder="Address">
+					</div>
+					<div class="form-group">
+						<label>City</label>
+						<input name="city" type="text" class="form-control"  placeholder="City" >
+					</div>
+					<div class="form-group">
+						<label>Country</label>
+						<select name="country_id"  type="select" class="form-control">
+								<option value="">Select country</option>
+							<?php foreach ($countries as $key => $country) { ?>
+								<option value="<?php echo $country->id; ?>"><?php echo $country->country; ?></option>
+							<?php } ?>
+						</select>
+					</div>
+				</div>
+				<?php echo Phalcon\Tag::endForm(); ?>
+				<!-- <h1 class="text-danger"><strong>Trabaho</strong></h1>
+				<h3>Get your job hiring listed in <span class="text-primary"><strong>MyBarangay</strong></span>.</h3>
+				<div class="col-md-8 col-md-offset-3">
+				<?php //echo Phalcon\Tag::image(array("themes/mybarangay1/img/biz/new_biz.jpg", 'class' => 'img-responsive img-rounded img-block')); ?>
+				</div> -->
+			</div>
+		</div>
+		<br><br>
+	</div>
+</div>
+

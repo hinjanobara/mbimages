@@ -1,0 +1,98 @@
+<div class="container">
+	<div class="row">
+    	<div class="col-md-6 col-md-offset-3"><?php $this->flash->output(); ?></div>
+    </div>
+	<div class="col-md-3">
+		<?php if(isset($userSession['id'])) { $memberId = $userSession['id']; } else { $memberId = ''; } ?>
+		<?php if($memberId == $member->id) { ?>
+		<?php $this->partial("layouts/elements/profile_widget") ?>
+		<?php } ?>
+		<?php if($memberId != $member->id) { ?>
+		<?php $this->partial("layouts/elements/member_widget") ?>
+		<?php } ?>
+	</div>
+	<div class="col-md-6">
+		<div class="panel">
+			<div class="panel-body">
+				<!-- <form action="1" method="post" class="form-horizontal"> -->
+				<?php  echo Phalcon\Tag::form(array('member/update/'.$member->id, 'method' => 'post', 'class' => 'form-horizontal', 'enctype'=>'multipart/form-data')); ?>
+					<fieldset>
+						<legend><?php echo $member->first_name.' '.$member->last_name; ?></legend>
+						<div class="form-group hidden">
+							<div class="col-lg-10">
+								<input type="text" class="form-control" name="id" value="<?php echo $member->id; ?>">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputEmail" class="col-lg-2 control-label">First name</label>
+							<div class="col-lg-10">
+								<input type="text" class="form-control" name="first_name" value="<?php echo $member->first_name; ?>" placeholder="First Name">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-2 control-label">Last name</label>
+							<div class="col-lg-10">
+								<input type="text" class="form-control" name="last_name" value="<?php echo $member->last_name; ?>" placeholder="Last name">
+							</div>
+						</div>
+						<div class="form-group">
+							<label  class="col-lg-2 control-label">Street</label>
+							<div class="col-lg-10">
+								<input type="text" class="form-control" name="street" value="<?php echo $member->street; ?>" placeholder="Street">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-2 control-label">City</label>
+							<div class="col-lg-10">
+								<input type="text" class="form-control" name="city" value="<?php echo $member->city; ?>" placeholder="City">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-2 control-label">Country</label>
+							<div class="col-lg-10">
+							<select name="country_id"  type="select" class="form-control">
+									<option value="">Select country</option>
+								<?php foreach ($countries as $key => $country) { ?>
+									<?php if($country->id == $member->country_id){ ?>
+									<option value="<?php echo $country->id; ?>" selected><?php echo $country->country; ?></option>
+									<?php } ?>
+									<option value="<?php echo $country->id; ?>"><?php echo $country->country; ?></option>
+								<?php } ?>
+							</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputEmail" class="col-lg-2 control-label">Email</label>
+							<div class="col-lg-10">
+								<input type="email" class="form-control" id="inputEmail" name="email" value="<?php echo $member->email; ?>" placeholder="Email">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-2 control-label">Mobile</label>
+							<div class="col-lg-10">
+								<input type="text" class="form-control" name="mobile" value="<?php echo $member->mobile; ?>" placeholder="Mobile">
+							</div>
+						</div>
+						<div class="form-group">
+						<div class="col-lg-10 col-lg-offset-2">
+						<button type="reset" class="btn btn-default">Cancel</button>
+						<button type="submit" class="btn btn-primary">Submit</button>
+						</div>
+						</div>
+					</fieldset>
+				<?php  echo Phalcon\Tag::endForm(); ?>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-3">
+		<div class="panel">
+			<div class="panel-body">
+			<h3 class="text-primary">Another Container</h3>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+

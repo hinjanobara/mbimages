@@ -1,0 +1,150 @@
+<div class="container top_margin" id="container">
+	<div class="col-md-12 bg-white containerBorder">
+		<br>
+		<div class="container">
+		<div class="row">
+			<div class="col-md-3 ">
+				<?php $this->partial("layouts/elements/profile_widget"); ?>	
+			</div>
+			<div class="col-md-6 md6_width" >
+				<div class="col-md-12 bottom-hr">
+					<div class="col-md-12">
+					<h3 class="text-primary border_bottom"><strong>Update your review</strong></h3>
+					</div>
+					<div class="col-md-7">
+						<h2 class="line-height-50 colorBlue"><?php echo Phalcon\Tag::linkTo('business/view/'.$business->id, $business->name); ?></h2>
+					</div>
+					<div class="col-md-5">
+						<p class="line-height-80">
+						<span class="glyphicon glyphicon-map-marker"></span><?php echo $business->street;?>, <?php echo $business->city;?>
+						<?php echo $business->Countries->country;?></p>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="padding-10 col-md-12">
+						<?php  echo Phalcon\Tag::form(array("review/update/".$business->id."/".$reviewUpdate->id, "method" => "post",'id' => 'ratingsForm')); ?>
+							<?php $rate = $reviewUpdate->rate; ?>
+							<?php 
+								function isChecked($value =null , $rate = null) {
+									$checked = '';
+									if($value == $rate) {
+										$checked = 'checked ';
+									}
+									return $checked;
+								}
+							?>
+							<div class="stars">
+								<input type="radio" value="1" name="rate" class="star-1" id="star-1" <?php echo isChecked(1, $rate); ?> />
+								<label class="star-1" for="star-1">1</label>
+								<input type="radio" value="2" name="rate" class="star-2" id="star-2" <?php echo isChecked(2, $rate); ?> />
+								<label class="star-2" for="star-2">2</label>
+								<input type="radio" value="3" name="rate" class="star-3" id="star-3" <?php echo isChecked(3, $rate); ?> />
+								<label class="star-3" for="star-3">3</label>
+								<input type="radio" value="4" name="rate" class="star-4" id="star-4" <?php echo isChecked(4, $rate); ?> />
+								<label class="star-4" for="star-4">4</label>
+								<input type="radio" value="5" name="rate" class="star-5" id="star-5" <?php echo isChecked(5, $rate); ?> />
+								<label class="star-5" for="star-5">5</label>
+								<span></span>
+							</div>
+
+							<div class="form-group">
+								<label> Update a review for this business</label>
+								<textarea name="review" type="textarea" rows="5" class="form-control"><?php echo $reviewUpdate->content; ?></textarea>
+							</div>
+							
+
+							<div class="form-group">
+							  <div class="">
+							  	<?php echo Phalcon\Tag::linkTo(array('business/view/'.$business->id, 'Cancel', 'class' => 'btn btn-danger width50')); ?>
+								<button type="submit" class="btn btn-primary width50">&nbsp;Update&nbsp;</button>
+							  </div>
+							</div>
+						<?php  echo Phalcon\Tag::endForm(); ?>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<h4 class="text-primary rev_head"><strong>Review for <?php echo $business->name; ?></strong></h4>
+			
+				<?php foreach ($reviews as $key => $review) { ?>
+					<div class="row">
+						<div class="md10_width">
+							<div class="row">
+								<?php 
+					              $memberPhotos = MemberPhotos::findFirst(array('member_id="'.$review->member_id.'"', 'primary_pic="Yes"'));
+					              $profilePic = 'http://placehold.it/250x250&text=NO+PROFILE+PIC';
+					              if(isset($memberPhotos->filename)) {
+					                $profilePic = $memberPhotos->file_path.$memberPhotos->filename;
+					              }
+					            ?>
+								<div class="col-md-3" style="padding-right: 0px;">
+									<?php echo Phalcon\Tag::image(array($profilePic, 'class' => 'img-responsive img-rounded')); ?>
+								</div>
+								<div class="col-md-8 pull-left" style="padding-left: 10px;">
+										<div style="height:47px;text-overflow:ellipsis; width:14em;text-align:initial;margin-right:25px;white-space:wrap;color:#000;overflow: hidden;line-height:75%">
+										<small><?php echo $review->content; ?></small>
+								</div>
+									<small><p class="pull-right color_lightb"><?php echo date('m/d/Y', strtotime($review->created)); ?></p></small>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12 margin_above" >
+									<strong>
+										<?php echo Phalcon\Tag::linkTo('member/profile/'.$review->member_id, $review->Members->first_name.' '.$review->Members->last_name); ?>
+									</strong>
+									<div class="form-group right_margin_normal rating1" style="margin-left:0px;">
+										<i class="salakot-img salakot_<?php echo $review->rate;?>_0" data-toggle="tooltip" title="<?php echo $review->rate;?> salakot rating">&nbsp;</i>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+							
+						
+					</div>
+				
+				<?php } ?>
+			</div>
+		</div>
+			
+		</div>
+		<br>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('[data-toggle="popover"]').popover({
+			html:true
+		});
+		$('.rate').on('click', function(){
+			var rate = $(this).data('rate');
+			$('#rate').val(rate);
+		});
+		
+		$('.price').on('mouseenter', function(){
+			var rate = $(this).data('rate');
+			if(rate == 1){
+				$('.price-info-preview').text('$ = Cheap, Under $10');
+			}
+			if(rate == 2){
+				$('.price-info-preview').text('$$ = Moderate, $11 - $30');
+			}
+			if(rate == 3){
+				$('.price-info-preview').text('$$$ = Spendy, $31 - $60');
+			}
+			if(rate == 4){
+				$('.price-info-preview').text('$$$$ = Splurge, Above $61');
+			}
+		}).on('mouseleave', function(){
+			$('.price-info-preview').text('Roll over price, then click to vote');
+		}).on('click', function(){
+			var rate = $(this).data('rate');
+			$('#priceRate').val(rate);
+		});
+
+		$('#moreSurveyLink').on('click', function(){
+			$('#moreSurveys').toggleClass('hidden');
+		});
+	});
+</script>

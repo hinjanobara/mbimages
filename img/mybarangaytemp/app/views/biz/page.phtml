@@ -1,0 +1,139 @@
+<style type="text/css">
+	hr.mid-fade {
+	    border: 0;
+	    height: 1px;
+	    background-image: -webkit-linear-gradient(left, rgba(0,0,0,0.1), rgba(0,0,0,0.1), rgba(0,0,0,0.1));
+	    background-image:    -moz-linear-gradient(left, rgba(0,0,0,0.1), rgba(0,0,0,0.1), rgba(0,0,0,0.1));
+	    background-image:     -ms-linear-gradient(left, rgba(0,0,0,0.1), rgba(0,0,0,0.1), rgba(0,0,0,0.1));
+	    background-image:      -o-linear-gradient(left, rgba(0,0,0,0.1), rgba(0,0,0,0.1), rgba(0,0,0,0.1));
+	}
+</style>
+<div class="container bg-white containerBorder">
+
+<!-- <h1 class="text-center">Dashboard</h1> -->
+
+	<div class="col-md-3 profile-widget containerBorder">
+		<?php if(isset($userSession['id'])) { $memberId = $userSession['id']; } else { $memberId = ''; } ?>
+		<?php if($memberId == $member->id) { ?>
+		<?php $this->partial("layouts/elements/business_profile_widget") ?>
+		<?php } ?>
+		<?php if($memberId != $member->id) { ?>
+		<?php $this->partial("layouts/elements/business_widget") ?>
+		<?php } ?>
+	</div>
+
+	<div class="col-md-6">
+		<div class="panel ">
+			<div class="panel-heading">
+				<h3 class="panel-title">CLAIMED BUSINESSES</h3>
+				
+			</div>
+			<div class="panel-body">
+			<?php if(count($claimrequest) > 0) { ?>
+				<?php foreach ($claimrequest as $key => $req) { ?>
+				<?php if ($req->status == "approved"):
+					
+								$category= '';
+								$tempMain = array();
+								$tempTitle = array();
+								$tempSubTitle = array();
+								if(isset($req->Business->BusinessCategoryLists)){
+									foreach ($req->Business->BusinessCategoryLists as $key => $businessCategoryList) {
+										$mainY = 0;
+
+										if(!in_array($businessCategoryList->BusinessCategories->main_title, $tempMain)) {
+											$mainY = 1;
+											$tempMain[] = $businessCategoryList->BusinessCategories->main_title;
+											$category .= $businessCategoryList->BusinessCategories->main_title;
+										} 
+										$titleY = 0;
+										if($businessCategoryList->BusinessCategories->title){
+											if(!in_array($businessCategoryList->BusinessCategories->title, $tempTitle)) {
+												$titleY = 1;
+												$tempTitle[] = $businessCategoryList->BusinessCategories->title;
+												if($mainY == 1){
+													$category .= ' <i class="fa fa-caret-right"></i> '.$businessCategoryList->BusinessCategories->title;
+												} else {
+													$category .= $businessCategoryList->BusinessCategories->title;
+												}
+											}									
+										}
+										if($businessCategoryList->BusinessCategories->sub_title){
+											if(!in_array($businessCategoryList->BusinessCategories->sub_title, $tempSubTitle)) {
+												$tempSubTitle[] = $businessCategoryList->BusinessCategories->sub_title;
+												if($titleY == 0){
+													$category .= ' <i class="fa fa-caret-right"></i> '.$businessCategoryList->BusinessCategories->sub_title;
+												} else {
+													$category .= $businessCategoryList->BusinessCategories->sub_title;
+												}
+											}
+										}
+								 		$category .= ', ';
+								 	}
+								}  
+							 	$category = substr($category, 0, -2);
+							?>
+				
+					
+					<div class="row" data-url="business/view/<?php echo $req->Business->id; ?>">
+					
+						<div class="col-md-2">
+						    <a href="#">
+						    <?php 
+							 		$img = 'http://placehold.it/150x150&text=Image';
+							 		foreach ($req->Business->BusinessImages as $key => $bizImage) {
+							 			$img = $bizImage->file_path.$bizImage->filename;
+							 		}
+							 	?>
+						      <?php echo Phalcon\Tag::image(array($img, 'class' => 'media-object img-responsive img-rounded biz-result')); ?>
+						    </a>
+						</div>
+						<div class="col-md-10">					    	
+							<h4 class="media-heading"><strong><?php echo Phalcon\Tag::linkTo('business/view/'.$req->Business->id.'/'.str_replace(' ', '+', $req->Business->name), $req->Business->name); ?></strong> | <small><?php echo $category; ?></small></h4>
+							<?php if($memberId == $member->id) { ?>
+							<div class="btn-group pull-right">
+							<?php echo Phalcon\Tag::linkTo(array('biz/update_business/'.$req->Business->id, '<span class="fa fa-pencil"></span>', 'class' => 'text-danger', 'data-toggle' => 'tooltip', 'title' => 'Edit Business')); ?>
+							</div>
+					    	<?php } ?>
+					    	<small><span class="fa fa-map-marker"></span> <?php echo $req->Business->street; ?>, <?php echo $req->Business->city; ?>, <?php echo $req->Business->Countries->country; ?></small>
+					  </div>
+					<div class="col-md-12">
+						
+						<small data-toggle="tooltip" title="Last updated" class="pull-right"><span class="fa fa-clock-o"></span> <?php echo date('M d, Y h:i A', strtotime($req->modified)); ?></small>
+						<br>
+						<p><?php //echo $review->content; ?></p>
+						<hr class="mid-fade">
+					</div>
+					</div>
+					
+				<?php endif;?>
+				<?php } ?>
+				<div class="row">
+					<div class="col-md-12">
+					<?php echo Phalcon\Tag::linkTo(array('review/add/', '<span class="fa fa-pencil"></span> See more...', 'class' => 'btn btn-block btn-primary')); ?>
+					</div>
+				</div>
+			<?php } ?>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3 panel containerBorder">
+		<div class="list-group">
+		  <a href="#" class="list-group-item danger"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+		     Claim Business pending
+		  </a>
+		  <?php if ($claimrequest): ?>
+		  	<?php foreach ($claimrequest as $request): ?>
+		  		<?php if ($request->status == "pending"): 	?>
+					<a href="<?php echo '/mybarangayteam/business/view/' . $request->business_id; ?>" class="list-group-item">
+					<?php $businessName = Business::findFirst($request->business_id); ?>
+					<span class="glyphicon glyphicon-login" aria-hidden="true"></span><?php echo $businessName->name; ?></a>
+				<?php endif; ?>
+			<?php endforeach; ?>
+		  <?php endif; ?>
+		</div>
+	</div>
+
+</div>
+
+

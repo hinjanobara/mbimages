@@ -1,0 +1,79 @@
+<div class="container bg-white">
+
+<h1 class="text-center">Dashboard</h1>
+
+	<div class="col-md-3">
+		<div class="panel panel-primary">
+			<div class="panel-heading">	
+				<div class="row">
+					<div class="col-md-6">
+						<?php echo Phalcon\Tag::image(array("themes/mybarangay1/img/avatar-pitt.jpg", 'class' => 'img-responsive img-rounded')); ?>
+						<span class="fa fa-camera pull-right" data-toggle="tooltip" title="Change profile picture"></span>
+					</div>
+					<div class="col-md-6">
+						Other member pictures
+					</div>
+				</div>
+			</div>
+				
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<?php if($userSession['id'] != $member->id){ ?>
+						<?php echo Phalcon\Tag::linkTo(array('friend_request/add/'.$member->id.'/'.$member->first_name.'+'.$member->last_name, 'Add as a Friend', 'class' => 'btn btn-primary btn-block')); ?>
+						<?php echo Phalcon\Tag::linkTo(array('member/follow/'.$member->id.'/'.$member->first_name.'+'.$member->last_name, 'Follow this reviewer', 'class' => 'btn btn-danger btn-block')); ?>
+						<br>
+						<?php } ?>
+					</div>
+					<div class="col-md-12">
+
+						<ul class="list-group">
+						  <li class="list-group-item">
+						    <?php echo Phalcon\Tag::linkTo('member/profile/'.$member->id.'/'.$member->first_name.'+'.$member->last_name, 'Profile'); ?>
+						  </li>
+						  <li class="list-group-item">
+						    <span class="badge">14</span>
+						    Photos
+						  </li>
+						  <li class="list-group-item">
+						    <span class="badge">2</span>
+						    Reviews
+						  </li>
+						  <li class="list-group-item">
+						    <span class="badge">1</span>
+						    Lists
+						  </li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-9">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Profile <?php echo Phalcon\Tag::linkTo(array('member/update_profile/'.$member->id.'/'.$member->first_name.'+'.$member->last_name, '<span class="fa fa-pencil"></span>', 'class' => 'btn btn-danger btn-round btn-xs pull-right')); ?></h3>
+				
+			</div>
+			<div class="panel-body">
+				<table class="table table-striped table-hover ">
+					<tbody>
+						<tr>
+							<td style="width:20%"><strong>Name </strong></td><td>: <?php echo $member->first_name.' '.$member->last_name; ?></td>
+						</tr>
+						<tr>
+							<td><strong>Address </strong></td><td>: <?php echo $member->street.', '.$member->city.', '.$member->Countries->country; ?></td>
+						</tr>
+						<tr>
+							<td><strong>Email </strong></td><td>: <?php echo $member->email; ?></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+

@@ -1,0 +1,161 @@
+<div id="container" class="container">
+	<div class="col-md-12">
+		<div class="row containerBorder">
+			<div class="col-md-3">
+				<br>
+				<div class="panel panel-default bg-primary">
+					<div class="panel-body">
+						<form method="post" action="/mybarangayteam/real_estate/index">						
+						<div class="form-group">
+							<label style="color:#597EA8!important;">Name</label>
+							<input type="text" class="form-control" name="name">
+						</div>
+						<div class="form-group">
+							<label style="color:#597EA8!important;">Item Category</label>
+							<select class="form-control" type="select" name="job_category_id">
+									<option value="">Select category</option>
+									<option value="1">House</option>
+									<option value="2">Lot</option>
+									<option value="3">House &amp; Lot</option>
+									<option value="4">Town House</option>
+									<option value="5">Condo / Apartment</option>
+									<option value="6">Hotel</option>
+									<option value="7">Lot</option>
+									<option value="8">Resort / Beach</option>
+									<option value="9">Lot</option>
+									<option value="10">Warehouse</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label style="color:#597EA8!important;">Location</label>
+							<input type="text" placeholder="street, city, country" class="form-control" name="address">
+						</div>
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-12">
+									<label style="color:#597EA8!important;">Price Range</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-5">
+									<input type="text" class="form-control" name="price_from">
+								</div>
+								<div class="col-md-2 text-center"><span style="color:#597EA8!important;">|</span></div>
+								<div class="col-md-5">
+									<input type="text" class="form-control" name="price_to">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<button name="submit" class="btn btn-danger btn-block" type="submit">Search</button>
+						</div>
+						</form>					
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<h4 class="text-primary"><strong>Selling item?</strong></h4>
+						<a class="btn btn-primary btn-block btn-lg restricted" href="/mybarangayteam/real_estate/new">Post your ads now</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<br>
+				<div style="background-color: #DC0000!important;color:#fff;">
+					<div class="panel-body form-horizontal">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Sort</label>
+								<div class="col-lg-8">
+									<select class="form-control" type="select" name="country_id">
+										<option value="">Post date and relevance</option>
+										<option value="">Highest Rate</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="col-lg-8 control-label">Items per page</label>
+								<div class="col-lg-4">
+									<select class="form-control" type="select" name="country_id">
+										<option value="">10</option>
+										<option value="">20</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<h3><strong class="text-danger">Find your dream item now!</strong></h3>
+							<div class="row">
+								<div class="col-md-4">
+									<div data-url="real_estate/view/1" style="border:1px solid #efefef;padding:10px;margin-bottom:10px;">
+										 <a href="#">
+										 	<img class="media-object img-responsive img-rounded item_img1" src="http://placehold.it/501x342">											 </a>
+										 <div class="width100">
+											 <p class="text-center">
+											 	<a class="text-primary thingName" href="/mybarangayteam/real_estate/view/1/Patricia+Executive+Village/Bacoor,+Barangay+Mabolo+3,++Bacoor/Cavite/Philippines">Thing Number One</a></p>
+											 <p title="" data-toggle="tooltip" class="text-center  price" data-original-title="Price"><label class="label label-danger label-lg"> 4,565,840.00</label></p>
+											 <hr class="lh-80">
+											 	<h5 class="text-center text-primary"><strong><i class="fa fa-home"></i>&nbsp;&nbsp;House &amp; Lot</strong></h5>
+										    	<p><i class="fa fa-map-marker"></i>&nbsp;&nbsp;Bacoor, Barangay Mabolo 3,  Bacoor, Cavite, Philippines</p>
+										    	<p title="" data-toggle="tooltip" data-original-title="Last updated"><span class="fa fa-clock-o"></span>&nbsp;&nbsp;Mar 13, 2015 06:39 AM</p>
+										 </div>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div data-url="real_estate/view/2" style="border:1px solid #efefef;padding:10px;margin-bottom:10px;">
+										 <a href="#">
+										 	<img class="media-object img-responsive img-rounded item_img1" src="http://placehold.it/501x342">											 </a>
+										 <div class="width100">
+											 <p class="text-center">
+											 	<a class="text-primary thingName" href="/mybarangayteam/real_estate/view/2/RESIDENTIAL+TOWNHOUSES/Heroes+Hill+Area/Quezon/Philippines">Thing Number Two</a></p>
+											 <p title="" data-toggle="tooltip" class="text-center price " data-original-title="Price"><label class="label label-danger label-lg"> 14,400,000.00</label></p>
+											 <hr class="lh-80">
+											 	<h5 class="text-center text-primary"><strong><i class="fa fa-home"></i>&nbsp;&nbsp;Town House</strong></h5>
+										    	<p><i class="fa fa-map-marker"></i>&nbsp;&nbsp;Heroes Hill Area, Quezon, Philippines</p>
+										    	<p title="" data-toggle="tooltip" data-original-title="Last updated"><span class="fa fa-clock-o"></span>&nbsp;&nbsp;Mar 25, 2015 08:52 AM</p>
+										 </div>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div data-url="real_estate/view/3" style="border:1px solid #efefef;padding:10px;margin-bottom:10px;">
+										 <a href="#">
+										 	<img class="media-object img-responsive img-rounded item_img1" src="http://placehold.it/501x342"></a>
+										 <div class="width100">
+											 <p class="text-center">
+											 	<a class="text-primary thingName" href="/mybarangayteam/real_estate/view/3/Batangas+House+&amp;+Lot+/Truy+District/Batangas/Philippines">Thing Number Three</a></p>
+											 <p title="" data-toggle="tooltip" class="text-center price " data-original-title="Price"><label class="label label-danger label-lg"> 14,300,000.00</label></p>
+											 <hr class="lh-80">
+											 	<h5 class="text-center text-primary"><strong><i class="fa fa-home"></i>&nbsp;&nbsp;House &amp; Lot</strong></h5>
+										    	<p><i class="fa fa-map-marker"></i>&nbsp;&nbsp;Truy District, Batangas, Philippines</p>
+										    	<p title="" data-toggle="tooltip" data-original-title="Last updated"><span class="fa fa-clock-o"></span>&nbsp;&nbsp;Mar 26, 2015 08:16 AM</p>
+										 </div>
+									</div>
+								</div>
+							</div>							
+							<div class="row">
+								<div class="col-md-12">
+									<div class="col-md-4">
+										<p class="pagination pull-left">You are in page 1 of 1</p>
+									</div>
+									<div class="col-md-8">
+										<ul class="pagination pull-right">
+										  	<li class="disabled"><a href="/mybarangayteam/real_estate/index">«</a></li>
+										  	<li><a href="/mybarangayteam/real_estate/index?page=1">Previous</a></li>
+								  			<li class="active"><a href="/mybarangayteam/real_estate/index?page=1">1</a></li>
+  										  	<li><a href="/mybarangayteam/real_estate/index?page=1">Next</a></li>
+										  	<li><a href="/mybarangayteam/real_estate/index?page=1">»</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,76 @@
+<div class="container" id="container">
+	<div class="col-md-12 containerBorder">
+		<div class="row">
+			<br>
+			<div class="col-md-3">
+				<?php $member = $auto->Members; ?>
+				<?php if(isset($userSession['id'])) { $memberId = $userSession['id']; } else { $memberId = ''; } ?>
+				<?php if($memberId == $member->id) { ?>
+				<?php $this->partial("layouts/elements/profile_widget") ?>
+				<?php } ?>
+				<?php if($memberId != $member->id) { ?>
+				<?php $this->partial("layouts/elements/member_widget") ?>
+				<?php } ?>
+				<div class="panel panel-default well">
+					<div class="panel-body">
+					<h3 class="text-danger"><strong>Another container</strong></h3>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<div class="col-md-12 bg-primary">
+					<div class="col-md-9">
+					<h2><?php echo $auto->name; ?></h2>
+					<p><?php echo $auto->brand; ?>, <?php echo $auto->model; ?>, <?php echo $auto->location; ?></p>
+					</div>
+					<div class="col-md-3">
+					<h2> &nbsp;</h2>
+					<p data-toggle="tooltip" title="price"><span class="fa fa-money"></span> <?php echo number_format($auto->price,2); ?></p>
+					</div>
+				</div>
+				<div class="col-md-8">
+				<br>
+				<div class="row">
+				<?php foreach($auto->AutomotivePhotos as $key => $autoPhoto){ ?>
+					<?php if($key == 0){ ?>
+						<div class="col-md-12">
+						<?php echo Phalcon\Tag::image(array($autoPhoto->file_path.$autoPhoto->filename, 'class' => 'img-responsive img-thumbnail')); ?>
+						</div>
+						
+					<?php } else { ?>
+						<div class="col-md-2">
+						<br>
+						<?php echo Phalcon\Tag::image(array($autoPhoto->file_path.$autoPhoto->filename, 'class' => 'img-responsive img-thumbnail')); ?>
+						</div>
+					<?php } ?>
+				<?php } ?>
+				</div>
+					<?php if ($memberId == $auto->member_id) {?>
+					<div class="pull-right">
+					<?php echo Phalcon\Tag::linkTo(array('car_and_truck/update/'.$auto->id, '<span class="fa fa-pencil"></span>', 'data-toggle' => 'tooltip', 'title' => 'Edit', 'class' => 'text-danger')); ?>
+					</div>
+					<?php } ?>
+				<br>
+					<h2>Details</h2>
+					<p class="text-justify"><?php echo $auto->details; ?></p>
+					
+				</div>
+				<div class="col-md-4">
+				<br>
+					<div class="panel panel-default ">
+						<div class="panel-body">
+							<h3 class="title-heading text-primary"><strong><?php echo $auto->AutomotiveConditions->name; ?></strong></h3>
+							<h5 class="text-danger"><strong><?php echo $auto->AutomotiveFuels->name; ?></strong></h5>
+							
+						</div>
+					</div>
+					<div class="panel panel-default well">
+						<div class="panel-body">
+						<h3 class="text-danger"><strong>Related Vehicles</strong></h3>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

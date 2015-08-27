@@ -1,0 +1,414 @@
+
+<style type="text/css">
+	hr {
+		background-color:#ddd;
+		margin-top: 10px !important;
+		margin-bottom: 10px !important;
+	}
+</style>
+<?php echo $this->tag->javascriptInclude("themes/customize/js/ckeditor/ckeditor.js"); ?>
+<div class="container containerBorder top_margin" id="container">
+	<div class="col-md-12 bg-white">
+		<div class="row">
+			<div class="col-md-12 bg-primary container" style="margin-bottom:25px;">
+				<h1>Add a Properties</h1>
+				<p>Please note: This property will not appear in search results until it has been approved by our moderators.</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3 ">
+				<?php $this->partial("layouts/elements/profile_widget"); ?>	
+			</div>
+			<?php echo Phalcon\Tag::form(array("real_estate/update/".$property->id, "method" => "post", "id" => "realtyNew", "enctype"=>"multipart/form-data")); ?>
+			<input name="id" type="text" class="form-control hidden" value="<?php echo $property->id; ?>" >
+			<div class="col-md-6">
+			  	<div class="col-md-12">
+					<div class="form-group">
+						<label>Property Name</label>
+						<input name="name" type="text" class="form-control" value="<?php echo $property->name; ?>">
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Address</label>
+						<input name="street" type="text" class="form-control" value="<?php echo $property->street; ?>" >
+					</div>
+				</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>City</label>
+							<input name="city" type="text" class="form-control"  value="<?php echo $property->city; ?>">
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Country</label>
+							<select name="country_id"  type="select" class="form-control">
+									<option value="">Select country</option>
+								<?php foreach ($countries as $key => $country) { ?>
+									<?php if($country->id == $property->country_id){ ?>
+									<option value="<?php echo $country->id; ?>" selected><?php echo $country->country; ?></option>
+									<?php } else { ?>
+									<option value="<?php echo $country->id; ?>"><?php echo $country->country; ?></option>
+									<?php } ?>
+								<?php } ?>
+							</select>
+						</div>
+					</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Details</label>
+						<textarea name="details" type="textarea" class="ckeditor form-control" ><?php echo $property->details; ?></textarea> 
+					</div>
+				</div>
+				<div class="col-md-12">
+				<h3>Images</h3>
+				</div>
+				<?php
+					$fileId = array(0 => '', 1 => '', 2 => '', 3 => '', 4 => '', 5 => '', 6 => '');
+					$propertyImg = array(0 => 'http://placehold.it/100&text=image+1', 1 => 'http://placehold.it/100&text=image+2', 2 => 'http://placehold.it/100&text=image+3', 3 => 'http://placehold.it/100&text=image+4', 4 => 'http://placehold.it/100&text=image+5', 5 => 'http://placehold.it/100&text=image+6', 6 => 'http://placehold.it/100&text=image+7');					
+					$caption = array(0 => '', 1 => '', 2 => '', 3 => '', 4 => '', 5 => '', 6 => '');
+					foreach ($realtyPhotos as $key => $realtyPhoto) {
+						$fileId[$key] = $realtyPhoto->id;
+						$propertyImg[$key] = $realtyPhoto->file_path.$realtyPhoto->filename;
+						$caption[$key] = $realtyPhoto->caption;
+					}
+
+				?>
+
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Image 1 (primary)</label>
+							<input name="fileId1" value="<?php echo $fileId[0]; ?>" type="text" class="form-control hidden">
+							<input name="image1" data-image="1" type="file" class="form-control file">
+							<label>Caption</label>
+							<textarea name="caption1" class="form-control"><?php echo $caption[0]; ?></textarea>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<?php echo Phalcon\Tag::image(array($propertyImg[0], 'class' => 'img-responsive img-thumbnail', 'id' => 'imagePrev1')); ?>
+					</div>
+					<div class="col-md-1 center-block" data-toggle="tooltip" title="remove" id="action1">
+						<?php if($fileId[0]){ ?>
+							<button class="btn btn-danger btn-xs trash" type="button" data-img="1"><span class="fa fa-trash"></span></button>
+						<?php } ?>
+					</div>
+				</div>
+				<div class="col-md-11">
+					<hr>
+				</div>
+
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Image 2</label>
+							<input name="fileId2" value="<?php echo $fileId[1]; ?>" type="text" class="form-control hidden">
+							<input name="image2" data-image="2" type="file" class="form-control file">
+							<label>Caption</label>
+							<textarea name="caption2" class="form-control"><?php echo $caption[1]; ?></textarea>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<?php echo Phalcon\Tag::image(array($propertyImg[1], 'class' => 'img-responsive img-thumbnail', 'id' => 'imagePrev2')); ?>
+					</div>
+					<div class="col-md-1 center-block" data-toggle="tooltip" title="remove" id="action2">
+						<?php if($fileId[1]){ ?>
+							<button class="btn btn-danger btn-xs trash" type="button" data-img="2"><span class="fa fa-trash"></span></button>
+						<?php } ?>
+					</div>
+				</div>
+				<div class="col-md-11">
+					<hr>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Image 3</label>
+							<input name="fileId3" value="<?php echo $fileId[2]; ?>" type="text" class="form-control hidden">
+							<input name="image3" data-image="3" type="file" class="form-control file">
+							<label>Caption</label>
+							<textarea name="caption3" class="form-control"><?php echo $caption[2]; ?></textarea>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<?php echo Phalcon\Tag::image(array($propertyImg[2], 'class' => 'img-responsive img-thumbnail', 'id' => 'imagePrev3')); ?>
+					</div>
+					<div class="col-md-1 center-block" data-toggle="tooltip" title="remove" id="action3">
+						<?php if($fileId[2]){ ?>
+							<button class="btn btn-danger btn-xs trash" type="button" data-img="3"><span class="fa fa-trash"></span></button>
+						<?php } ?>
+					</div>
+				</div>
+				<div class="col-md-11">
+					<hr>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Image 4</label>
+							<input name="fileId4" value="<?php echo $fileId[3]; ?>" type="text" class="form-control hidden">
+							<input name="image4" data-image="4" type="file" class="form-control file">
+							<label>Caption</label>
+							<textarea name="caption4" class="form-control"><?php echo $caption[3]; ?></textarea>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<?php echo Phalcon\Tag::image(array($propertyImg[3], 'class' => 'img-responsive img-thumbnail', 'id' => 'imagePrev4')); ?>
+					</div>
+					<div class="col-md-1 center-block" data-toggle="tooltip" title="remove" id="action4">
+						<?php if($fileId[3]){ ?>
+							<button class="btn btn-danger btn-xs trash" type="button" data-img="4"><span class="fa fa-trash"></span></button>
+						<?php } ?>
+					</div>
+				</div>
+				<div class="col-md-11">
+					<hr>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Image 5</label>
+							<input name="fileId5" value="<?php echo $fileId[4]; ?>" type="text" class="form-control hidden">
+							<input name="image5" data-image="5" type="file" class="form-control file">
+							<label>Caption</label>
+							<textarea name="caption5" class="form-control"><?php echo $caption[4]; ?></textarea>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<?php echo Phalcon\Tag::image(array($propertyImg[4], 'class' => 'img-responsive img-thumbnail', 'id' => 'imagePrev5')); ?>
+					</div>
+					<div class="col-md-1 center-block" data-toggle="tooltip" title="remove" id="action5">
+						<?php if($fileId[4]){ ?>
+							<button class="btn btn-danger btn-xs trash" type="button" data-img="5"><span class="fa fa-trash"></span></button>
+						<?php } ?>
+					</div>
+				</div>
+				<div class="col-md-11">
+					<hr>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Image 6</label>
+							<input name="fileId6" value="<?php echo $fileId[5]; ?>" type="text" class="form-control hidden">
+							<input name="image6" data-image="6" type="file" class="form-control file">
+							<label>Caption</label>
+							<textarea name="caption6" class="form-control"><?php echo $caption[5]; ?></textarea>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<?php echo Phalcon\Tag::image(array($propertyImg[5], 'class' => 'img-responsive img-thumbnail', 'id' => 'imagePrev6')); ?>
+					</div>
+					<div class="col-md-1 center-block" data-toggle="tooltip" title="remove" id="action6">
+						<?php if($fileId[5]){ ?>
+							<button class="btn btn-danger btn-xs trash" type="button" data-img="6"><span class="fa fa-trash"></span></button>
+						<?php } ?>
+					</div>
+				</div>
+				<div class="col-md-11">
+					<hr>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Image 7</label>
+							<input name="fileId7" value="<?php echo $fileId[6]; ?>" type="text" class="form-control hidden">
+							<input name="image7" data-image="7" type="file" class="form-control file">
+							<label>Caption</label>
+							<textarea name="caption7" class="form-control"><?php echo $caption[6]; ?></textarea>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<?php echo Phalcon\Tag::image(array($propertyImg[6], 'class' => 'img-responsive img-thumbnail', 'id' => 'imagePrev7')); ?>
+					</div>
+					<div class="col-md-1 center-block" data-toggle="tooltip" title="remove" id="action7">
+						<?php if($fileId[6]){ ?>
+							<button class="btn btn-danger btn-xs trash" type="button" data-img="7"><span class="fa fa-trash"></span></button>
+						<?php } ?>
+					</div>
+				</div>
+				<div class="col-md-11">
+					<hr>
+				</div>
+				<div class="form-group">
+				  <div class="col-lg-12 text-center">
+					<button type="submit" class="btn btn-primary">Update Property</button>
+				  </div>
+				</div>
+				
+				<br>
+			</div>
+			<div class="col-md-3 containerBorder">
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Price</label>
+						<input name="price" type="text" class="form-control" value="<?php echo number_format($property->price, 2); ?>">
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Condition</label>
+						<select name="realty_condition_id"  type="select" class="form-control">
+								<option value="">Select condition</option>
+							<?php foreach ($realtyConditions as $key => $realtyCondition) { ?>
+								<?php if($realtyCondition->id == $property->realty_condition_id){ ?>
+								<option value="<?php echo $realtyCondition->id; ?>" selected><?php echo $realtyCondition->name; ?></option>
+								<?php } else { ?>
+								<option value="<?php echo $realtyCondition->id; ?>"><?php echo $realtyCondition->name; ?></option>
+								<?php } ?>
+							<?php } ?>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Type</label>
+						<select name="realty_type_id"  type="select" class="form-control" id="realtyType">
+								<option value="">Select Type</option>
+							<?php foreach ($realtyTypes as $key => $realtyType) { ?>
+								<?php if($realtyType->id == $property->realty_type_id){ ?>
+								<option value="<?php echo $realtyType->id; ?>" selected><?php echo $realtyType->name; ?></option>
+								<?php } else { ?>
+								<option value="<?php echo $realtyType->id; ?>"><?php echo $realtyType->name; ?></option>
+								<?php } ?>
+							<?php } ?>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Category</label>
+						<select name="realty_category_id"  type="select" class="form-control" id="realtyCategory">
+								<option value="">Select category</option>
+							<?php foreach ($realtyCategories as $key => $realtyCategory) { ?>
+								<?php if($realtyCategory->id == $property->realty_category_id){ ?>
+									<?php $category = $realtyCategory->RealtyTypes->name.' &raquo; '.$realtyCategory->name; ?>
+									<option value="<?php echo $realtyCategory->id; ?>" selected><?php echo $category; ?></option>
+								<?php } else { ?>
+									<?php $category = $realtyCategory->RealtyTypes->name.' &raquo; '.$realtyCategory->name; ?>
+									<option value="<?php echo $realtyCategory->id; ?>"><?php echo $category; ?></option>
+								<?php } ?>
+							<?php } ?>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>House Area</label>
+						<input name="house_area" type="text" class="form-control" value="<?php echo $property->house_area; ?>">
+
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>Lot Area</label>
+						<input name="lot_area" type="text" class="form-control" value="<?php echo $property->lot_area; ?>">
+					</div>
+				</div>
+				<div class="col-md-6">						
+					<div class="form-group">
+						<label>Bedroom(s)</label>
+						<select name="bedrooms"  type="select" class="form-control">
+								<?php for ($i=0; $i <= 10; $i++) { ?>
+									<?php if($i == $property->bedrooms){ ?>
+									<option value="<?php echo $i;  ?>" selected><?php echo $i;  ?></option>
+									<?php } else { ?>
+									<option value="<?php echo $i;  ?>"><?php echo $i;  ?></option>
+									<?php } ?>
+								<?php } ?>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-6">						
+					<div class="form-group">
+						<label>Bathroom(s)</label>
+						<select name="bathrooms"  type="select" class="form-control">
+								<?php for ($i=0; $i <= 10.5; $i += 0.5) { ?>
+									<?php if($i == $property->bathrooms){ ?>
+									<option value="<?php echo $i;  ?>" selected><?php echo $i;  ?></option>
+									<?php } else { ?>
+									<option value="<?php echo $i;  ?>"><?php echo $i;  ?></option>
+									<?php } ?>
+								<?php } ?>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-6">	
+					<div class="form-group">
+						<label>Parking</label>
+						<select name="parking"  type="select" class="form-control">
+								<?php for ($i=0; $i <= 10; $i++) { ?>
+									<?php if($i == $property->parking){ ?>
+									<option value="<?php echo $i;  ?>" selected><?php echo $i;  ?></option>
+									<?php } else { ?>
+									<option value="<?php echo $i;  ?>"><?php echo $i;  ?></option>
+									<?php } ?>
+								<?php } ?>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-6">	
+					<div class="form-group">
+						<label>Pets Allowed</label>
+						<select name="pets_allowed"  type="select" class="form-control">
+									<?php if($property->pets_allowed == 'Yes'){ ?>
+									<option value="Yes" selected>Yes</option>
+									<option value="No">No</option>
+									<?php } ?>
+									<?php if($property->pets_allowed == 'No'){ ?>
+									<option value="Yes">Yes</option>
+									<option value="No" selected>No</option>
+									<?php } ?>
+									
+							</select>
+					</div>
+				</div>
+			</div>
+			<?php echo Phalcon\Tag::endForm(); ?>
+		</div>
+		<br><br>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$('#realtyType').on('change', function(){ 
+			var categoryId = $(this).val();
+			$.getJSON("/mybarangay/realty_category/list/"+categoryId, function(data) {
+			    $("#realtyCategory option").remove();
+			    $("#realtyCategory").append('<option value=""> Select category</option>');
+			    $.each(data, function(){
+			        $("#realtyCategory").append('<option value="'+ this.id +'">'+ this.name +'</option>')
+			    });
+			});
+		});
+
+		function readURL(input, imgNo) {
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+		        reader.onload = function (e) {
+		            $('#imagePrev'+imgNo).attr('src', e.target.result);
+		            $('#action'+imgNo).html('<button class="btn btn-danger btn-xs trash" type="button" data-img="'+imgNo+'"><span class="fa fa-trash"></span></button>');
+		        }
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+
+		$('[type="file"]').change(function(){
+			var imgNo = $(this).data('image');
+		    readURL(this, imgNo);
+		});
+
+		$(document).on('click', '.trash', function(){
+			var imgNo = $(this).data('img');
+			$('input[name="image'+imgNo+'"]').val('');
+		    $('#imagePrev'+imgNo).attr('src', 'http://placehold.it/100&text=image+'+imgNo);
+		    $('#action'+imgNo).html('');
+		});
+		
+	});
+</script>
+
+

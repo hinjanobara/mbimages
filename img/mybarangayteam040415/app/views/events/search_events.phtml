@@ -1,0 +1,176 @@
+
+<div class="container" id="container">
+    <div class="col-md-12 bg-white">
+        <br>
+        <div class="row">
+            <div class="col-md-12 bg-primary">
+                <br>
+                <div class="col-md-8 ">
+                    <h1>Search Events</h1>
+                    <h3>See all upcoming events around the world</h3>
+                    <form action="search_events" method="post" class="" id="newEventForm">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <div class="input-group">
+						    <span class="input-group-btn">
+						      <button class="btn btn-default" type="button">Find</button>
+						    </span>
+                                    <input name="name" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <div class="input-group">
+						    <span class="input-group-btn">
+						      <button class="btn btn-default" type="button">Near</button>
+						    </span>
+                                    <input name="address" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <button name="searchBtn" type="submit" class="btn btn-danger" ><span class="fa fa-search"></span></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-4 text-center">
+                    <center>
+                        <?php echo Phalcon\Tag::image(array("themes/mybarangay1/img/biz/mybarangay.jpg", 'class' => 'media-object img-responsive img-thumbnail img-circle img-block biz-search-logo')); ?>
+                    </center>
+                    <br>
+                </div>
+            </div>
+
+            <hr>
+            <div class="col-md-8">
+                <br>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h3 class="text-danger"><strong>See the event you’d like to review?</strong></h3>
+                        <?php if(isset($events)){?>
+                        <?php $mapMarkers=""; $mapInfoWindow="";?>
+                        <?php foreach ($events as $key => $event) { ?>
+                            <?php if(!empty($event->lat) && !empty($event->lng)){ $mapMarkers .= ",['".$event->name."', ".$event->lat.", ".$event->lng."]"; ?>
+                            <?php $mapInfoWindow .= ",['<div class=\"info_content line-height-60\"><h3 class=\"text-danger\">".$event->name."</h3><p class=\"text-primary\"><strong>".$event->EventsCategories->name."</strong></p><p><a href=\"".$event->website."\" target=\"_BLANK\">".$event->website."</a></p><p>".$event->telephone."</p><p>".$event->street.", ".$event->city.", ".$event->Countries->country."</p></div>']"; }?>
+                            <div class="media">
+                                <div class="media-left media-middle">
+                                    <a href="#">
+                                        <?php echo Phalcon\Tag::image(array("themes/mybarangay1/img/biz/mybarangay.jpg", 'class' => 'media-object img-responsive img-rounded biz-result')); ?>
+                                    </a>
+                                </div>
+                                <div class="media-body biz-result-body">
+                                    <div class="col-md-5">
+                                        <h4 class="media-heading"><strong><?php echo Phalcon\Tag::linkTo('events/view/'.$event->id, $event->name); ?></strong></h4>
+                                        <p><?php echo $event->EventsCategories->name; ?></p>
+                                        <p><?php echo $event->event_date; ?></p>
+                                        <p><?php echo $event->website; ?></p>
+                                        <?php echo Phalcon\Tag::linkTo(array('events/add/'.$event->id, '<span class="fa fa-star"></span> Write a review', 'class' => 'btn btn-danger')); ?>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <p><span class="fa fa-map-marker"></span> <?php echo $event->street; ?></p>
+                                        <p>&nbsp;<?php echo $event->city; ?></p>
+                                        <p>&nbsp;<?php echo $event->Countries->country; ?></p>
+                                        <p><span class="fa fa-phone-square"></span> <?php echo $event->telephone; ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
+            <?php }?>
+            <div class="col-md-4">
+                <br>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div id="map_wrapper">
+                            <div id="map_canvas" class="mapping"></div>
+                        </div>
+                        <!-- <iframe
+                            height="350"
+                            frameborder="0" style="border:0"
+                            src="https://www.google.com/maps/embed/v1/search?key=AIzaSyAbpLPfBH8sNdVSzMULD_BZN9qrAqbL3V8
+                              &q=Verico+financial+canada&q=Clear+Trust+canada">
+                          </iframe> -->
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h4 class="text-primary"><strong>Not here? Tell us what we're missing.</strong></h4>
+                        <p>If the event you're looking for isn't here, add it!</p>
+                        <?php echo Phalcon\Tag::linkTo(array('events/new_event', 'Add A New Event', 'class' => 'btn btn-primary')); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        // Asynchronously Load the map API
+        var script = document.createElement('script');
+        script.src = "http://maps.googleapis.com/maps/api/js?sensor=false&callback=initialize";
+        document.body.appendChild(script);
+
+    });
+    function initialize() {
+        var map;
+        var bounds = new google.maps.LatLngBounds();
+        var mapOptions = {
+            mapTypeId: 'roadmap'
+        };
+
+        // Display a map on the page
+        map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+        map.setTilt(45);
+
+        // Multiple Markers
+        var markers = [
+            <?php echo substr($mapMarkers, 1); ?>
+        ];
+
+        // Info Window Content
+        var infoWindowContent = [
+            <?php echo substr($mapInfoWindow, 1); ?>
+        ];
+
+        // Display multiple markers on a map
+        var infoWindow = new google.maps.InfoWindow(), marker, i;
+
+        // Loop through our array of markers & place each one on the map
+        for( i = 0; i < markers.length; i++ ) {
+            var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+            bounds.extend(position);
+            marker = new google.maps.Marker({
+                position: position,
+                map: map,
+                title: markers[i][0]
+            });
+
+            // Allow each marker to have an info window
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                    infoWindow.setContent(infoWindowContent[i][0]);
+                    infoWindow.open(map, marker);
+                }
+            })(marker, i));
+
+            // Automatically center the map fitting all markers on the screen
+            map.fitBounds(bounds);
+        }
+
+        // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
+        var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
+            //this.setZoom(14);
+            google.maps.event.removeListener(boundsListener);
+        });
+
+    }
+
+
+
+</script>

@@ -1,0 +1,101 @@
+ <div class="jumbotron col-md-12">
+      <div class="container">
+          <div class="container">
+            <h1 class="text-center feat" style="margin-top:-20px;">Featured Ads</h1>
+          </div>
+        
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-10 col-md-push-1" style="background-color: #003082;height: 280px;padding-top: 10px;width: 82%;">
+              <!-- <br/> -->
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-3 custom-thumbnail" style="border: 1px solid black; height: 260px;">
+                    <!-- cars and trucks -->
+                      <?php
+                        $autoCount = 1;
+                            foreach($autos as $key => $auto) {
+                              $autoImg = 'http://placehold.it/220x130';
+
+                              if ($autoCount == 1) {
+                                if(count($auto->AutomotivePhotos)){ $autoImg = $auto->AutomotivePhotos[0]->file_path.$auto->AutomotivePhotos[0]->filename; } 
+                                //echo Phalcon\Tag::image(array($autoImg, 'class' => 'img-responsive img-thumbnail ads_img', 'alt' => $auto->position));
+
+                                echo '<img src="'.$autoImg.'">';
+                              }
+                            }
+                      ?>
+                    </div>
+                    <div class="col-md-3 custom-thumbnail" style="border: 1px solid black; height: 260px;">
+                      <!--<h2 class="feat">Recent Job Post</h2>-->
+                       <?php 
+                            $jobCount = 1;
+                            foreach($jobs as $key => $job) {
+                              $jobImg = 'http://placehold.it/220x130';
+
+                              if ($jobCount == 1) {
+                                if(count($job->JobLogos)){ $jobImg = $job->JobLogos[0]->file_path.$job->JobLogos[0]->filename; } 
+                                //echo Phalcon\Tag::image(array($jobImg, 'class' => 'img-responsive img-thumbnail ads_img', 'alt' => $job->position));
+                                echo '<img src="'.$jobImg.'">';
+                              }
+                            }
+                             
+                            
+                       ?>
+                    </div>
+                    <div class="col-md-3 custom-thumbnail" style="border: 1px solid black; height: 260px;">
+                      <!--<h2 class="feat">Recent Real Estate Post</h2>-->
+                      <?php 
+                            $realtyCount = 1;
+                            foreach($realties as $key => $realty){ 
+                            if ($realtyCount == 2) {
+                              $realtyImg = 'http://placehold.it/230x130';
+                              if(count($realty->RealtyPhotos)){ $realtyImg = $realty->RealtyPhotos[0]->file_path.$realty->RealtyPhotos[0]->filename; }
+
+                              echo Phalcon\Tag::linkTo(array('real_estate/view/'.$realty->id, Phalcon\Tag::image(array($realtyImg, 'class' => 'ads_img ', 'alt' => $realty->name))));
+
+                              $realtyCount++;
+                            }
+                     }?>
+                    </div>
+                    <div class="col-md-3 custom-thumbnail" style="border: 1px solid black; height: 260px;">
+                      <!--<h2 class="text-center feat">Recent Thing Post</h2>-->
+                    <?php
+                      $thingCount = 1;
+                            foreach($things as $key => $thing) {
+                              $thingImg = 'http://placehold.it/220x130';
+
+                              if ($thingCount == 1) {
+                                if(count($thing->ThingPhotos)){ $thingImg = $thing->ThingPhotos[0]->file_path.$thing->ThingPhotos[0]->filename; } 
+                                //echo Phalcon\Tag::image(array($autoImg, 'class' => 'img-responsive img-thumbnail ads_img', 'alt' => $auto->position));
+
+                                echo '<img src="'.$thingImg.'">';
+                                $thingCount++;
+                              }
+                            }
+                    ?>
+                    <div class="dog-info">
+                      <p class="text-center"><?php echo Phalcon\Tag::linkTo(array('job/view/'.$job->id, $job->position, 'class' => 'text-primary thingName')); ?></p>
+                      <h5 class="text-center text-danger price"><?php echo $job->company; ?></h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-md-offset-5" style="padding-left: 51px;"><?php $this->flash->output(); ?>
+		<div class="btn-group" role="group" aria-label="...">
+		  <button type="button" class="btn btn-danger"><i class="fa fa-arrow-left"></i>
+	</button>
+		  <button type="button" class="btn btn-danger"><i class="fa fa-arrow-right"></i>
+	</button>
+		</div>
+</div>
+	
+        </div>
+      </div>
+    </div>

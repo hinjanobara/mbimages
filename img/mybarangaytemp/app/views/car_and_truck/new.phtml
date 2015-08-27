@@ -1,0 +1,409 @@
+
+<style type="text/css">
+	hr {
+		background-color:#ddd;
+		margin-top: 10px !important;
+		margin-bottom: 10px !important;
+	}
+</style>
+<?php echo $this->tag->javascriptInclude("themes/customize/js/ckeditor/ckeditor.js"); ?>
+<?php echo $this->tag->stylesheetLink("themes/customize/css/bootstrapValidator/bootstrapValidator.min.css"); ?>
+
+<div class="container containerBorder top_margin" id="container">
+	<div class="col-md-12 bg-white">
+		<div class="row">
+			<div class="col-md-12 bg-primary container" style="margin-bottom:25px;">
+			
+				<h1>Add a Car/Truck</h1>
+				<p>Please note: This property will not appear in search results until it has been approved by our moderators.</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3 ">
+				<?php $this->partial("layouts/elements/profile_widget"); ?>	
+			</div>
+			<?php echo Phalcon\Tag::form(array("car_and_truck/new", "method" => "post", "id" => "carNew", "enctype"=>"multipart/form-data")); ?>
+			<div class="col-md-6">
+			<?php $this->flash->output(); ?>
+			  	<div class="col-md-12">
+					<div class="form-group">
+						<label>Car/Truck Name</label>
+						<input name="name" type="text" class="form-control" >
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Location</label>
+						<input name="location" type="text" class="form-control" placeholder="123 anywhere street">
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Details</label>
+						<textarea name="details" type="textarea" class="ckeditor form-control" ></textarea> 
+					</div>
+				</div>
+				<div class="col-md-12">
+				<h3>Image</h3>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Image 1 (primary)</label>
+							<input name="image[]" data-image="1" type="file" class="form-control file">
+							<label>Caption</label>
+							<textarea name="caption" class="form-control"></textarea>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<img src="http://placehold.it/100&text=image+1" id="imagePrev1" class="img-responsive img-thumbnail">
+					</div>
+					<div class="col-md-1 center-block" data-toggle="tooltip" title="remove" id="action1">
+					</div>
+				</div>
+				<div class="col-md-11">
+					<hr>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Image 2</label>
+							<input name="image[]"  type="file" data-image="2" class="form-control file">
+							<label>Caption</label>
+							<textarea name="caption2" class="form-control" placeholder="--required--"></textarea>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<img src="http://placehold.it/100&text=image+2" id="imagePrev2" class="img-responsive img-thumbnail">
+					</div>
+					<div class="col-md-1 center-block" data-toggle="tooltip" title="remove" id="action2">
+					</div>
+				</div>
+				<div class="col-md-11">
+					<hr>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Image 3</label>
+							<input name="image[]"  type="file" data-image="3" class="form-control file">
+							<label>Caption</label>
+							<textarea name="caption3" class="form-control" placeholder="--required--"></textarea>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<img src="http://placehold.it/100&text=image+3" id="imagePrev3" class="img-responsive img-thumbnail">
+					</div>
+					<div class="col-md-1 center-block" data-toggle="tooltip" title="remove" id="action3">
+					</div>
+				</div>
+				<div class="col-md-11">
+					<hr>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Image 4</label>
+							<input name="image[]"  type="file" data-image="4" class="form-control file">
+							<label>Caption</label>
+							<textarea name="caption4" class="form-control" placeholder="--required--"></textarea>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<img src="http://placehold.it/100&text=image+4" id="imagePrev4" class="img-responsive img-thumbnail">
+					</div>
+					<div class="col-md-1 center-block" data-toggle="tooltip" title="remove" id="action4">
+					</div>
+				</div>
+				<div class="col-md-11">
+					<hr>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Image 5</label>
+							<input name="image[]"  type="file" data-image="5" class="form-control file">
+							<label>Caption</label>
+							<textarea name="caption5" class="form-control" placeholder="--required--"></textarea>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<img src="http://placehold.it/100&text=image+5" id="imagePrev5" class="img-responsive img-thumbnail">
+					</div>
+					<div class="col-md-1 center-block" data-toggle="tooltip" title="remove" id="action5">
+					</div>
+				</div>
+				<div class="col-md-11">
+					<hr>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Image 6</label>
+							<input name="image[]"  type="file" data-image="6" class="form-control file">
+							<label>Caption</label>
+							<textarea name="caption6" class="form-control" placeholder="--required--"></textarea>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<img src="http://placehold.it/100&text=image+6" id="imagePrev6" class="img-responsive img-thumbnail">
+					</div>
+					<div class="col-md-1 center-block" data-toggle="tooltip" title="remove" id="action6">
+					</div>
+				</div>
+				<div class="col-md-11">
+					<hr>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Image 7</label>
+							<input name="image[]"  type="file" data-image="7" class="form-control file">
+							<label>Caption</label>
+							<textarea name="caption7" class="form-control" placeholder="--required--"></textarea>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<img src="http://placehold.it/100&text=image+7" id="imagePrev7" class="img-responsive img-thumbnail">
+					</div>
+					<div class="col-md-1 center-block" data-toggle="tooltip" title="remove" id="action7">
+					</div>
+				</div>
+				<div class="form-group">
+				  <div class="col-lg-12 text-center">
+					<button type="submit" class="btn btn-primary">Add Car</button>
+				  </div>
+				</div>
+				
+				<br>
+			</div>
+			<div class="col-md-3 containerBorder">
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Price</label>
+						<input name="price" type="text" class="form-control" >
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>Brand</label>
+						<input name="brand" type="text" class="form-control">
+
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>Model</label>
+						<input name="model" type="text" class="form-control" >
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Year Model</label>
+						<input name="year_model" type="text" class="form-control" >
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Condition</label>
+						<select name="condition"  type="select" class="form-control" id="condition">
+								<option value="">Select Condition</option>
+							<?php foreach ($carConditions as $condition) { ?>
+								<option value="<?php echo $condition->id; ?>"><?php echo $condition->name; ?></option>
+							<?php } ?>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Body Type</label>
+						<select name="body_type"  type="select" class="form-control" id="realtyType">
+								<option value="">Select Body Type</option>
+								<option value="Sedan">Sedan</option>
+								<option value="Coupe">Coupe</option>
+								<option value="Pick-up">Pick-up</option>
+								<option value="SUV">SUV</option>
+								<option value="Van">Van</option>
+								<option value="Wagon">Wagon</option>
+								<option value="Sports Car">Sports Car</option>
+								<option value="Convertible">Convertible</option>
+								<option value="Crossover">Crossover</option>
+								<option value="Motorcycle">Motorcycle</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Transmission</label>
+						<select name="transmission"  type="select" class="form-control" id="realtyType">
+								<option value="">Select Transmission</option>
+								<option value="Manual">Manual</option>
+								<option value="Automatic">Automatic</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Mileage (km)</label>
+						<input name="mileage" type="text" class="form-control" >
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Fuel Type</label>
+						<select name="fuel_type"  type="select" class="form-control" id="realtyType">
+								<option value="">Select Fuel Type</option>
+								<option value="1">Petrol</option>
+								<option value="2">Diesel</option>
+								<option value="3">Liquefied Petroleum</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<?php echo Phalcon\Tag::endForm(); ?>
+		</div>
+		<br><br>
+	</div>
+</div>
+
+<?php echo $this->tag->javascriptInclude("themes/customize/js/bootstrapValidator/bootstrapValidator.min.js"); ?>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$('#carNew').bootstrapValidator({
+            message: 'This value is not valid',
+	        feedbackIcons: {
+	            valid: 'glyphicon glyphicon-ok',
+	            invalid: 'glyphicon glyphicon-remove',
+	            validating: 'glyphicon glyphicon-refresh'
+	        },
+	        fields: {
+	            name: {
+	                validators: {
+	                    notEmpty: {
+	                        message: '* Required'
+	                    }
+	                }
+	            },
+	            location: {
+	                validators: {
+	                    notEmpty: {
+	                        message: '* Required'
+	                    }
+	                }
+	            },
+	            details: {
+	                validators: {
+	                    notEmpty: {
+	                        message: '* Required'
+	                    }
+	                }
+	            },
+	            price: {
+	                validators: {
+	                    notEmpty: {
+	                        message: '* Required'
+	                    },
+	                    numeric: {
+	                        message: '* The price must be a number'
+	                    }
+	                }
+	            },
+	            year_model: {
+	                validators: {
+	                    notEmpty: {
+	                        message: '* Required'
+	                    }
+	                }
+	            },
+	            brand: {
+	                validators: {
+	                    notEmpty: {
+	                        message: '* Required'
+	                    }
+	                }
+	            },
+	            model: {
+	                validators: {
+	                    notEmpty: {
+	                        message: '* Required'
+	                    }
+	                }
+	            },
+	            body_type: {
+	                validators: {
+	                    notEmpty: {
+	                        message: '* Required'
+	                    }
+	                }
+	            },
+	            transmission: {
+	                validators: {
+	                    notEmpty: {
+	                        message: '* Required'
+	                    }
+	                }
+	            },
+	            mileage: {
+	            	enabled: false,
+	                validators: {
+	                    notEmpty: {
+	                        message: '* Required'
+	                    }
+	                }
+	            },
+	            condition: {
+	                validators: {
+	                    notEmpty: {
+	                        message: '* Required'
+	                    }
+	                }
+	            },
+	            fuel_type: {
+	                validators: {
+	                    notEmpty: {
+	                        message: '* Required'
+	                    }
+	                }
+	            }
+            }
+        });
+
+		$('#condition').on('change', function(){ 
+			var conditionId = $(this).val();
+			var bootstrapValidator = $('#carNew').data('bootstrapValidator');
+			if(conditionId == 2) {
+				bootstrapValidator.enableFieldValidators('mileage', true);
+			} else {
+				bootstrapValidator.enableFieldValidators('mileage', false);
+			}
+		});
+
+		function readURL(input, imgNo) {
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+		        reader.onload = function (e) {
+		            $('#imagePrev'+imgNo).attr('src', e.target.result);
+		            $('#action'+imgNo).html('<button class="btn btn-danger btn-xs trash" type="button" data-img="'+imgNo+'"><span class="fa fa-trash"></span></button>');
+		        }
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+
+		$('[type="file"]').change(function(){
+			var imgNo = $(this).data('image');
+		    readURL(this, imgNo);
+		});
+
+		$(document).on('click', '.trash', function(){
+			var imgNo = $(this).data('img');
+			$('input[name="image'+imgNo+'"]').val('');
+		    $('#imagePrev'+imgNo).attr('src', 'http://placehold.it/100&text=image+'+imgNo);
+		    $('#action'+imgNo).html('');
+		});
+		
+	});
+</script>
+
+

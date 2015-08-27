@@ -1,0 +1,156 @@
+
+
+<section class="bg-info biz-head-<?php echo str_replace(' ', '_', strtolower($events->EventsCategories->name)); ?> img-responsive">
+    <div class="container" id="container">
+        <div class="col-md-7">
+            <h1 class="text-primary line-height-60"><strong><?php echo $events->name; ?></strong></h1>
+            <span class="fa fa-star btn btn-warning btn-xs"></span>&nbsp;<span class="fa fa-star btn btn-warning btn-xs"></span>&nbsp;<span class="fa fa-star btn btn-warning btn-xs"></span>&nbsp;<span class="fa fa-star btn btn-warning btn-xs"></span>&nbsp;<span class="fa fa-star btn btn-warning btn-xs"></span> 2,700 reviews
+            <h3 class="text-danger line-height-60"><?php echo $events->EventsCategories->name; ?></h3>
+        </div>
+        <div class="col-md-5">
+            <?php echo Phalcon\Tag::linkTo(array('events/add/'.$events->id, '<span class="fa fa-star"></span> Write a review', 'class' => 'btn btn-danger')); ?>
+            <div class="btn-group">
+                <?php echo Phalcon\Tag::linkTo(array('#'.$events->id, '<span class="fa fa-camera"></span> Add photo', 'class' => 'btn btn-default')); ?>
+                <?php echo Phalcon\Tag::linkTo(array('#'.$events->id, '<span class="fa fa-share"></span> Share', 'class' => 'btn btn-default')); ?>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div id="map_wrapper">
+                        <div id="map_canvas" class="mapping"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3"><?php $this->flash->output(); ?></div>
+        </div>
+    </div>
+</section>
+
+<div class="container bg-white">
+    <div class="col-md-12">
+        <div class="col-md-8">
+            <h3 class="text-primary">Reviews</h3>
+            <?php foreach ($reviews as $key => $review) { ?>
+            <div class="media bottom-hr">
+                <div class="media-left media-top">
+                    <a href="#">
+                        <?php echo Phalcon\Tag::image(array("themes/mybarangay1/img/avatar-pitt.jpg", 'class' => 'media-object img-responsive img-rounded biz-review')); ?>
+                    </a>
+                </div>
+                <div class="media-body biz-result-body">
+                    <div class="col-md-4">
+                        <h4 class="media-heading">
+                            <strong><?php echo Phalcon\Tag::linkTo('member/profile/' . $review->member_id, $review->Members->first_name . ' ' . $review->Members->last_name); ?></strong>
+                        </h4>
+
+                        <div class="list-group">
+                            <a href="#" class="list-group-item ">
+                                <span class="fa fa-share"></span>&nbsp;&nbsp; Share review
+                            </a>
+                            <a href="#" class="list-group-item ">
+                                <span class="fa fa-certificate"></span>&nbsp;&nbsp; Compliment
+                            </a>
+                            <a href="#" class="list-group-item ">
+                                <span class="fa fa-comment "></span>&nbsp;&nbsp; Send message
+                            </a>
+                            <a href="#" class="list-group-item ">
+                                <span class="fa fa-heart "></span>&nbsp;&nbsp; Follow
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <p>
+                            <?php
+                            $ctr = 0; while($ctr<$review->rate) {
+                                if($ctr==0){?> <span class="fa fa-star btn btn-success btn-xs rate" data-rate="<?php echo $ctr+1;?>"></span>&nbsp;<?php }
+                                elseif($ctr==1){?> <span class="fa fa-star btn btn-success btn-xs rate" data-rate="<?php echo $ctr+1;?>"></span>&nbsp;<?php }
+                                elseif($ctr==2){?> <span class="fa fa-star btn btn-danger btn-xs rate" data-rate="<?php echo $ctr+1;?>"></span>&nbsp;<?php }
+                                elseif($ctr==3){?> <span class="fa fa-star btn btn-danger btn-xs rate" data-rate="<?php echo $ctr+1;?>"></span>&nbsp;<?php }
+                                elseif($ctr==4){?> <span class="fa fa-star btn btn-warning btn-xs rate" data-rate="<?php echo $ctr+1;?>"></span>&nbsp;<?php }
+                                $ctr++;
+                                    }?>
+                                </span>&nbsp;<?php echo date('m/d/Y', strtotime($review->created)); ?></p>
+                            <p class="line-height-100"><?php echo $review->content; ?></p>
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
+        </div>
+        <div class="col-md-4 line-height-60">
+            <h3 class="text-primary">Event Date:</h3>
+            <p><?php echo $events->event_date;?></p> <br/>
+            <h4><?php echo $events->eventinfo;?></h4>
+        </div>
+
+    </div>
+</div>
+<?php $mapMarkers = "['".$events->name."', ".$events->lat.", ".$events->lng."]"; ?>
+<?php $mapInfoWindow = "['<div class=\"info_content line-height-60\"><h3 class=\"text-danger\">".$events->name."</h3><p class=\"text-primary\"><strong>".$events->EventsCategories->name."</strong></p><p><a href=\"".$events->website."\" target=\"_BLANK\">".$events->website."</a></p><p>".$events->telephone."</p><p>".$events->street.", ".$events->city.", ".$events->Countries->country."</p></div>']"; ?>
+<script type="text/javascript">
+    $(document).ready(function(){
+        // Asynchronously Load the map API
+        var script = document.createElement('script');
+        script.src = "http://maps.googleapis.com/maps/api/js?sensor=false&callback=initialize";
+        document.body.appendChild(script);
+
+    });
+    function initialize() {
+        var map;
+        var bounds = new google.maps.LatLngBounds();
+        var mapOptions = {
+            mapTypeId: 'roadmap'
+        };
+
+        // Display a map on the page
+        map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+        map.setTilt(45);
+
+        // Multiple Markers
+        var markers = [
+            <?php echo $mapMarkers; ?>
+        ];
+
+        // Info Window Content
+        var infoWindowContent = [
+            <?php echo $mapInfoWindow; ?>
+        ];
+
+        // Display multiple markers on a map
+        var infoWindow = new google.maps.InfoWindow(), marker, i;
+
+        // Loop through our array of markers & place each one on the map
+        for( i = 0; i < markers.length; i++ ) {
+            var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+            bounds.extend(position);
+            marker = new google.maps.Marker({
+                position: position,
+                map: map,
+                title: markers[i][0]
+            });
+
+            // Allow each marker to have an info window
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                    infoWindow.setContent(infoWindowContent[i][0]);
+                    infoWindow.open(map, marker);
+                }
+            })(marker, i));
+
+            // Automatically center the map fitting all markers on the screen
+            map.fitBounds(bounds);
+        }
+
+        // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
+        var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
+            this.setZoom(14);
+            google.maps.event.removeListener(boundsListener);
+        });
+
+    }
+
+</script>

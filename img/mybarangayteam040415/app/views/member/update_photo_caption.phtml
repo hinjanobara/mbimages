@@ -1,0 +1,74 @@
+
+<div class="container">
+	<div class="row">
+    	<div class="col-md-6 col-md-offset-3"><?php $this->flash->output(); ?></div>
+    </div>
+	<div class="col-md-3">
+		<?php if(isset($userSession['id'])) { $memberId = $userSession['id']; } else { $memberId = ''; } ?>
+		<?php if($memberId == $member->id) { ?>
+		<?php $this->partial("layouts/elements/profile_widget") ?>
+		<?php } ?>
+		<?php if($memberId != $member->id) { ?>
+		<?php $this->partial("layouts/elements/member_widget") ?>
+		<?php } ?>
+	</div>
+	<div class="col-md-6">
+		<div class="container containerBorder col-md-12">
+			<div class="col-md-12">
+				<div class="col-md-12">
+					<h2 class="line-height-50 colorBlue"><strong><?php echo Phalcon\Tag::linkTo('member/page/'.$member->id, $member->first_name.' '.substr($member->last_name, 0, 1).'.'); ?></strong><strong class="text-danger"> : Update caption</strong></h2>
+				</div>
+				<div class="col-md-12">
+					<div class="container col-md-12 ">
+						<?php  echo Phalcon\Tag::form(array("member/update_photo_caption/".$photo->id, "method" => "post", "enctype"=>"multipart/form-data")); ?>
+						<div class="form-group">
+							<label> Caption</label>
+							<textarea name="caption" type="textarea" rows="5" class="form-control" placeHolder=""><?php echo $photo->caption; ?></textarea>
+						</div>
+						<div class="form-group">
+							<div class="pull-right text-center">
+								<?php echo Phalcon\Tag::linkTo(array('member/add_photo/'.$member->id, 'Cancel', 'class' => 'btn btn-danger'));?>
+								<button type="submit" class="btn btn-primary">&nbsp;Update&nbsp;</button>
+							</div>
+						</div>
+						<?php  echo Phalcon\Tag::endForm(); ?>
+					</div>
+					<br>
+					<br>
+					<br>
+				</div>
+			</div>
+		</div>
+		<br>
+	</div>
+	<div class="col-md-3">
+		<div class="panel containerBorder" style="max-height:310px;">
+			<?php echo Phalcon\Tag::image(array($photo->file_path.$photo->filename, 'class' => 'img-responsive img-rounded img-thumbnail')); ?>
+		</div>
+	</div>
+
+	<div class="col-md-9">
+		<br>
+		<div class="panel containerBorder">
+			<div class="panel-body">
+			<?php foreach ($photos as $key => $photo) { ?>
+				<div class="col-md-3">
+					<?php echo Phalcon\Tag::image(array($photo->file_path.$photo->filename, 'class' => 'img-responsive img-rounded img-thumbnail')); ?>
+					<div class="col-md-12">
+						<div class="pull-right">
+							<?php echo Phalcon\Tag::linkTo(array('member/delete_photo/'.$photo->id, '<i class="text-danger fa fa-trash" data-toggle="tooltip" title="Delete photo"></i>')); ?>
+							&nbsp;
+							<?php echo Phalcon\Tag::linkTo(array('member/update_photo_caption/'.$photo->id, '<i class="text-warning fa fa-pencil" data-toggle="tooltip" title="Update photo caption"></i>')); ?>
+							&nbsp;
+							<?php echo Phalcon\Tag::linkTo(array('member/set_primary_photo/'.$photo->id, '<i class="text-primary fa fa-picture-o" data-toggle="tooltip" title="Set primary photo"></i>')); ?>
+						</div>
+					</div>
+					<blockquote>
+						<p><?php echo $photo->caption; ?></p>
+					</blockquote>
+				</div>
+			<?php } ?>
+			</div>
+		</div>
+	</div>
+</div>

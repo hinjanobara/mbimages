@@ -1,0 +1,142 @@
+<div class="container containerBorder" >	
+	<div class="col-md-12 bg-white">
+		<div class="row">
+			<div class="col-md-12">
+				<label><?php echo Phalcon\Tag::linkTo(array('business/view/'.$business->id, $business->name)); ?> <span class="glyphicon glyphicon-chevron-right"></span> photos</label><br/>
+				<strong class="text-primary" style="font-size:25px;"><?php echo count($businessImages->items).' photos for '.$business->name; ?></strong>
+				<div class="btn-group pull-right">
+					<?php echo Phalcon\Tag::linkTo(array('business/add_photo/'.$business->id, '<span class="fa fa-camera"></span> Add photo', 'class' => 'btn btn-danger restricted')); ?>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<ul class="nav nav-tabs">
+				  <li class="active">
+				  	<a href="javascript:void(0);">
+					  <button class="btn btn-danger btn-sm" id="previousImgBtn"><span class="glyphicon glyphicon-chevron-left"></span></button> 
+					  	<span id="currentKey">1</span> of <?php echo count($businessImages->items); ?>
+					  <button  class="btn btn-danger btn-sm" id="nextImgBtn"><span class="glyphicon glyphicon-chevron-right"></span></button>
+					  </a>
+				  </li>
+				</ul>
+				<div id="myTabContent" class="tab-content panel">
+				  	<div class="tab-pane fade active in panel-body" id="main">
+					  	<div class="row">
+					  		<div class="col-md-12">
+					  			<div class="col-md-9 text-center" style="border-right:1px solid #ccc">
+					  			<?php echo Phalcon\Tag::image(array($businessFirstImg->file_path.$businessFirstImg->filename, 'class' => 'img-responsive img-rounded center-block img-current', 'data-key' => 0,'style' => 'width:600px;height:400px;')); ?>
+					  			</div>
+					  			<div class="col-md-3 panel-body">
+					  				<div class="row">
+						  				<div class="col-md-4">
+						  					<?php echo Phalcon\Tag::image(array($businessFirstImg->file_path.$businessFirstImg->filename, 'class' => 'img-responsive img-rounded')); ?>
+						  				</div>
+						  				<div class="col-md-8">
+						  					
+						  					<?php echo Phalcon\Tag::linkTo(array('member/page/'.$businessFirstImg->Members->id, '<h4 id=""></h4>'.$businessFirstImg->Members->first_name.' '.$businessFirstImg->Members->last_name, 'id' => 'memberName')); ?>
+						  				
+						  					<p><i class="fa fa-users"></i> Friends 310    <i class="fa fa-comments"></i> Reviews  815 </p>
+						  				</div>
+						  			</div>
+						  			<div class="row" style="margin-top:25px;">
+						  				<div class="col-md-12">					  				
+					  						<label id="imgCaption"><?php echo $businessFirstImg->caption; ?></label>
+					  					</div>
+					  					<div class="col-md-12">					  				
+					  						<label style="color:#ccc;">
+					  							<small>
+					  								<?php echo date('M d, Y',strtotime($businessFirstImg->created)); ?>		
+					  							</small>
+					  						</label>
+					  					</div>  	
+						  			</div>
+					  				
+					  			</div>
+					  		</div>
+					  	</div>
+				  		<div class="row" style="margin-top:10px!important;">
+				  			<div class="col-md-12">
+				  				<div class="row">
+				  					<?php foreach ($businessImages->items as $key => $businessImage) { ?>
+				
+									  		<div class="col-md-2 itemKevin">
+									  			<a href="javascript:void(0);">
+									  			<?php if($businessImage->caption){ $caption = substr($businessImage->caption, 0, 100).'...'; } else { $caption = ''; } ?>
+									  			<?php echo Phalcon\Tag::image(array($businessImage->file_path.$businessImage->filename, 'class' => 'img-responsive img-rounded img-thumbnail img-list', 'data-member' => $businessImage->Members->first_name.' '.$businessImage->Members->last_name, 'data-caption' => $caption, 'data-key' => $key,'style' => 'width:150px;height:150px;')); ?>
+									  			</a>
+									  			<p>From
+
+						  					<?php echo Phalcon\Tag::linkTo(array('member/page/'.$businessFirstImg->Members->id, '<small></small>'.$businessFirstImg->Members->first_name.' '.$businessFirstImg->Members->last_name)); ?>
+									  			</p> 
+								  				<p><small><?php echo $caption; ?></small></p> 
+								  				<div class="col-md-12">
+													<div class="pull-right">
+														<?php echo Phalcon\Tag::linkTo(array('business/delete_photo/'.$businessImage->id, '<i class="text-danger fa fa-trash" data-toggle="tooltip" title="Delete photo"></i>')); ?>
+														&nbsp;
+														<?php echo Phalcon\Tag::linkTo(array('business/update_photo_caption/'.$businessImage->id.'/'.$businessImage->business_id, '<i class="text-warning fa fa-pencil" data-toggle="tooltip" title="Update photo caption"></i>')); ?>
+														&nbsp;
+														<?php echo Phalcon\Tag::linkTo(array('business/set_primary_photo/'.$businessImage->id.'/'.$businessImage->business_id, '<i class="text-primary fa fa-picture-o" data-toggle="tooltip" title="Set primary photo"></i>')); ?>
+													</div>
+												</div>
+									  		</div>
+
+								  	<?php } ?>
+				  				</div>
+				  			</div>
+				  		</div>
+				    
+				  	</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready( function(){
+		var totalImgCount = "<?php echo count($businessImages->items) - 1; ?>";
+		$('.img-list').on('click', function(){
+			var src = $(this).attr('src');
+			var member = $(this).data('member');
+			var caption = $(this).data('caption');
+			var key = $(this).data('key');
+			$('.img-current').attr('src', src);
+			$('#memberName').text(member);
+			$('#imgCaption').text(caption);
+			$('#currentKey').text(parseInt(key,10)+1);
+		});
+		$('#previousImgBtn').on('click', function(){
+			var key = $('.img-current').data('key');
+			if(key > 0){
+				var newKey = parseInt(key,10)-1;
+				var img = $(".img-list[data-key='" + newKey + "']");
+				var src = img.attr('src');
+				var member = img.data('member');
+				var caption = img.data('caption');
+				$('.img-current').attr('src', src);
+				$('.img-current').data('key', newKey);
+				$('#memberName').text(member);
+				$('#imgCaption').text(caption);
+				$('#currentKey').text(parseInt(newKey,10)+1);
+			}
+		});
+
+		$('#nextImgBtn').on('click', function(){
+			var key = $('.img-current').data('key');
+			if(key < totalImgCount){
+				var newKey = parseInt(key,10)+1;
+				var img = $(".img-list[data-key='" + newKey + "']");
+				var src = img.attr('src');
+				var member = img.data('member');
+				var caption = img.data('caption');
+				$('.img-current').attr('src', src);
+				$('.img-current').data('key', newKey);
+				$('#memberName').text(member);
+				$('#imgCaption').text(caption);
+				$('#currentKey').text(parseInt(newKey,10)+1);
+			}
+		});
+	});
+
+</script>

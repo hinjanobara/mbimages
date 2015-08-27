@@ -1,0 +1,133 @@
+<div class="container top_margin" id="container">
+	<div class="col-md-12 bg-white containerBorder">
+		<br>
+		<div class="container">
+		<div class="row">
+			<div class="col-md-3 containerBorder">
+				<?php $this->partial("layouts/elements/profile_widget"); ?>	
+			</div>
+			<div class="col-md-6 md6_width" >
+				<div class="col-md-12 bottom-hr">
+					<div class="col-md-12">
+					<h3 class="text-primary border_bottom"><strong>Complete your review</strong></h3>
+					</div>
+					<div class="col-md-7">
+						<h2 class="line-height-50 colorBlue"><?php echo Phalcon\Tag::linkTo('business/view/'.$business->id, $business->name); ?></h2>
+					</div>
+					
+				</div>
+				<div class="col-md-12">
+					<div class="padding-10 col-md-12">
+						<?php  echo Phalcon\Tag::form(array("biz/respond/".$business->id."/".$reviews[0]->id, "method" => "post",'id' => 'ratingsForm')); ?>
+							<div class="form-group">
+								<label> Write a response for this review</label>
+								<textarea name="content" type="textarea" rows="5" class="form-control" placeHolder="write anything you want."></textarea>
+							</div>
+							<div class="form-group">
+								<input name="review_id" type="text" class="form-control" value="<?php echo $reviews[0]->id; ?>"/>
+							</div>
+							<div class="form-group">
+								<input name="business_id" type="text" class="form-control" value="<?php echo $business->id; ?>"/>
+							</div>
+							<div class="form-group">
+							  <div class="">
+							  	<?php echo Phalcon\Tag::linkTo(array('business/view/'.$business->id, 'Cancel', 'class' => 'btn btn-danger width50')); ?>
+								<button type="submit" class="btn btn-primary width50">&nbsp;Respond&nbsp;</button>
+							  </div>
+							</div>
+						<?php  echo Phalcon\Tag::endForm(); ?>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<h4 class="text-primary rev_head"><strong>Review for <?php echo $business->name; ?></strong></h4>
+			
+				<?php foreach ($reviews as $key => $review) { ?>
+					<div class="row">
+						<div class="md10_width">
+							<div class="row">
+									<?php 
+						              $memberPhotos = MemberPhotos::findFirst(array('member_id="'.$review->member_id.'"', 'primary_pic="Yes"'));
+						              $profilePic = 'http://placehold.it/250x250&text=NO+PROFILE+PIC';
+						              if(isset($memberPhotos->filename)) {
+						                $profilePic = $memberPhotos->file_path.$memberPhotos->filename;
+						              }
+						            ?>
+									<div class="col-md-3" style="padding-right: 0px;margin-bottom:10px;">
+										<?php echo Phalcon\Tag::image(array($profilePic, 'class' => 'img-responsive img-rounded')); ?>
+									</div>
+									<div class="col-md-8 pull-left" style="padding-left: 10px;">
+											<div style="height:47px;text-overflow:ellipsis; width:14em;text-align:initial;margin-right:25px;white-space:wrap;color:#000;overflow: hidden;line-height:75%">
+											<small><?php echo $review->content; ?></small>
+									</div>
+										
+									
+									</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12 margin_above" >
+								<br>
+									<div class="form-group right_margin_normal rating1" style="margin-left:0px;">
+										<i style="width:75%;float:left;" class="salakot-img salakot_<?php echo $review->rate;?>_0" data-toggle="tooltip" title="<?php echo $review->rate;?> salakot rating">&nbsp;</i>
+										<small><p class="pull-right color_lightb" style="width:20%;"><?php echo date('m/d/Y', strtotime($review->created)); ?></p></small>
+									</div>
+									<br>
+									<strong style="width:100%;">
+										<?php echo Phalcon\Tag::linkTo('member/profile/'.$review->member_id, $review->Members->first_name.' '.substr($review->Members->last_name, 0, 1).'.'); ?>
+									</strong>
+
+									
+								</div>
+							</div>
+							
+						</div>
+						<hr>	
+						
+					</div>
+				
+				<?php } ?>
+				<!-- <br><br> -->
+			</div>
+		</div>
+			
+		</div>
+		<br>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('[data-toggle="popover"]').popover({
+			html:true
+		});
+		$('.rate').on('click', function(){
+			var rate = $(this).data('rate');
+			$('#rate').val(rate);
+		});
+		
+		$('.price').on('mouseenter', function(){
+			var rate = $(this).data('rate');
+			if(rate == 1){
+				$('.price-info-preview').text('$ = Cheap, Under $10');
+			}
+			if(rate == 2){
+				$('.price-info-preview').text('$$ = Moderate, $11 - $30');
+			}
+			if(rate == 3){
+				$('.price-info-preview').text('$$$ = Spendy, $31 - $60');
+			}
+			if(rate == 4){
+				$('.price-info-preview').text('$$$$ = Splurge, Above $61');
+			}
+		}).on('mouseleave', function(){
+			$('.price-info-preview').text('Roll over price, then click to vote');
+		}).on('click', function(){
+			var rate = $(this).data('rate');
+			$('#priceRate').val(rate);
+		});
+
+		$('#moreSurveyLink').on('click', function(){
+			$('#moreSurveys').toggleClass('hidden');
+		});
+	});
+</script>

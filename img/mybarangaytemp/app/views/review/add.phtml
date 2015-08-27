@@ -1,0 +1,293 @@
+<?php echo $this->tag->stylesheetLink("themes/customize/css/bootstrapValidator/bootstrapValidator.min.css"); ?>
+
+<div class="container top_margin" id="container">
+	<div class="col-md-12 bg-white containerBorder">
+		<br>
+		<div class="container">
+		
+		<div class="row">
+		
+			<div class="col-md-3 containerBorder">
+				<?php $this->partial("layouts/elements/profile_widget"); ?>	
+			</div>
+			<div class="col-md-6 md6_width" >
+				<div class="col-md-12 bottom-hr">
+					<div class="col-md-12">
+					
+					<!-- error panel start-->
+					<?php $this->flash->output(); ?>
+					<!--error panel end -->
+					<h3 class="text-primary border_bottom"><strong>Complete your review - <?php 
+						$counter = 1;
+						foreach ($business->BusinessCategoryLists as $key => $businessCategoryList) {
+							if ($counter == 1) {
+								$mainTitle = $businessCategoryList->businesscategories->main_title;
+								$counter++;
+
+
+							}
+						}
+						echo $mainTitle;
+					?></strong></h3>
+					</div>
+					<div class="col-md-7">
+						<h2 class="line-height-50 colorBlue"><?php echo Phalcon\Tag::linkTo('business/view/'.$business->id, $business->name); ?></h2>
+					</div>
+					<div class="col-md-5">
+						<p class="line-height-80">
+						<span class="glyphicon glyphicon-map-marker"></span><?php echo $business->street;?>, <?php echo $business->city;?>
+						<?php echo $business->Countries->country;?></p>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="padding-10 col-md-12">
+						<?php  echo Phalcon\Tag::form(array("review/add/".$business->id, "method" => "post",'id' => 'ratingsForm')); ?>
+							<div class="stars">
+								<input type="radio" value="1" name="rate" class="star-1" id="star-1" />
+								<label class="star-1" for="star-1">1</label>
+								<input type="radio" value="2" name="rate" class="star-2" id="star-2" />
+								<label class="star-2" for="star-2">2</label>
+								<input type="radio" value="3" name="rate" class="star-3" id="star-3" />
+								<label class="star-3" for="star-3">3</label>
+								<input type="radio" value="4" name="rate" class="star-4" id="star-4" />
+								<label class="star-4" for="star-4">4</label>
+								<input type="radio" value="5" name="rate" class="star-5" id="star-5" />
+								<label class="star-5" for="star-5">5</label>
+								<span></span>
+							</div>
+							<div class="form-group">
+								<input type="hidden" name="mainTitle" id="mainTitle" value="<?php echo $mainTitle; ?>"/>
+							</div>
+							<div class="form-group">
+								<label> Write a review for this business</label>
+								<textarea name="review" type="textarea" rows="5" class="form-control" placeHolder="Your review help others learn about great local businesses"></textarea>
+							</div>
+
+							<?php $this->partial("review/review_options/option_resta"); ?>
+							<?php $this->partial("review/review_options/option_auto"); ?>
+							<?php $this->partial("review/review_options/option_activelife"); ?>
+							<?php $this->partial("review/review_options/option_art"); ?>
+							<?php $this->partial("review/review_options/option_local"); ?>
+							<?php $this->partial("review/review_options/option_bicycle"); ?>
+							<?php $this->partial("review/review_options/option_education"); ?>
+							<?php $this->partial("review/review_options/option_public"); ?>
+							<?php $this->partial("review/review_options/option_religious"); ?>
+							<?php $this->partial("review/review_options/option_massmedia"); ?>
+							<?php $this->partial("review/review_options/option_food"); ?>
+							<?php $this->partial("review/review_options/option_spa"); ?>
+							<?php $this->partial("review/review_options/option_med"); ?>
+							<?php $this->partial("review/review_options/option_home"); ?>
+							<?php $this->partial("review/review_options/option_localservice"); ?>
+							<?php $this->partial("review/review_options/option_pet"); ?>
+							<?php $this->partial("review/review_options/option_financial"); ?>
+							<?php $this->partial("review/review_options/option_professional"); ?>
+							<?php $this->partial("review/review_options/option_event"); ?>
+							<?php $this->partial("review/review_options/option_hotel"); ?>
+							<?php $this->partial("review/review_options/option_real"); ?>
+							<?php $this->partial("review/review_options/option_shop"); ?>
+							<div class="form-group">
+							  <div class="">
+							  	<?php echo Phalcon\Tag::linkTo(array('business/view/'.$business->id, 'Cancel', 'class' => 'btn btn-danger width50')); ?>
+								<button type="submit" class="btn btn-primary width50">&nbsp;Post&nbsp;</button>
+							  </div>
+							</div>
+						<?php  echo Phalcon\Tag::endForm(); ?>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<h4 class="text-primary rev_head"><strong>Review for <?php echo $business->name; ?></strong></h4>
+			
+				<?php foreach ($reviews as $key => $review) { ?>
+					<div class="row">
+						<div class="md10_width">
+							<div class="row">
+									<?php 
+						              $memberPhotos = MemberPhotos::findFirst(array('member_id="'.$review->member_id.'"', 'primary_pic="Yes"'));
+						              $profilePic = 'http://placehold.it/250x250&text=NO+PROFILE+PIC';
+						              if(isset($memberPhotos->filename)) {
+						                $profilePic = $memberPhotos->file_path.$memberPhotos->filename;
+						              }
+						            ?>
+									<div class="col-md-3" style="padding-right: 0px;margin-bottom:10px;">
+										<?php echo Phalcon\Tag::image(array($profilePic, 'class' => 'img-responsive img-rounded')); ?>
+									</div>
+									<div class="col-md-8 pull-left" style="padding-left: 10px;">
+											<div style="height:47px;text-overflow:ellipsis; width:14em;text-align:initial;margin-right:25px;white-space:wrap;color:#000;overflow: hidden;line-height:75%">
+											<small><?php echo $review->content; ?></small>
+									</div>
+										
+									
+									</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12 margin_above" >
+								<br>
+									<div class="form-group right_margin_normal rating1" style="margin-left:0px;">
+										<i style="width:75%;float:left;" class="salakot-img salakot_<?php echo $review->rate;?>_0" data-toggle="tooltip" title="<?php echo $review->rate;?> salakot rating">&nbsp;</i>
+										<small><p class="pull-right color_lightb" style="width:20%;"><?php echo date('m/d/Y', strtotime($review->created)); ?></p></small>
+									</div>
+									<br>
+									<strong style="width:100%;">
+										<?php echo Phalcon\Tag::linkTo('member/profile/'.$review->member_id, $review->Members->first_name.' '.substr($review->Members->last_name, 0, 1).'.'); ?>
+									</strong>
+
+									
+								</div>
+							</div>
+							
+						</div>
+						<hr>	
+						
+					</div>
+				
+				<?php } ?>
+				<!-- <br><br> -->
+			</div>
+		</div>
+			
+		</div>
+		<br>
+	</div>
+</div>
+
+<?php echo $this->tag->javascriptInclude("themes/customize/js/bootstrapValidator/bootstrapValidator.min.js"); ?>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$('#ratingsForm').bootstrapValidator({
+            message: 'This value is not valid',
+	        feedbackIcons: {
+	            valid: 'glyphicon glyphicon-ok',
+	            invalid: 'glyphicon glyphicon-remove',
+	            validating: 'glyphicon glyphicon-refresh'
+	        },
+	        fields: {
+	            rate: {
+	                validators: {
+	                    notEmpty: {
+	                        message: '* Required'
+	                    }
+	                }
+	            },
+	            review: {
+	                validators: {
+	                    notEmpty: {
+	                        message: '* Required'
+	                    }
+	                }
+	            }
+
+            }
+        });
+
+
+
+		$('[data-toggle="popover"]').popover({
+			html:true
+		});
+		$('.rate').on('click', function(){
+			var rate = $(this).data('rate');
+			$('#rate').val(rate);
+		});
+		
+		$('.price').on('mouseenter', function(){
+			var rate = $(this).data('rate');
+			if(rate == 1){
+				$('.price-info-preview').text('$ = Cheap, Under $10');
+			}
+			if(rate == 2){
+				$('.price-info-preview').text('$$ = Moderate, $11 - $30');
+			}
+			if(rate == 3){
+				$('.price-info-preview').text('$$$ = Spendy, $31 - $60');
+			}
+			if(rate == 4){
+				$('.price-info-preview').text('$$$$ = Splurge, Above $61');
+			}
+		}).on('mouseleave', function(){
+			$('.price-info-preview').text('Roll over price, then click to vote');
+		}).on('click', function(){
+			var rate = $(this).data('rate');
+			$('#priceRate').val(rate);
+		});
+
+		$('#moreSurveyLink').on('click', function(){
+			$('#moreSurveys').toggleClass('hidden');
+		});
+
+
+		$('#resoptions, #autooptions, #activeoptions, #artoptions, #localoptions, #bicycleoptions, #educoptions, #publicoptions,#religiousoptions, #massmediaoptions, #foodoptions, #spaoptions, #medoptions, #homeoptions, #localserviceoptions, #petoptions, #financialoptions, #profoptions, #eventoptions, #hoteloptions, #realoptions, #shopoptions').hide();
+
+		var mainTitle = $('#mainTitle').val();
+		switch(mainTitle) {
+	    case 'Restaurants':
+	        $('#resoptions').show();
+	        break;
+	    case 'Shopping':
+	        $('')
+	        break;
+	    case 'Real Estate':
+	        //code block
+	        break;
+	    case 'Pets':
+	        //code block
+	        break;
+	    case 'Religious Organizations':
+	    	$('#religiousoptions').show();
+	    	break;
+	    case 'Active Life':
+	    	$('#activeoptions').show();
+	    	break;
+	    case 'Arts & Entertainment':
+	    	$('#artoptions').show();
+	    	break;
+	    case 'Automotive':
+	    	$('#autooptions').show();
+	    	break;
+	    case 'Beauty & Spas':
+	    	$('#spaoptions').show();
+	    	break;
+	    case 'Bicycles':
+	    	$('#bicycleoptions').show();
+	    	break;
+	    case 'Education':
+	    	$('#educoptions').show();
+	    	break;
+	    case 'Event Planning & Services':
+	    	//code block
+	    	break;
+	    case 'Financial Services':
+	    	//code block
+	    	break;
+	    case 'Food':
+	    	$('#foodoptions').show();
+	    	break;
+	    case 'Health & Medical':
+	    	$('#medoptions').show();
+	    	break;
+	    case 'Home Services':
+	    	$('#homeoptions').show();
+	    	break;
+	    case 'Hotels & Travel':
+	    	$('#hoteloptions').show();
+	    	break;
+	    case 'Local Flavor':
+	    	$('#localoptions').show();
+	    	break;
+	    case 'Local Services':
+	    	$('#localserviceoptions').show();
+	    	break;
+	    case 'Mass Media':
+	    	$('#massmediaoptions').show();
+	    	break;
+	    case 'Nightlife':
+	    	//code block 
+	    	break;
+	    default:
+	        //
+	        break;
+		}
+	});
+</script>

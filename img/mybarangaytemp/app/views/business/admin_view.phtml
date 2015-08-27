@@ -1,0 +1,190 @@
+<?php echo $this->tag->stylesheetLink("themes/admin/plugins/datatables/dataTables.bootstrap.css"); ?>
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    Business
+    <!-- <small>Blank example to the fixed layout</small> -->
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="#">Business</a></li>
+    <li class="active">search</li>
+  </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+	<div class="box">
+		<div class="box-header">
+		  	<h3 class="box-title">Business</h3>
+		  	<div class="btn-group pull-right">
+				<button type="button" class="btn btn-danger">Action</button>
+				<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+				<span class="caret"></span>
+				<span class="sr-only">Toggle Dropdown</span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li><?php echo Phalcon\Tag::linkTo(array('business/approve/'.$business->id, '<i class="fa fa-thumbs-up text-primary"></i> Approve')); ?></li>
+					<li><?php echo Phalcon\Tag::linkTo(array('business/deny/'.$business->id, '<i class="fa fa-thumbs-down text-danger"></i> Deny')); ?></li>
+				</ul>
+			</div>
+		</div><!-- /.box-header -->
+		<div class="box-body">
+		  <table class="table table-hover">
+		  	<tr>
+		  		<td class="bg-gray"><strong>Name</strong></td><td><?php echo $business->name; ?></td>
+		  	</tr>
+		  	<?php      
+		        $category= '';
+		        $tempMain = array();
+		        $tempTitle = array();
+		        $tempSubTitle = array();
+		        foreach ($business->BusinessCategoryLists as $key => $businessCategoryList) {
+		          $mainY = 0;
+		          if(!in_array($businessCategoryList->BusinessCategories->main_title, $tempMain)) {
+		            $mainY = 1;
+		            $tempMain[] = $businessCategoryList->BusinessCategories->main_title;
+		            $category .= $businessCategoryList->BusinessCategories->main_title;
+		          } 
+		          $titleY = 0;
+		          if($businessCategoryList->BusinessCategories->title){
+		            if(!in_array($businessCategoryList->BusinessCategories->title, $tempTitle)) {
+		              $titleY = 1;
+		              $tempTitle[] = $businessCategoryList->BusinessCategories->title;
+		              if($mainY == 1){
+		                $category .= ' <i class="fa fa-caret-right"></i> '.$businessCategoryList->BusinessCategories->title;
+		              } else {
+		                $category .= $businessCategoryList->BusinessCategories->title;
+		              }
+		            }                 
+		          }
+		          if($businessCategoryList->BusinessCategories->sub_title){
+		            if(!in_array($businessCategoryList->BusinessCategories->sub_title, $tempSubTitle)) {
+		              $tempSubTitle[] = $businessCategoryList->BusinessCategories->sub_title;
+		              if($titleY == 0){
+		                $category .= ' <i class="fa fa-caret-right"></i> '.$businessCategoryList->BusinessCategories->sub_title;
+		              } else {
+		                $category .= $businessCategoryList->BusinessCategories->sub_title;
+		              }
+		            }
+		          }
+		          $category .= ', ';
+		        } 
+	        ?>
+			<tr>
+				<td class="bg-gray"><strong>Categories</strong></td><td><?php echo substr($category, 0, -2); ?></td>
+			</tr>        
+		  	<tr>
+		  		<td class="bg-gray"><strong>Street</strong></td><td><?php echo $business->street; ?></td>
+		  	</tr>
+		  	<tr>
+		  		<td class="bg-gray"><strong>City</strong></td><td><?php echo $business->city; ?></td>
+		  	</tr>
+		  	<tr>
+		  		<td class="bg-gray"><strong>Country</td></strong><td><?php echo $business->Countries->country; ?></td>
+		  	</tr>
+		  	<tr>
+		  		<td class="bg-gray"><strong>Telephone</strong></td><td><?php echo $business->telephone; ?></td>
+		  	</tr>
+		  	<tr>
+		  		<td class="bg-gray"><strong>Telephone</strong></td><td><?php echo $business->telephone; ?></td>
+		  	</tr>
+		  	<tr>
+		  		<td class="bg-gray"><strong>Email</strong></td><td><?php echo $business->email; ?></td>
+		  	</tr>
+		  	<tr>
+		  		<td class="bg-gray"><strong>Rate</strong></td><td><?php echo $business->average_rate; ?></td>
+		  	</tr>
+		  	<tr>
+		  		<td class="bg-gray"><strong>Total Review</strong></td><td><?php echo $business->total_review; ?></td>
+		  	</tr>
+		  </table>
+		  <table id="businessUpdates" class="table table-bordered table-striped">
+		    <thead>
+		      <tr>
+		        <th class="text-center">Name</th>
+		        <th class="text-center">Address</th>
+		        <th class="text-center">Category</th>
+		        <th class="text-center">Status</th>
+		        <th class="text-center">Action</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		    	<?php foreach ($businessUpdates as $key => $biz) { ?>
+		    		<tr>
+			            <td><?php echo $biz->name; ?></td>
+			            <td><?php echo $biz->street.', '.$biz->city.', '.$biz->Countries->country; ?></td>
+			            <?php      
+					        $category= '';
+					        $tempMain = array();
+					        $tempTitle = array();
+					        $tempSubTitle = array();
+					        foreach ($biz->BusinessCategoryListUpdates as $key => $businessCategoryList) {
+					          $mainY = 0;
+					          if(!in_array($businessCategoryList->BusinessCategories->main_title, $tempMain)) {
+					            $mainY = 1;
+					            $tempMain[] = $businessCategoryList->BusinessCategories->main_title;
+					            $category .= $businessCategoryList->BusinessCategories->main_title;
+					          } 
+					          $titleY = 0;
+					          if($businessCategoryList->BusinessCategories->title){
+					            if(!in_array($businessCategoryList->BusinessCategories->title, $tempTitle)) {
+					              $titleY = 1;
+					              $tempTitle[] = $businessCategoryList->BusinessCategories->title;
+					              if($mainY == 1){
+					                $category .= ' <i class="fa fa-caret-right"></i> '.$businessCategoryList->BusinessCategories->title;
+					              } else {
+					                $category .= $businessCategoryList->BusinessCategories->title;
+					              }
+					            }                 
+					          }
+					          if($businessCategoryList->BusinessCategories->sub_title){
+					            if(!in_array($businessCategoryList->BusinessCategories->sub_title, $tempSubTitle)) {
+					              $tempSubTitle[] = $businessCategoryList->BusinessCategories->sub_title;
+					              if($titleY == 0){
+					                $category .= ' <i class="fa fa-caret-right"></i> '.$businessCategoryList->BusinessCategories->sub_title;
+					              } else {
+					                $category .= $businessCategoryList->BusinessCategories->sub_title;
+					              }
+					            }
+					          }
+					          $category .= ', ';
+					        } 
+				        ?>
+			            <td><?php echo substr($category, 0, -2); ?></td>
+			            <td>
+			            	<?php $label = 'primary'; ?>
+			            	<?php if($biz->status == 'Approved'){ $label = 'success'; } ?>
+			            	<?php if($biz->status == 'Pending'){ $label = 'warning'; }?>
+			            	<?php if($biz->status == 'Denied'){ $label = 'danger'; }?>
+			            	<span class="label label-<?php echo $label; ?>"><?php echo $biz->status; ?></span>
+			            </td>
+			            <td class="text-center"><?php echo Phalcon\Tag::linkTo(array('admin/business_update/view/'.$biz->id, '<span class="fa fa-eye"></span>', 'class' => 'btn btn-primary btn-xs', 'data-toggle' => 'tooltip', 'title'=>'view'));?></td>
+		          	</tr>
+		    	<?php } ?>
+		    </tbody>
+		  </table>
+		</div><!-- /.box-body -->
+	</div><!-- /.box -->
+</section>
+
+
+
+<!-- DATA TABES SCRIPT -->
+<?php echo $this->tag->javascriptInclude("themes/admin/plugins/datatables/jquery.dataTables.js"); ?>
+<?php echo $this->tag->javascriptInclude("themes/admin/plugins/datatables/dataTables.bootstrap.js"); ?>
+
+
+<script type="text/javascript">
+  $(function () {
+    $('#businessUpdates').dataTable({
+      "bPaginate": true,
+      "bLengthChange": false,
+      "bFilter": false,
+      "bSort": true,
+      "bInfo": true,
+      "bAutoWidth": false
+    });
+  });
+</script>
